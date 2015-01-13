@@ -17,9 +17,12 @@ public class RobotMap {
 	public static final int 
 			PORT_MOTOR_DRIVE_CENTER	  = 0,
 			PORT_MOTOR_DRIVE_LEFT     = 1,
-			PORT_MOTOR_DRIVE_RIGHT    = 2;
+			PORT_MOTOR_DRIVE_RIGHT    = 2,
+			PORT_MOTOR_ELEVATOR_1	  = 3,
+			PORT_MOTOR_ELEVATOR_2	  = 4;
 	
 	//Digital I/O Ports
+
 	public static final int 
 			PORT_ENCODER_CENTER_1	  =  0,
 			PORT_ENCODER_CENTER_2	  =  1,

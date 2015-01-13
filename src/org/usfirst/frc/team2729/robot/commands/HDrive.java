@@ -2,7 +2,7 @@ package org.usfirst.frc.team2729.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class TankDrive extends Command{
+public class HDrive extends Command{
 
 	@Override
 	protected void initialize() {

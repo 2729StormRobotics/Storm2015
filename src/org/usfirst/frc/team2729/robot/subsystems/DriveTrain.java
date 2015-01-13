@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
+import org.usfirst.frc.team2729.robot.commands.HDrive;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -17,11 +18,11 @@ public class DriveTrain extends Subsystem {
 	
 	private final RobotDrive _drive = new RobotDrive(_left,_right);
 	
-	private final Encoder _leftEncoderFront = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
-	private final Encoder _leftEncoderRear = new Encoder(RobotMap.PORT_ENCODER_LEFT_3, RobotMap.PORT_ENCODER_LEFT_4);
-	private final Encoder _rightEncoderFront = new Encoder(RobotMap.PORT_ENCODER_RIGHT_5, RobotMap.PORT_ENCODER_RIGHT_6);
-	private final Encoder _rightEncoderRear = new Encoder(RobotMap.PORT_ENCODER_RIGHT_7, RobotMap.PORT_ENCODER_RIGHT_8);
-	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_HORIZ_9, RobotMap.PORT_ENCODER_HORIZ_10);
+	private final Encoder _leftEncoderFront = new Encoder(RobotMap.PORT_ENCODER_LEFT_1_1, RobotMap.PORT_ENCODER_LEFT_1_2);
+	private final Encoder _leftEncoderRear = new Encoder(RobotMap.PORT_ENCODER_LEFT_2_1, RobotMap.PORT_ENCODER_LEFT_2_2);
+	private final Encoder _rightEncoderFront = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1_1, RobotMap.PORT_ENCODER_RIGHT_1_2);
+	private final Encoder _rightEncoderRear = new Encoder(RobotMap.PORT_ENCODER_RIGHT_2_1, RobotMap.PORT_ENCODER_RIGHT_2_2);
+	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
 	private final Gyro _gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
 	private double _gyroOffset = 0;

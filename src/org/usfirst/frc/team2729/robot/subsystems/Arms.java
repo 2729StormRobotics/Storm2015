@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Arms extends Subsystem{
 
-	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_LATCH);
+	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_CLAMP);
 	
 	public Arms(){
 		LiveWindow.addActuator("Arms", "Arm", _arm);

@@ -29,5 +29,7 @@ public class RobotMap {
 	public static final int PORT_RELAY_COMPRESSOR = 0;
 	
 	//Solenoids
-	public static final int PORT_SOLENOID_CLAMP	  = 0;
+	public static final int PORT_SOLENOID_CLAMP	  = 0,
+		    PORT_SOLENOID_SHIFT_HIGH        = 1,
+		    PORT_SOLENOID_SHIFT_LOW         = 2;
 }

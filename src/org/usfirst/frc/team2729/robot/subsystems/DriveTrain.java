@@ -33,11 +33,7 @@ public class DriveTrain extends Subsystem {
 	private boolean _reverseDrive = false;
 	
 	public DriveTrain(){
-		_leftEncoderFront.Start();
-		_rightEncoderRear.Start();
-		_leftEncoderRear.Start();
-		_rightEncoderFront.Start();
-		_centerEncoder.Start();
+		//Encoders are started when they are initialized
 		
 		LiveWindow.addSensor ("Drive Train", "Gyro", _gyro);
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoderFront);

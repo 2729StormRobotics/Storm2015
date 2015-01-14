@@ -1,10 +1,16 @@
 
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+<<<<<<< HEAD
+=======
+import org.usfirst.frc.team2729.robot.subsystems.Arms;
+>>>>>>> Cleaned up some weirdness and fixed up OI
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,6 +22,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
+	public static DriveTrain driveTrain;
+	public static Intake intake;
 
     Command autonomousCommand;
 
@@ -25,6 +33,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		driveTrain = new DriveTrain();
+		intake = new Intake();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
     }

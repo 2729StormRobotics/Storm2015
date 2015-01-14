@@ -22,7 +22,8 @@ public class RobotMap {
 			PORT_MOTOR_ELEVATOR_2	  = 4;
 	
 	//Digital I/O Ports
-	public static final int PORT_ENCODER_CENTER_1		=  0,
+	public static final int 
+			PORT_ENCODER_CENTER_1		=  0,
 			PORT_ENCODER_CENTER_2	  =  1,
 			PORT_ENCODER_RIGHT_1      =  2,
 			PORT_ENCODER_RIGHT_2      =  3,
@@ -34,9 +35,12 @@ public class RobotMap {
 	//Relay
 	public static final int PORT_RELAY_COMPRESSOR = 0;
 	
+	// Analog ports
+    public static final int PORT_SENSOR_GYRO      = 0;
+	
 	//Solenoids
 	public static final int 
-			PORT_SOLENOID_CLAMP	  = 0,
+			PORT_SOLENOID_CLAMP	  			= 0,
 		    PORT_SOLENOID_SHIFT_HIGH        = 1,
 		    PORT_SOLENOID_SHIFT_LOW         = 2;
 }

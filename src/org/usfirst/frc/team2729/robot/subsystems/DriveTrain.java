@@ -18,8 +18,8 @@ public class DriveTrain extends Subsystem {
 	
 	private final RobotDrive _drive = new RobotDrive(_left,_right);
 	
-	private final Encoder _leftEncoderFront = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
-	private final Encoder _rightEncoderFront = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
+	private final Encoder _leftEncoder = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
+	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
 	private final Gyro _gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
@@ -34,8 +34,8 @@ public class DriveTrain extends Subsystem {
 		//Encoders are started when they are initialized
 		
 		LiveWindow.addSensor ("Drive Train", "Gyro", _gyro);
-		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoderFront);
-		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoderFront);
+		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
+		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
 		
 		
@@ -48,12 +48,12 @@ public class DriveTrain extends Subsystem {
 	
 	//Averages the two left encoders and returns the result
 	public double getLeftDistance(){
-		return(_leftEncoderFront.get());
+		return _leftEncoder.get();
 	}
 	
 	//Averages the two right encoders and returns the result
 	public double getRightDistance(){
-		return(_rightEncoderFront.get());
+		return _rightEncoder.get();
 	}
 	
 	//Raw center value is returned
@@ -62,11 +62,11 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getLeftSpeedEnc() {
-		return ( _leftEncoderFront.getRate());
+		return _leftEncoder.getRate();
 	}
 		 /** Reads the right encoder (+ = forward,- = back). */
 	public double getRightSpeedEnc() {
-		return ( _rightEncoderFront.getRate());
+		return _rightEncoder.getRate();
 	}
 	public void resetGyro(){
 		_gyro.reset();

@@ -28,6 +28,26 @@ public class Intake extends Subsystem{
 	    _arm.set(false);
 	}
 		
+	public Solenoid get_arm() {
+		return _arm;
+	}
+
+	public Talon get_elevatorRight() {
+		return _elevatorRight;
+	}
+
+	public Talon get_elevatorLeft() {
+		return _elevatorLeft;
+	}
+
+	public Encoder get_elevatorRightEncoder() {
+		return _elevatorRightEncoder;
+	}
+
+	public Encoder get_elevatorLeftEncoder() {
+		return _elevatorLeftEncoder;
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

@@ -2,15 +2,12 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2729.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-<<<<<<< HEAD
-=======
-import org.usfirst.frc.team2729.robot.subsystems.Arms;
->>>>>>> Cleaned up some weirdness and fixed up OI
 
 /**
  * The VM is configured to automatically run this class, and to call the

@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc.team2729.robot.subsystems.Elevator;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,7 +15,6 @@ import org.usfirst.frc.team2729.robot.subsystems.Elevator;
  */
 public class Robot extends IterativeRobot {
 
-	public static final Elevator exampleSubsystem = new Elevator();
 	public static OI oi;
 
     Command autonomousCommand;

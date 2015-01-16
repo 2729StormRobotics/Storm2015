@@ -11,19 +11,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Intake extends Subsystem{
 
 	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_CLAMP);
-	
-	private final Talon _elevatorRight  = new Talon(RobotMap.PORT_MOTOR_ELEVATOR_1),
- 						_elevatorLeft = new Talon(RobotMap.PORT_MOTOR_ELEVATOR_2);
-	
-	private final Encoder _elevatorRightEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
-	private final Encoder _elevatorLeftEncoder = new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
+	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR_1);
+	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
+
 	
 	public Intake(){
 		LiveWindow.addActuator("Intake", "Arm", _arm);
-		LiveWindow.addActuator("Intake", "Elevator Left", _arm);
-		LiveWindow.addActuator("Intake", "Elevator Right", _arm);
-		LiveWindow.addSensor("Intake", "Elevator Right Encoder", _elevatorRight);
-        LiveWindow.addSensor("Intake", "Elevator Left Encoder", _elevatorLeft);
+		LiveWindow.addActuator("Intake", "Elevator", _elevator);
+		LiveWindow.addSensor("Intake", "Elevator Encoder", _elevatorEncoder);
         
 	    _arm.set(false);
 	}
@@ -32,20 +27,12 @@ public class Intake extends Subsystem{
 		return _arm;
 	}
 
-	public Talon get_elevatorRight() {
-		return _elevatorRight;
+	public Talon get_elevator() {
+		return _elevator;
 	}
 
-	public Talon get_elevatorLeft() {
-		return _elevatorLeft;
-	}
-
-	public Encoder get_elevatorRightEncoder() {
-		return _elevatorRightEncoder;
-	}
-
-	public Encoder get_elevatorLeftEncoder() {
-		return _elevatorLeftEncoder;
+	public Encoder get_elevatorEncoder() {
+		return _elevatorEncoder;
 	}
 
 	@Override
@@ -74,36 +61,22 @@ public class Intake extends Subsystem{
 	Runs the elevator motors; Power must be a value between -1.0 and 1.0
 	*/
 	public void runElevator(double power){
-		_elevatorRight.set(power);
-		_elevatorLeft.set(power);
+		_elevator.set(power);
     }
 	
-	public double getRightElevatorDistance() {
-		return _elevatorRightEncoder.get();
+	public double getElevatorDistance() {
+		return _elevatorEncoder.get();
 	}
 	
-	public double getLeftElevatorDistance() {
-		return _elevatorLeftEncoder.get();
-	}
-	
-	public double getRightElevatorRate() {
-		return _elevatorRightEncoder.getRate();
-	}
-	
-	public double getLeftElevatorRate() {
-		return _elevatorLeftEncoder.getRate();
+	public double getElevatorRate() {
+		return _elevatorEncoder.getRate();
 	}
 	
 	public void clearEncoders(){
-		_elevatorLeftEncoder.reset();
-	    _elevatorRightEncoder.reset();
+		_elevatorEncoder.reset();
 	}
-	
-	public double getLeftElevatorSpeed(){
-        return -_elevatorLeft.get();
-    }
     
-    public double getRightElevatorSpeed(){
-        return _elevatorRight.get();
+    public double getElevatorSpeed(){
+        return _elevator.get();
     }
 }

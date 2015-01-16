@@ -10,11 +10,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.Timer;
 
 public class DriveTrain extends Subsystem {
-	//All units are metric base units
 	//Frame of robot reference.
 	//Theta is in degrees
 	//Theta = 0 is at the front of the robot
@@ -34,12 +31,6 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
-	private final BuiltInAccelerometer accel = new BuiltInAccelerometer();
-	private double xDisplac = 0, yDisplac = 0;
-	private double xOff = accel.getX(), yOff = accel.getY(), zOff = accel.getZ();
-	private double xVel = 0, yVel = 0, zVel = 0;
-	private final Timer accelDeltaT = new Timer();
-	
 	private final Gyro _gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
 	private double _gyroOffset = 0;
 	
@@ -47,38 +38,16 @@ public class DriveTrain extends Subsystem {
 	private boolean _isHighGear = false;
 	
 	private boolean _reverseDrive = false;
-	
+	private final double _turningRatio=0.1;
 	private final double vertRatioLow = .8;
 	private final double vertRatioHigh = 1.4;
 	private final double LoGTanCoef = Math.tan(4 * vertRatioLow);
 	private final double HiGTanCoef = Math.tan(4 * vertRatioHigh);
 	
-	public void accelUpdate(){
-		if(accelDeltaT.get() != 0.0){
-			
+	public void gradientDrive(double transMag, double theta, boolean isHighGear, double rotMag){
+		while(theta >= 360.0){ //ensures that no theta exceeds 360 degrees
+			theta-= 360.0;
 		}
-	}
-	
-	public void directDrive(double left, double right, double center, double rotate){
-		//clockwise is positive
-		//all values must be on the interval [-1,1]
-		_left.set(left - (rotate < 0 ? _turningRate * rotate : 0));
-		_right.set(right - (rotate > 0 ? _turningRate * rotate : 0));
-		_center.set(center);
-		
-	}
-	
-	public void gradientDrive(double mag, double theta, boolean isHighGear){
-		if(theta > 0){
-			while(theta >= 360.0){ //ensures that no theta exceeds 360 degrees
-				theta-= 360.0;
-			}	
-		} else {
-			while(theta <= -360.0){ //ensures that no theta exceeds 360 degrees
-				theta+= 360.0;
-			}	
-		}
-		
 		double curTanCoef = 0;
 		double curRatio = 0;
 		if(isHighGear){
@@ -90,24 +59,29 @@ public class DriveTrain extends Subsystem {
 		}
 		//checks to see if theta is on the interval [0, Coef]U[180-Coef,180+Coef]U[360 - coef, 360]
 		if(theta > (360.0 - curTanCoef) || theta < curTanCoef || (theta < 180 + curTanCoef && theta > 180 - curTanCoef)){ 
-			_center.set((4*curRatio)*Math.tan(theta));
+			_center.set((4*curRatio)*Math.tan(curTanCoef));
 			if(theta > 270 || theta < 90){
-				_left.set(1.0 * mag);
-				_right.set(1.0 * mag);
+				_left.set(1.0 * transMag);
+				_right.set(1.0 * transMag);
 			} else {
-				_left.set(-1.0 * mag);
-				_right.set(-1.0 * mag);
+				_left.set(-1.0 * transMag);
+				_right.set(-1.0 * transMag);
 			}
 		} else {
 			if(theta != 90 || theta != 270){
-			_right.set(((theta > 180 ? -1 : 1)/(Math.tan(90-theta)*4*curRatio))*mag);
-			_left.set(((theta > 180 ? -1 : 1)/(Math.tan(90-theta)*4*curRatio))*mag);
-			_center.set((theta > 180 ? -1 : 1)*mag);
+			_right.set(((theta > 180 ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+			_left.set(((theta > 180 ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+			_center.set((theta > 180 ? -1 : 1)*transMag);
 			} else {
 			_right.set(0);
 			_left.set(0);
-			_center.set((theta > 180 ? -1 : 1)*mag);
+			_center.set((theta > 180 ? -1 : 1)*transMag);
 			}
+		}
+		if(rotMag>0){
+			_right.set(_right.get()-rotMag*_turningRatio);
+		}else if(rotMag<0){
+			_left.set(_left.get()-rotMag*_turningRatio);
 		}
 	}
 	

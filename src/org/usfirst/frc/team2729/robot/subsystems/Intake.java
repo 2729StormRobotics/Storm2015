@@ -14,7 +14,7 @@ public class Intake extends Subsystem{
 	
 	private final Talon _elevatorRight  = new Talon(RobotMap.PORT_MOTOR_ELEVATOR_1),
  						_elevatorLeft = new Talon(RobotMap.PORT_MOTOR_ELEVATOR_2);
-
+	
 	private final Encoder _elevatorRightEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
 	private final Encoder _elevatorLeftEncoder = new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
 	

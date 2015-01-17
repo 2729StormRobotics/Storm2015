@@ -6,6 +6,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class HDrive extends Command{
 
+	public HDrive() {
+        requires(Robot.driveTrain);
+    }
+	
 	@Override
 	protected void initialize() {}
 

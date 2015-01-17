@@ -77,11 +77,18 @@ public class DriveTrain extends Subsystem {
 			_center.set((theta > 180 ? -1 : 1)*transMag);
 			}
 		}
-		if(rotMag>0){
-			_right.set(_right.get()-rotMag*_turningRatio);
-		}else if(rotMag<0){
-			_left.set(_left.get()-rotMag*_turningRatio);
-		}
+		//point turning
+		if(rotMag>0&& transMag==0){
+			_right.set(rotMag*_turningRatio);
+			_left.set(-rotMag*_turningRatio);
+		}else if(rotMag<0 && transMag==0){
+			_right.set(-rotMag*_turningRatio);
+			_left.set(rotMag*_turningRatio);
+			}else if(rotMag>0){ //drift turning
+				_right.set(_right.get()-rotMag*_turningRatio);
+				}else if(rotMag<0){
+					_left.set(_left.get()-rotMag*_turningRatio);
+							}
 	}
 	
 	public DriveTrain(){

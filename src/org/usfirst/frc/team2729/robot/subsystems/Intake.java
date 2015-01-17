@@ -12,7 +12,7 @@ public class Intake extends Subsystem{
 
 	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_CLAMP);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
-	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR, RobotMap.PORT_ENCODER_ELEVATOR_2);
+	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
 
 	
 	public Intake(){

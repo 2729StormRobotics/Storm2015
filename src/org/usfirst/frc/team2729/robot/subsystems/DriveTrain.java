@@ -6,7 +6,6 @@ import org.usfirst.frc.team2729.robot.commands.HDrive;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -25,8 +24,6 @@ public class DriveTrain extends Subsystem {
 					   	_right= new Talon(RobotMap.PORT_MOTOR_DRIVE_RIGHT),
 					   	_center=new Talon(RobotMap.PORT_MOTOR_DRIVE_CENTER);
 	
-	private final RobotDrive _drive = new RobotDrive(_left,_right);
-	
 	private final Encoder _leftEncoder = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
@@ -41,8 +38,8 @@ public class DriveTrain extends Subsystem {
 	private final double _turningRatio=0.1;
 	private final double vertRatioLow = .8;
 	private final double vertRatioHigh = 1.4;
-	private final double LoGTanCoef = Math.tan(4 * vertRatioLow);
-	private final double HiGTanCoef = Math.tan(4 * vertRatioHigh);
+	private final double loGearTanCoe = Math.tan(4 * vertRatioLow);
+	private final double hiGearTanCoe = Math.tan(4 * vertRatioHigh);
 	
 	public void gradientDrive(double X, double Y, double rotMag){
 		double theta = Math.atan(Y/X);
@@ -53,10 +50,10 @@ public class DriveTrain extends Subsystem {
 		double curTanCoef = 0;
 		double curRatio = 0;
 		if(_isHighGear){
-			curTanCoef = HiGTanCoef;
+			curTanCoef = hiGearTanCoe;
 			curRatio = vertRatioHigh;
 		} else {
-			curTanCoef = LoGTanCoef; 
+			curTanCoef = loGearTanCoe; 
 			curRatio = vertRatioLow;
 		}
 		//checks to see if theta is on the interval [0, Coef]U[180-Coef,180+Coef]U[360 - coef, 360]

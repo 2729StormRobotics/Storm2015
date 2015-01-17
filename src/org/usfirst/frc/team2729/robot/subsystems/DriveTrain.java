@@ -44,13 +44,15 @@ public class DriveTrain extends Subsystem {
 	private final double LoGTanCoef = Math.tan(4 * vertRatioLow);
 	private final double HiGTanCoef = Math.tan(4 * vertRatioHigh);
 	
-	public void gradientDrive(double transMag, double theta, boolean isHighGear, double rotMag){
+	public void gradientDrive(double X, double Y, double rotMag){
+		double theta = Math.atan(Y/X);
+		double transMag = Math.sqrt(X*X+Y*Y);
 		while(theta >= 360.0){ //ensures that no theta exceeds 360 degrees
 			theta-= 360.0;
 		}
 		double curTanCoef = 0;
 		double curRatio = 0;
-		if(isHighGear){
+		if(_isHighGear){
 			curTanCoef = HiGTanCoef;
 			curRatio = vertRatioHigh;
 		} else {
@@ -58,7 +60,7 @@ public class DriveTrain extends Subsystem {
 			curRatio = vertRatioLow;
 		}
 		//checks to see if theta is on the interval [0, Coef]U[180-Coef,180+Coef]U[360 - coef, 360]
-		if(theta > (360.0 - curTanCoef) || theta < curTanCoef || (theta < 180 + curTanCoef && theta > 180 - curTanCoef)){ 
+		if(theta > (360.0 - curTanCoef) || theta < curTanCoef || (theta < 180 + curTanCoef && theta > 180 - curTanCoef) && transMag!=0){ 
 			_center.set((4*curRatio)*Math.tan(curTanCoef));
 			if(theta > 270 || theta < 90){
 				_left.set(1.0 * transMag);

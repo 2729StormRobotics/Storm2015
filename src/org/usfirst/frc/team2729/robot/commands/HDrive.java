@@ -1,19 +1,20 @@
 package org.usfirst.frc.team2729.robot.commands;
 
+import org.usfirst.frc.team2729.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class HDrive extends Command{
 
 	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		
+		double xDrive = Robot.oi.getXDrive(),
+			   yDrive = Robot.oi.getYDrive(),
+			   spin   = Robot.oi.getSpin();
+		Robot.driveTrain.gradientDrive(xDrive, yDrive, spin);
 	}
 
 	@Override

@@ -44,5 +44,8 @@ public class OI {
     public double getYDrive() {
         return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_Y),0.15);
     }
+    public double getSpin() {
+    	return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.15);
+    }
 }
 

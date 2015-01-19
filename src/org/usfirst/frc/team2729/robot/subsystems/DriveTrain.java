@@ -44,8 +44,8 @@ public class DriveTrain extends Subsystem {
 	public void gradientDrive(double X, double Y, double rotMag){
 		double theta = Math.atan(Y/X);
 		double transMag = Math.sqrt(X*X+Y*Y);
-		while(theta >= 360.0){ //ensures that no theta exceeds 360 degrees
-			theta-= 360.0;
+		while(theta >= 2*Math.PI){ //ensures that no theta exceeds 2 pi radians
+			theta-= 2*Math.PI;
 		}
 		double curTanCoef = 0;
 		double curRatio = 0;
@@ -57,9 +57,9 @@ public class DriveTrain extends Subsystem {
 			curRatio = vertRatioLow;
 		}
 		//checks to see if theta is on the interval [0, Coef]U[180-Coef,180+Coef]U[360 - coef, 360]
-		if(theta > (360.0 - curTanCoef) || theta < curTanCoef || (theta < 180 + curTanCoef && theta > 180 - curTanCoef) && transMag!=0){ 
+		if(theta > (2*Math.PI - curTanCoef) || theta < curTanCoef || (theta < Math.PI + curTanCoef && theta > Math.PI - curTanCoef) && transMag!=0){ 
 			_center.set((4*curRatio)*Math.tan(curTanCoef));
-			if(theta > 270 || theta < 90){
+			if(theta > 3*Math.PI/2 || theta < Math.PI/2){
 				_left.set(1.0 * transMag);
 				_right.set(1.0 * transMag);
 			} else {
@@ -67,14 +67,14 @@ public class DriveTrain extends Subsystem {
 				_right.set(-1.0 * transMag);
 			}
 		} else {
-			if(theta != 90 || theta != 270){
-			_right.set(((theta > 180 ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-			_left.set(((theta > 180 ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-			_center.set((theta > 180 ? -1 : 1)*transMag);
+			if(theta != Math.PI/2 || theta != 3*Math.PI/2){
+			_right.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+			_left.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+			_center.set((theta > Math.PI ? -1 : 1)*transMag);
 			} else {
 			_right.set(0);
 			_left.set(0);
-			_center.set((theta > 180 ? -1 : 1)*transMag);
+			_center.set((theta > Math.PI ? -1 : 1)*transMag);
 			}
 		}
 		//point turning
@@ -84,7 +84,8 @@ public class DriveTrain extends Subsystem {
 		}else if(rotMag<0 && transMag==0){
 			_right.set(-rotMag*_turningRatio);
 			_left.set(rotMag*_turningRatio);
-			}else if(rotMag>0){ //drift turning
+			//drift turning
+			}else if(rotMag>0){ 
 				_right.set(_right.get()-rotMag*_turningRatio);
 				}else if(rotMag<0){
 					_left.set(_left.get()-rotMag*_turningRatio);

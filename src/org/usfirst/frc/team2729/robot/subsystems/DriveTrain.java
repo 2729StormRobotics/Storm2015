@@ -5,14 +5,13 @@ import org.usfirst.frc.team2729.robot.commands.HDrive;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveTrain extends Subsystem {
 	//Frame of robot reference.
-	//Theta is in degrees
+	//Theta is in radians
 	//Theta = 0 is at the front of the robot
 	//Theta increases clockwise
 	//Y axis is parallel to the sides of the robot.
@@ -28,9 +27,6 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
-	private final Gyro _gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
-	private double _gyroOffset = 0;
-	
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_HIGH,RobotMap.PORT_SOLENOID_SHIFT_LOW);
 	private boolean _isHighGear = false;
 	
@@ -40,6 +36,12 @@ public class DriveTrain extends Subsystem {
 	private final double vertRatioHigh = 1.4;
 	private final double loGearTanCoe = Math.tan(4 * vertRatioLow);
 	private final double hiGearTanCoe = Math.tan(4 * vertRatioHigh);
+	
+	public void halt(){
+		_left.set(0);
+		_right.set(0);
+		_center.set(0);
+	}
 	
 	public void gradientDrive(double X, double Y, double rotMag){
 		double theta = Math.atan(Y/X);
@@ -95,7 +97,6 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain(){
 		//Encoders are started when they are initialized
 		
-		LiveWindow.addSensor ("Drive Train", "Gyro", _gyro);
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
@@ -103,7 +104,6 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
-	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new HDrive());
 	}
@@ -129,18 +129,6 @@ public class DriveTrain extends Subsystem {
 		 /** Reads the right encoder (+ = forward,- = back). */
 	public double getRightSpeedEnc() {
 		return _rightEncoder.getRate();
-	}
-	public void resetGyro(){
-		_gyro.reset();
-		clearGyro();
-	}
-		 
-	public void clearGyro(){
-		 _gyroOffset = _gyro.getAngle();
-	}	
-	
-	public double getGyroAngle(){
-		return _gyro.getAngle()-_gyroOffset;
 	}
 	
 	public double getLeftSpeed(){

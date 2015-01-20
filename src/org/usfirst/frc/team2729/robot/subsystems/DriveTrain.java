@@ -56,7 +56,7 @@ public class DriveTrain extends Subsystem {
 			curTanCoef = loGearTanCoe; 
 			curRatio = vertRatioLow;
 		}
-		//checks to see if theta is on the interval [0, Coef]U[180-Coef,180+Coef]U[360 - coef, 360]
+		//checks to see if theta is on the interval [0, Coef]U[pi-Coef,pi+Coef]U[pi - coef, 360]
 		if(theta > (2*Math.PI - curTanCoef) || theta < curTanCoef || (theta < Math.PI + curTanCoef && theta > Math.PI - curTanCoef) && transMag!=0){ 
 			_center.set((4*curRatio)*Math.tan(curTanCoef));
 			if(theta > 3*Math.PI/2 || theta < Math.PI/2){

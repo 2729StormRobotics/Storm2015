@@ -19,7 +19,9 @@ public class Arm2 extends Subsystem{
 		LiveWindow.addSensor("Arm2", "Arm Encoder", _armEncoder);
 	}
 	
-	
+	public Solenoid getPiston(){
+		return _piston;
+	}
 	
 	public Encoder get_ArmEncoder(){
 		return _armEncoder;
@@ -29,7 +31,12 @@ public class Arm2 extends Subsystem{
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 	}
-	
+	public void retract(){
+		_piston.set(false);
+	}
+	public void extend(){
+		_piston.set(true);
+	}
 	public void moveArm(double power){
 		_arm.set(power);
 	}
@@ -39,7 +46,6 @@ public class Arm2 extends Subsystem{
 	public double getArmDistance() {
 		return _armEncoder.get();
 	}
-	
 	public double getArmRate() {
 		return _armEncoder.getRate();
 	}

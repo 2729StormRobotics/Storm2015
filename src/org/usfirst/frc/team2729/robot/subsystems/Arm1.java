@@ -14,9 +14,6 @@ public class Arm1 extends Subsystem{
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
 	}
-	
-	
-	
 	public Encoder get_ArmEncoder(){
 		return _armEncoder;
 	}

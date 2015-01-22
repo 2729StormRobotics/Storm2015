@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2729.robot.commands;
 
 import org.usfirst.frc.team2729.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 
 public class runAccel extends Command{
 
@@ -14,6 +14,7 @@ public class runAccel extends Command{
 
 	protected void execute() {
 		Robot._accel.updateGyro();
+		Timer.delay(0.005);
 	}
 
 	@Override

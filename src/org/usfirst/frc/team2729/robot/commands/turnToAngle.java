@@ -28,12 +28,7 @@ public class turnToAngle extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		if(Math.abs(Robot._gyro.getGyroAngle() - target) < 2.0){
-			return true;
-		} else {
-			return false;
-		}
+		return Math.abs(Robot._gyro.getGyroAngle() - target) < 2.0;
 	}
 
 	@Override

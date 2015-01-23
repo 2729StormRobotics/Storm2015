@@ -30,7 +30,6 @@ public class DriveTrain extends Subsystem {
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_HIGH,RobotMap.PORT_SOLENOID_SHIFT_LOW);
 	private boolean _isHighGear = false;
 	
-	private boolean _reverseDrive = false;
 	private final double _turningRatio=0.5;
 	private final double vertRatioLow = .8;
 	private final double vertRatioHigh = 1.4;
@@ -80,13 +79,13 @@ public class DriveTrain extends Subsystem {
 			}
 		} else {
 			if(theta != Math.PI/2 || theta != 3*Math.PI/2){
-			_right.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-			_left.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-			_center.set((theta > Math.PI ? -1 : 1)*transMag);
+				_right.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+				_left.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
+				_center.set((theta > Math.PI ? -1 : 1)*transMag);
 			} else {
-			_right.set(0);
-			_left.set(0);
-			_center.set((theta > Math.PI ? -1 : 1)*transMag);
+				_right.set(0);
+				_left.set(0);
+				_center.set((theta > Math.PI ? -1 : 1)*transMag);
 			}
 		}
 		//point turning

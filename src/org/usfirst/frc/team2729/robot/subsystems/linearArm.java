@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class Arm2 extends Subsystem{
+public class linearArm extends Subsystem{
 	private final Solenoid _piston = new Solenoid(RobotMap.PORT_SOLENOID_ARM);
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
 	
-	public Arm2(){
+	public linearArm(){
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
 		LiveWindow.addSensor("Arm2", "Arm Encoder", _armEncoder);

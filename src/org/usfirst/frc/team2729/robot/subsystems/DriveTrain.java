@@ -31,11 +31,22 @@ public class DriveTrain extends Subsystem {
 	private boolean _isHighGear = false;
 	
 	private boolean _reverseDrive = false;
-	private final double _turningRatio=0.1;
+	private final double _turningRatio=0.5;
 	private final double vertRatioLow = .8;
 	private final double vertRatioHigh = 1.4;
 	private final double loGearTanCoe = Math.tan(4 * vertRatioLow);
 	private final double hiGearTanCoe = Math.tan(4 * vertRatioHigh);
+	
+	public DriveTrain(){
+		//Encoders are started when they are initialized
+		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
+		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
+		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
+	}
+	
+	protected void initDefaultCommand() {
+		setDefaultCommand(new HDrive());
+	}
 	
 	public void halt(){
 		_left.set(0);
@@ -44,11 +55,10 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void gradientDrive(double X, double Y, double rotMag){
+		//X and Y are on the range [-1,1]
 		double theta = Math.atan(Y/X);
 		double transMag = Math.sqrt(X*X+Y*Y);
-		while(theta >= 2*Math.PI){ //ensures that no theta exceeds 2 pi radians
-			theta-= 2*Math.PI;
-		}
+		
 		double curTanCoef = 0;
 		double curRatio = 0;
 		if(_isHighGear){
@@ -86,74 +96,50 @@ public class DriveTrain extends Subsystem {
 		}else if(rotMag<0 && transMag==0){
 			_right.set(-rotMag*_turningRatio);
 			_left.set(rotMag*_turningRatio);
-			//drift turning
-			}else if(rotMag>0){ 
-				_right.set(_right.get()-rotMag*_turningRatio);
-				}else if(rotMag<0){
-					_left.set(_left.get()-rotMag*_turningRatio);
-							}
+		//drift turning
+		}else if(rotMag>0){ 
+			_right.set(_right.get()-rotMag*_turningRatio);
+		}else if(rotMag<0){
+			_left.set(_left.get()-rotMag*_turningRatio);
+		}
 	}
 	
-	public DriveTrain(){
-		//Encoders are started when they are initialized
-		
-		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
-		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
-		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
-		
-		
+	public void rawDrive(double x, double y, double turning){
+		//X and Y are on the range [-1,1]
+		//turning is on the range [-1,1] with 1 being positive
+		_left.set(y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0));
+		_right.set(y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0));
+		_center.set(x);
 	}
 	
-	protected void initDefaultCommand() {
-		setDefaultCommand(new HDrive());
-	}
-	
-	//Averages the two left encoders and returns the result
 	public double getLeftDistance(){
 		return _leftEncoder.get();
 	}
-	
-	//Averages the two right encoders and returns the result
 	public double getRightDistance(){
 		return _rightEncoder.get();
 	}
-	
-	//Raw center value is returned
 	public double getCenterDistance(){
 		return _centerEncoder.get();
 	}
-	
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
 	}
-		 /** Reads the right encoder (+ = forward,- = back). */
+	/** Reads the right encoder (+ = forward,- = back). */
 	public double getRightSpeedEnc() {
 		return _rightEncoder.getRate();
 	}
-	
 	public double getLeftSpeed(){
 		return -_left.get();
-	}
-		 
+	}	 
 	public double getRightSpeed(){
 		return _right.get();
 	}
-	
 	public void setHighGear(boolean enabled) {
 		_isHighGear = enabled;
 		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
 					 DoubleSolenoid.Value.kForward);
 	}
-	
 	public boolean isHighgear() {
 		return _isHighGear;
-	}
-	
-	public void setReverseDrive(boolean enabled) {
-		_reverseDrive = enabled;
-	}
-	
-	public boolean getReverseDrive() {
-		return _reverseDrive;
 	}
 }

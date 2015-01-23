@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class Arm1 extends Subsystem{
+public class rakeArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
 	
-	public Arm1(){
+	public rakeArm(){
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
 	}

@@ -37,7 +37,7 @@ public class senseAccel extends Subsystem {
 	}
 	
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new runAccel());
+		setDefaultCommand(new runAccel());
 	}
 
 	public double getXAccel(){

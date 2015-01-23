@@ -13,7 +13,7 @@ public class runAccel extends Command{
 	protected void initialize(){}
 
 	protected void execute() {
-		Robot._accel.updateGyro();
+		Robot._accel.update();
 		Timer.delay(0.005);
 	}
 

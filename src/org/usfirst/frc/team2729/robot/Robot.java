@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitForChildren;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,11 +43,53 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
+		_accel = new senseAccel();
+		_gyro  = new senseGyro();
 		intake = new Intake();
+		new Command("Sensor feedback"){
+
+			@Override
+			protected void initialize() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			protected void execute() {
+				sendSensorData();
+			}
+
+			@Override
+			protected boolean isFinished() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			protected void end() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			protected void interrupted() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}.start();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
     }
-	
+	public void sendSensorData(){
+		SmartDashboard.putNumber("xPos", _accel.getxPos());
+		SmartDashboard.putNumber("yPos", _accel.getyPos());
+		SmartDashboard.putNumber("xVel",_accel.getxVel());
+		SmartDashboard.putNumber("yVel", _accel.getyVel());
+		SmartDashboard.putNumber("Accel X", _accel.getXAccel());
+		SmartDashboard.putNumber("Accel Y", _accel.getYAccel());
+	}
+    
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -52,8 +97,12 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	CommandGroup Accelerometer = new CommandGroup();
+    	Accelerometer.addSequential(new PrintCommand("test1"));
     	Accelerometer.addParallel(new runAccel());
+    	Accelerometer.addSequential(new PrintCommand("test2"));
     	Accelerometer.addSequential(new WaitForChildren());
+    	Accelerometer.addSequential(new PrintCommand("test3"));
+    	Accelerometer.start();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

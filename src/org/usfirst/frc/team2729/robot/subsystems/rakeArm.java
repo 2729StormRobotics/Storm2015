@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class rakeArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	private final DigitalInput _switch = new DigitalInput(PORT_LIMIT_SWITCH);
+	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
 	public rakeArm(){
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);

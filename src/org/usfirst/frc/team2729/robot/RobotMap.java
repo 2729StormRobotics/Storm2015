@@ -44,7 +44,8 @@ public class RobotMap {
 	public static final int PORT_RELAY_COMPRESSOR = 0;
 	
 	// Analog ports
-    public static final int PORT_SENSOR_GYRO      = 0;
+    public static final int PORT_SENSOR_GYRO      = 0,
+    		PORT_STRINGPOT						  = 1;
 	
 	//Solenoids
 	public static final int 

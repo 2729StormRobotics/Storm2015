@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -13,10 +14,17 @@ public class senseAccel extends Subsystem {
 	
 	private final Timer deltaT = new Timer();
 	
-	private final Accelerometer _Accel = new BuiltInAccelerometer(Accelerometer.Range.k8G);
+	private final BuiltInAccelerometer _Accel = new BuiltInAccelerometer();
 	public double xPos = 0, yPos = 0, xVel = 0, yVel = 0;
 	
 	public senseAccel(){
+		_Accel.setRange(Accelerometer.Range.k2G);
+		//SmartDashboard.putNumber("xPos", this.getxPos());
+		//SmartDashboard.putNumber("yPos", this.getyPos());
+		//SmartDashboard.putNumber("xVel", this.getxVel());
+		//SmartDashboard.putNumber("yVel", this.getyVel());
+		//SmartDashboard.putNumber("Accel X", this.getXAccel());
+		//SmartDashboard.putNumber("Accel Y", this.getYAccel());
 		deltaT.start();
 	}
 	

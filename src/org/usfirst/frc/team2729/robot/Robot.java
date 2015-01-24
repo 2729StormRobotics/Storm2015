@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
+		//SmartDashboard.putData(_accel);
 		SmartDashboard.putNumber("xPos", _accel.getxPos());
 		SmartDashboard.putNumber("yPos", _accel.getyPos());
 		SmartDashboard.putNumber("xVel",_accel.getxVel());
@@ -61,7 +62,7 @@ public class Robot extends IterativeRobot {
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		LiveWindow.run();
+		sendSensorData();
 	}
 
     public void autonomousInit() {
@@ -78,7 +79,9 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        LiveWindow.run();
+        new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
+        sendSensorData();
+        
     }
 
     public void teleopInit() {
@@ -94,7 +97,6 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        LiveWindow.run();
     }
     
     public void testPeriodic() {

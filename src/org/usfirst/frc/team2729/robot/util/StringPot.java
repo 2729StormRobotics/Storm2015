@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2729.robot.subsystems;
+package org.usfirst.frc.team2729.robot.util;
 
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;

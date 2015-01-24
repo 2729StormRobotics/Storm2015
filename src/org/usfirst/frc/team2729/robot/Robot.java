@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.commands.runAccel;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
@@ -57,13 +56,13 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		//SmartDashboard.putData(_accel);
 		SmartDashboard.putNumber("xPos", _accel.getxPos());
 		SmartDashboard.putNumber("yPos", _accel.getyPos());
 		SmartDashboard.putNumber("xVel",_accel.getxVel());
 		SmartDashboard.putNumber("yVel", _accel.getyVel());
 		SmartDashboard.putNumber("Accel X", _accel.getXAccel());
 		SmartDashboard.putNumber("Accel Y", _accel.getYAccel());
+		SmartDashboard.putNumber("RC", _accel.rc);
 	}
     
 	public void disabledPeriodic() {
@@ -75,18 +74,17 @@ public class Robot extends IterativeRobot {
         // schedule the autonomous command (example)
     	CommandGroup Accelerometer = new CommandGroup();
     	Accelerometer.addSequential(new PrintCommand("test1"));
-    	Accelerometer.addParallel(new runAccel());
-    	Accelerometer.addSequential(new PrintCommand("test2"));
     	Accelerometer.addSequential(new WaitForChildren());
-    	Accelerometer.addSequential(new PrintCommand("test3"));
+    	Accelerometer.addSequential(new PrintCommand("test2"));
     	Accelerometer.start();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        //new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
-        sendSensorData();        
+        new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
+        sendSensorData();
+        
     }
 
     public void teleopInit() {

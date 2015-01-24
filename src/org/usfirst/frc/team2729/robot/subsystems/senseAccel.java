@@ -39,10 +39,10 @@ public class senseAccel extends Subsystem{
 	protected void initDefaultCommand() {
 	}
 	public double getXAccel(){
-		return _Accel.getX();
+		return  accelXTask.get();
 	}
 	public double getYAccel(){
-		return _Accel.getY();
+		return accelYTask.get();
 	}
 	public double getxPos() {
 		return xPos;

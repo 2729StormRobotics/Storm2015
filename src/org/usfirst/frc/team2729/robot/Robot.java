@@ -6,9 +6,11 @@ import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
 import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.PrintCommand;
@@ -29,17 +31,19 @@ public class Robot extends IterativeRobot {
 	
     Command autonomousCommand;
     
+    private final Timer _timer = new Timer();
+    
     public void robotInit() {
-    	Timer test = new Timer();
-    	test.start();
-    	Timer.delay(12.34567);
-    	test.stop();
-    	new PrintCommand(test.get() + "").start();
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		_accel = new senseAccel();
 		_gyro  = new senseGyro();
 		intake = new Intake();
+		_timer.schedule(new TimerTask() {
+			public void run() {
+				_accel.update();
+			}
+		}, 0, 10);
 		new Command("Sensor feedback"){
 			@Override
 			protected void initialize() {}

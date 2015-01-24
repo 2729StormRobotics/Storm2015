@@ -79,9 +79,8 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
-        sendSensorData();
-        
+        //new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
+        sendSensorData();        
     }
 
     public void teleopInit() {

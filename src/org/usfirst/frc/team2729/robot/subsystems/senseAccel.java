@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
+import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,18 +26,25 @@ public class senseAccel extends Subsystem {
 		//SmartDashboard.putNumber("yVel", this.getyVel());
 		//SmartDashboard.putNumber("Accel X", this.getXAccel());
 		//SmartDashboard.putNumber("Accel Y", this.getYAccel());
-		deltaT.start();
 	}
 	
 	public void update(){
 		deltaT.stop();
+		double dT = deltaT.get();
 		xPos += xVel * deltaT.get() + (1/2 * _Accel.getX() * (deltaT.get() * deltaT.get()));
 		yPos += yVel * deltaT.get() + (1/2 * _Accel.getY() * (deltaT.get() * deltaT.get()));
 		xVel += _Accel.getX() * deltaT.get();
 		yVel += _Accel.getY() * deltaT.get();
 		deltaT.reset();
+		new PrintCommand(dT + " update " + xPos + " " + xVel + " " + yPos + " " + " yVel").start();
 	}
-	
+	public void setDTEnabled(boolean isEnabled){
+		if(isEnabled){
+			deltaT.start();
+		} else {
+			deltaT.stop();
+		}
+	}
 	protected void initDefaultCommand() {
 		//setDefaultCommand(new runAccel());
 	}

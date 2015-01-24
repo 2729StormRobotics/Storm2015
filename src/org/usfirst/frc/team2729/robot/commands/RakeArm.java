@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2729.robot.commands;
 
 import org.usfirst.frc.team2729.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RakeArm extends Command{
@@ -26,6 +25,7 @@ public class RakeArm extends Command{
 
 	@Override
 	protected boolean isFinished() {
+		
 		// TODO Auto-generated method stub
 		return false;
 	}

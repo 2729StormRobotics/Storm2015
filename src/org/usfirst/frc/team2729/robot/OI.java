@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
  */
 public class OI {
 	private final Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
-	private final Joystick rakeJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
+	private final Joystick armJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -49,10 +49,10 @@ public class OI {
     	return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.15);
     }
     public double getRake(){
-    	return _zeroDeadzone(-rakeJoystick.getRawAxis(RobotMap.JOYARM_AXIS_RAKE), 0.15);
+    	return _zeroDeadzone(-armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_RAKE), 0.15);
     }
 	public double get_linear() {
-		return _zeroDeadzone(linearJoystick.getRawAxis(RobotMap.JOYARM_AXIS_LINEAR), 0.15);
+		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_LINEAR), 0.15);
 	}
     
 }

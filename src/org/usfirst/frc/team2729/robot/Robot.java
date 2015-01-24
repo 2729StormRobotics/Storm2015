@@ -4,6 +4,7 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.commands.runAccel;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
+import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
 import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
 
@@ -30,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 	public static senseGyro _gyro;
 	public static senseAccel _accel;
-	
+	public static rakeArm _rakeArm;
     Command autonomousCommand;
 
     /**
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		intake = new Intake();
+		_rakeArm = new rakeArm();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
     }

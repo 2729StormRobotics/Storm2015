@@ -4,6 +4,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 public class StringPot implements LiveWindowSendable {
@@ -18,6 +19,7 @@ public class StringPot implements LiveWindowSendable {
     
     public StringPot(int Num) {
         _pot = new AnalogPotentiometer(Num);
+        SmartDashboard.putNumber("StringPot", this.get());
     }
     
     public double get() {

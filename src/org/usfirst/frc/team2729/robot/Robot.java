@@ -7,7 +7,7 @@ import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
 import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
-
+import org.usfirst.frc.team2729.robot.subsystems.linearArm;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public static senseGyro _gyro;
 	public static senseAccel _accel;
 	public static rakeArm _rakeArm;
+	public static linearArm _linearArm;
     Command autonomousCommand;
 
     /**
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain();
 		intake = new Intake();
 		_rakeArm = new rakeArm();
+		_linearArm = new linearArm();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
     }

@@ -51,6 +51,9 @@ public class OI {
     public double getRake(){
     	return _zeroDeadzone(-rakeJoystick.getRawAxis(RobotMap.JOYARM_AXIS_RAKE), 0.15);
     }
+	public double get_linear() {
+		return _zeroDeadzone(linearJoystick.getRawAxis(RobotMap.JOYARM_AXIS_LINEAR), 0.15);
+	}
     
 }
 

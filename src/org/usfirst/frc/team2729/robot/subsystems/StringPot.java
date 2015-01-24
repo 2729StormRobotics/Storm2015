@@ -9,12 +9,10 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 public class StringPot implements LiveWindowSendable {
     public final static double VAL_MAX_SAFE   = 0,
-                               VAL_NEAR       = 0,
-                               VAL_CENTER     = 0,
-                               VAL_OPPAUTO    = 0,
-                               VAL_FEEDER     = 0;
+                               VAL_POS_1      = 0,
+                               VAL_POS_2      = 0;
     
-    //Pot is good, especially when it's analog
+    //Pot is good, especially when it's analog 
     private AnalogPotentiometer _pot;
     
     public StringPot(int Num) {
@@ -24,7 +22,7 @@ public class StringPot implements LiveWindowSendable {
     
     public double get() {
         double val = _pot.get();
-        return val > 0.05 ? val : 0;
+        return val > 0.06 ? val : 0;
     }
     
     //Makes a Readable and Write-able table

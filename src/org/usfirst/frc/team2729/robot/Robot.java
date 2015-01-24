@@ -18,13 +18,6 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
@@ -35,11 +28,7 @@ public class Robot extends IterativeRobot {
 	public static senseAccel _accel;
 	
     Command autonomousCommand;
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
+    
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
@@ -47,36 +36,16 @@ public class Robot extends IterativeRobot {
 		_gyro  = new senseGyro();
 		intake = new Intake();
 		new Command("Sensor feedback"){
-
 			@Override
-			protected void initialize() {
-				// TODO Auto-generated method stub
-				
-			}
-
+			protected void initialize() {}
 			@Override
-			protected void execute() {
-				sendSensorData();
-			}
-
+			protected void execute() {sendSensorData();}
 			@Override
-			protected boolean isFinished() {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
+			protected boolean isFinished() {return false;}
 			@Override
-			protected void end() {
-				// TODO Auto-generated method stub
-				
-			}
-
+			protected void end() {}
 			@Override
-			protected void interrupted() {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			protected void interrupted() {}
 		}.start();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
@@ -92,6 +61,7 @@ public class Robot extends IterativeRobot {
     
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		LiveWindow.run();
 	}
 
     public void autonomousInit() {
@@ -106,11 +76,9 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        LiveWindow.run();
     }
 
     public void teleopInit() {
@@ -121,24 +89,14 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
-    /**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
     public void disabledInit(){
-
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        LiveWindow.run();
     }
     
-    /**
-     * This function is called periodically during test mode
-     */
     public void testPeriodic() {
         LiveWindow.run();
     }

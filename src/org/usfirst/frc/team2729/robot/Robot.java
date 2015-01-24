@@ -9,6 +9,7 @@ import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.PrintCommand;
@@ -30,6 +31,11 @@ public class Robot extends IterativeRobot {
     Command autonomousCommand;
     
     public void robotInit() {
+    	Timer test = new Timer();
+    	test.start();
+    	Timer.delay(12.34567);
+    	test.stop();
+    	new PrintCommand(test.get() + "").start();
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		_accel = new senseAccel();

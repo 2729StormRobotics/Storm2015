@@ -9,8 +9,13 @@ import edu.wpi.first.wpilibj.Gyro;
 
 public class senseGyro extends Subsystem{
 
-	private final Gyro _gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
+	private final Gyro _gyro;
 	private double _gyroOffset = 0;
+	
+	public senseGyro(double offSet, int channel){
+		_gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
+		_gyroOffset = offSet;
+	}
 	
 	public void resetGyro(){
 		_gyro.reset();

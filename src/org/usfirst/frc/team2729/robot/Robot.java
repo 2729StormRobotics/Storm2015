@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		_accel = new senseAccel();
-		_gyro  = new senseGyro();
+		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 		intake = new Intake();
 		_timer.schedule(new TimerTask() {
 			public void run() {
@@ -66,6 +66,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("yVel", _accel.getyVel());
 		SmartDashboard.putNumber("Accel X", _accel.getXAccel());
 		SmartDashboard.putNumber("Accel Y", _accel.getYAccel());
+		SmartDashboard.putNumber("Raw Accel X", _accel.getRawXAccel());
+		SmartDashboard.putNumber("Raw Accel Y", _accel.getRawYAccel());
 		SmartDashboard.putNumber("RC", _accel.rc);
 	}
     

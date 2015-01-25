@@ -5,7 +5,6 @@ import org.usfirst.frc.team2729.robot.util.FilterTask;
 import org.usfirst.frc.team2729.robot.util.HighPassFilter;
 import org.usfirst.frc.team2729.robot.util.ISource;
 
-import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -34,7 +33,6 @@ public class senseAccel extends Subsystem{
 		xVel += _Accel.getX() * dT;
 		yVel += _Accel.getY() * dT;
 		deltaT.reset();
-		new PrintCommand(dT + " update " + xPos + " " + xVel + " " + yPos + " " + " " + yVel).start();
 	}
 	protected void initDefaultCommand() {
 	}
@@ -44,6 +42,13 @@ public class senseAccel extends Subsystem{
 	public double getYAccel(){
 		return accelYTask.get();
 	}
+	public double getRawXAccel(){
+		return  _Accel.getX();
+	}
+	public double getRawYAccel(){
+		return _Accel.getY();
+	}
+		
 	public double getxPos() {
 		return xPos;
 	}

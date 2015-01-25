@@ -42,6 +42,4 @@ public class turnToAngle extends Command{
 		Robot._gyro.clearGyro();
 		Robot.driveTrain.halt();
 	}
-	
-
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.RakeArm;
+import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;

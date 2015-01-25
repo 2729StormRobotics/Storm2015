@@ -1,28 +1,26 @@
-
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.commands.runAccel;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
 import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
 import org.usfirst.frc.team2729.robot.subsystems.linearArm;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitForChildren;
+import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
@@ -34,38 +32,69 @@ public class Robot extends IterativeRobot {
 	public static rakeArm _rakeArm;
 	public static linearArm _linearArm;
     Command autonomousCommand;
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
+    
+    private final Timer _timer = new Timer();
+    
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
+		_accel = new senseAccel();
+		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 		intake = new Intake();
 		_rakeArm = new rakeArm();
 		_linearArm = new linearArm();
+		_timer.schedule(new TimerTask() {
+			public void run() {
+				_accel.update();
+			}
+		}, 0, 10);
+		new Command("Sensor feedback"){
+			@Override
+			protected void initialize() {}
+			@Override
+			protected void execute() {sendSensorData();}
+			@Override
+			protected boolean isFinished() {return false;}
+			@Override
+			protected void end() {}
+			@Override
+			protected void interrupted() {}
+		}.start();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
     }
-	
+	public void sendSensorData(){
+		SmartDashboard.putNumber("xPos", _accel.getxPos());
+		SmartDashboard.putNumber("yPos", _accel.getyPos());
+		SmartDashboard.putNumber("xVel",_accel.getxVel());
+		SmartDashboard.putNumber("yVel", _accel.getyVel());
+		SmartDashboard.putNumber("Accel X", _accel.getXAccel());
+		SmartDashboard.putNumber("Accel Y", _accel.getYAccel());
+		SmartDashboard.putNumber("Raw Accel X", _accel.getRawXAccel());
+		SmartDashboard.putNumber("Raw Accel Y", _accel.getRawYAccel());
+		SmartDashboard.putNumber("RC", _accel.rc);
+	}
+    
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		sendSensorData();
 	}
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	CommandGroup Accelerometer = new CommandGroup();
-    	Accelerometer.addParallel(new runAccel());
+    	Accelerometer.addSequential(new PrintCommand("test1"));
     	Accelerometer.addSequential(new WaitForChildren());
+    	Accelerometer.addSequential(new PrintCommand("test2"));
+    	Accelerometer.start();
         if (autonomousCommand != null) autonomousCommand.start();
     }
 
-    /**
-     * This function is called periodically during autonomous
-     */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
+        sendSensorData();
+        
     }
 
     public void teleopInit() {
@@ -76,24 +105,13 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
-    /**
-     * This function is called when the disabled button is hit.
-     * You can use it to reset subsystems before shutting down.
-     */
     public void disabledInit(){
-
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
     
-    /**
-     * This function is called periodically during test mode
-     */
     public void testPeriodic() {
         LiveWindow.run();
     }

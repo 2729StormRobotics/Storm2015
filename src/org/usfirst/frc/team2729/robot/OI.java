@@ -54,6 +54,5 @@ public class OI {
 	public double get_linear() {
 		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_LINEAR), 0.15);
 	}
-    
 }
 

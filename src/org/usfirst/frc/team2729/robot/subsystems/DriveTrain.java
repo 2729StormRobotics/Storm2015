@@ -111,6 +111,14 @@ public class DriveTrain extends Subsystem {
 		_center.set(x);
 	}
 	
+	public void stickyDrive(double x, double y, double turning){
+		//Functionally identical to rawDrive EXCEPT if a parameter is 0, the old value is maintained.
+		//turning with sticky drive is not recommended
+		_left.set(y != 0 ? y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0) : _left.get());
+		_right.set(y != 0 ? y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0) : _right.get());
+		_center.set(x != 0 ? x: _center.get());
+	}
+	
 	public double getLeftDistance(){
 		return _leftEncoder.get();
 	}

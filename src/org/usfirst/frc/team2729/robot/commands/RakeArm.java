@@ -8,40 +8,27 @@ public class RakeArm extends Command{
 	public RakeArm(){
 		requires(Robot._rakeArm);
 	}
+	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	protected void execute() {
 		double rake = Robot.oi.getRake();
-		Robot._rakeArm.moveArm(rake);
-		
-		// TODO Auto-generated method stub
-		
+		Robot._rakeArm.moveArm(rake);	
 	}
 
 	@Override
 	protected boolean isFinished() {
-		
-		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	@Override
+	protected void end() {}
+	
+	@Override
+	protected void interrupted() {}
 
 //require dat rakearm
 }

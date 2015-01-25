@@ -11,7 +11,6 @@ public class turnToAngle extends Command{
 	private double speed = 0;
 	
 	public turnToAngle(double _target, double _speed){
-		requires(Robot._gyro);
 		requires(Robot.driveTrain);
 	}
 	protected void initialize() {}

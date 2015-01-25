@@ -3,12 +3,9 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
-import org.usfirst.frc.team2729.robot.subsystems.senseAccel;
-import org.usfirst.frc.team2729.robot.subsystems.senseGyro;
 import org.usfirst.frc.team2729.robot.subsystems.linearArm;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import org.usfirst.frc.team2729.robot.util.senseAccel;
+import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -33,8 +30,6 @@ public class Robot extends IterativeRobot {
 	public static linearArm _linearArm;
     Command autonomousCommand;
     
-    private final Timer _timer = new Timer();
-    
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
@@ -43,11 +38,6 @@ public class Robot extends IterativeRobot {
 		intake = new Intake();
 		_rakeArm = new rakeArm();
 		_linearArm = new linearArm();
-		_timer.schedule(new TimerTask() {
-			public void run() {
-				_accel.update();
-			}
-		}, 0, 10);
 		new Command("Sensor feedback"){
 			@Override
 			protected void initialize() {}
@@ -64,15 +54,14 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		SmartDashboard.putNumber("xPos", _accel.getxPos());
-		SmartDashboard.putNumber("yPos", _accel.getyPos());
-		SmartDashboard.putNumber("xVel",_accel.getxVel());
-		SmartDashboard.putNumber("yVel", _accel.getyVel());
+		SmartDashboard.putNumber("xPos", _accel.getXPos());
+		SmartDashboard.putNumber("yPos", _accel.getYPos());
+		SmartDashboard.putNumber("xVel",_accel.getXVel());
+		SmartDashboard.putNumber("yVel", _accel.getYVel());
 		SmartDashboard.putNumber("Accel X", _accel.getXAccel());
 		SmartDashboard.putNumber("Accel Y", _accel.getYAccel());
 		SmartDashboard.putNumber("Raw Accel X", _accel.getRawXAccel());
 		SmartDashboard.putNumber("Raw Accel Y", _accel.getRawYAccel());
-		SmartDashboard.putNumber("RC", _accel.rc);
 	}
     
 	public void disabledPeriodic() {
@@ -93,8 +82,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         new PrintCommand(_accel.getXAccel() + " " + _accel.getYAccel()).start();
-        sendSensorData();
-        
+        sendSensorData();   
     }
 
     public void teleopInit() {

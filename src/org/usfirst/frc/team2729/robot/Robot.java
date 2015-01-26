@@ -24,8 +24,6 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrain;
 	public static Intake intake;
 	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
-	public static senseGyro _gyro;
-	public static senseAccel _accel;
 	public static rakeArm _rakeArm;
 	public static linearArm _linearArm;
     Command autonomousCommand;
@@ -33,8 +31,6 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
-		_accel = new senseAccel();
-		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 		intake = new Intake();
 		_rakeArm = new rakeArm();
 		_linearArm = new linearArm();

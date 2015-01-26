@@ -2,6 +2,8 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.HDrive;
+import org.usfirst.frc.team2729.robot.util.senseAccel;
+import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -18,6 +20,8 @@ public class DriveTrain extends Subsystem {
 	//Positive Y is towards the front
 	//X axis is parallel to the front of the robot
 	//Positive X is towards the right
+	public final senseGyro _gyro;
+	public final senseAccel _accel;
 	
 	private final Talon _left = new Talon(RobotMap.PORT_MOTOR_DRIVE_LEFT),
 					   	_right= new Talon(RobotMap.PORT_MOTOR_DRIVE_RIGHT),
@@ -31,16 +35,16 @@ public class DriveTrain extends Subsystem {
 	private boolean _isHighGear = false;
 	
 	private final double _turningRatio=0.5;
-	private final double vertRatioLow = .8;
-	private final double vertRatioHigh = 1.4;
-	private final double loGearTanCoe = Math.tan(4 * vertRatioLow);
-	private final double hiGearTanCoe = Math.tan(4 * vertRatioHigh);
+	private final double RatioLow = .8;
+	private final double RatioHigh = 1.4;
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
+		_accel = new senseAccel(0.01,0.5,0.2);
+		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 	}
 	
 	protected void initDefaultCommand() {
@@ -54,40 +58,23 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void gradientDrive(double X, double Y, double rotMag){
-		//X and Y are on the range [-1,1]
-		double theta = Math.atan(Y/X);
+
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
-		double curTanCoef = 0;
-		double curRatio = 0;
-		if(_isHighGear){
-			curTanCoef = hiGearTanCoe;
-			curRatio = vertRatioHigh;
+		if(Math.abs(Y) <= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
+			_right.set(Y);
+			_left.set(Y);
+			_center.set(X);
+		} else if (Math.abs(X) >= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
+			_right.set((Y * (Y/X))/4);
+			_left.set((Y * (Y/X))/4);
+			_center.set(Y);
 		} else {
-			curTanCoef = loGearTanCoe; 
-			curRatio = vertRatioLow;
+			_right.set(Y > 0 ? 1 : -1);
+			_left.set(Y > 0 ? 1 : -1);
+			_center.set(4*X/Y);
 		}
-		//checks to see if theta is on the interval [0, Coef]U[pi-Coef,pi+Coef]U[pi - coef, 360]
-		if(theta > (2*Math.PI - curTanCoef) || theta < curTanCoef || (theta < Math.PI + curTanCoef && theta > Math.PI - curTanCoef) && transMag!=0){ 
-			_center.set((4*curRatio)*Math.tan(curTanCoef));
-			if(theta > 3*Math.PI/2 || theta < Math.PI/2){
-				_left.set(1.0 * transMag);
-				_right.set(1.0 * transMag);
-			} else {
-				_left.set(-1.0 * transMag);
-				_right.set(-1.0 * transMag);
-			}
-		} else {
-			if(theta != Math.PI/2 || theta != 3*Math.PI/2){
-				_right.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-				_left.set(((theta > Math.PI ? -1 : 1)/(Math.tan(theta)*4*curRatio))*transMag);
-				_center.set((theta > Math.PI ? -1 : 1)*transMag);
-			} else {
-				_right.set(0);
-				_left.set(0);
-				_center.set((theta > Math.PI ? -1 : 1)*transMag);
-			}
-		}
+		
 		//point turning
 		if(rotMag>0&& transMag==0){
 			_right.set(rotMag*_turningRatio);

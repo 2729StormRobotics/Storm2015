@@ -8,16 +8,20 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 public class senseAccel{
 	private final BuiltInAccelerometer _Accel = new BuiltInAccelerometer();
 	
-	public double hpRC = 0.5, lpRC = 0.1;
+	private double _hpRC, _lpRC;
+	private double _dt;
 	
 	ISource accelX = new ISource(){public double get(){return _Accel.getX();}};
 	ISource accelY = new ISource(){public double get(){return _Accel.getY();}};
-	FilterChain accelXFilter = new FilterChain(new IFilter[]{new HighPassFilter(hpRC, 0), new LowPassFilter(lpRC,0), new Integrator(0), new Integrator(0)});
-	FilterChain accelYFilter = new FilterChain(new IFilter[]{new HighPassFilter(hpRC, 0), new LowPassFilter(lpRC,0), new Integrator(0), new Integrator(0)});
-	FilterTask accelXTask = new FilterTask(accelXFilter, accelX, 0.01);
-	FilterTask accelYTask = new FilterTask(accelXFilter, accelY, 0.01);
+	FilterChain accelXFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
+	FilterChain accelYFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
+	FilterTask accelXTask = new FilterTask(accelXFilter, accelX, _dt);
+	FilterTask accelYTask = new FilterTask(accelXFilter, accelY, _dt);
 	
-	public senseAccel(){
+	public senseAccel(double deltaT, double HPc, double LPc){
+		_dt = deltaT;
+		_hpRC = HPc;
+		_lpRC = LPc;
 		_Accel.setRange(Accelerometer.Range.k4G);
 	}
 	

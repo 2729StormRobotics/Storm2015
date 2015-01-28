@@ -18,8 +18,8 @@ public class driveVector extends Command{
 		_targetZone = targetZoneWidth;
 	}
 	public driveVector(double theta, boolean isRadians, double distance, double speed, double targetZoneWidth){
-		_targetX = Math.sin(isRadians ? theta : 360.0/(2*Math.PI)) * distance;
-		_targetY = Math.cos(isRadians ? theta : 360.0/(2*Math.PI)) * distance; 
+		//_targetX = Math.sin(isRadians ? theta : 360.0/(2*Math.PI)) * distance;
+		//_targetY = Math.cos(isRadians ? theta : 360.0/(2*Math.PI)) * distance; 
 		_speed = speed;
 		_initX = Robot.driveTrain._accel.getXPos();
 		_initY = Robot.driveTrain._accel.getYPos();
@@ -35,11 +35,12 @@ public class driveVector extends Command{
 	}
 	@Override
 	protected boolean isFinished() {
-		if(Math.abs(_targetX - _initX) <= _targetZone && Math.abs(_targetY - _initY) <= _targetZone){
-			return true;
-		} else {
-			return false;
-		}
+		//if(Math.abs(_targetX - _initX) <= _targetZone && Math.abs(_targetY - _initY) <= _targetZone){
+	//		return true;
+	///	} else {
+	//		return false;
+	//	}
+		return true;
 	}
 	@Override
 	protected void end() {

@@ -15,9 +15,6 @@ public class FilterTask implements ISource {
 		_filter = filter;
 		_source = source;
 		_dt = dt;
-		new PrintCommand((long)(1000*dt) + "").start();
-		for(long j = 0; j < 100000000; j++){
-		}
 		_timer = new Timer();
 		_timer.schedule(new TimerTask() {
 			public void run() {

@@ -8,24 +8,27 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 public class senseAccel{
 	private final BuiltInAccelerometer _Accel = new BuiltInAccelerometer();
 	
-	private double _hpRC, _lpRC;
+	public double _hpRC, _lpRC;
 	private double _dt;
 	
 	ISource accelX, accelY;
 	FilterChain accelXFilter, accelYFilter;
 	FilterTask accelXTask, accelYTask;
+	public HighPassFilter Tuning1, Tuning2;
 	
 	public senseAccel(double deltaT, double HPc, double LPc){
 		_dt = deltaT;
 		_hpRC = HPc;
 		_lpRC = LPc;
 		_Accel.setRange(Accelerometer.Range.k4G);
-		ISource accelX = new ISource(){public double get(){return _Accel.getX();}};
-		ISource accelY = new ISource(){public double get(){return _Accel.getY();}};
-		FilterChain accelXFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
-		FilterChain accelYFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
-		FilterTask accelXTask = new FilterTask(accelXFilter, accelX, _dt);
-		FilterTask accelYTask = new FilterTask(accelXFilter, accelY, _dt);
+		accelX = new ISource(){public double get(){return _Accel.getX();}};
+		accelY = new ISource(){public double get(){return _Accel.getY();}};
+		Tuning1 = new HighPassFilter(_hpRC, 0);
+		Tuning2 = new HighPassFilter(_hpRC, 0);
+		accelXFilter = new FilterChain(new IFilter[]{Tuning1, new LowPassFilter(_lpRC, 0), new Integrator(0), new Integrator(0)});
+		accelYFilter = new FilterChain(new IFilter[]{Tuning2, new LowPassFilter(_lpRC, 0), new Integrator(0), new Integrator(0)});
+		accelXTask = new FilterTask(accelXFilter, accelX, _dt);
+		accelYTask = new FilterTask(accelYFilter, accelY, _dt);
 	}
 	
 	public double getXPos(){

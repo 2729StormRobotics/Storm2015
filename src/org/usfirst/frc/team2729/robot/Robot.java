@@ -32,8 +32,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		intake = new Intake();
-		_rakeArm = new rakeArm();
-		_linearArm = new linearArm();
+		//_rakeArm = new rakeArm();
+		//_linearArm = new linearArm();
 		new Command("Sensor feedback"){
 			@Override
 			protected void initialize() {}
@@ -58,6 +58,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Accel Y", driveTrain._accel.getYAccel());
 		SmartDashboard.putNumber("Raw Accel X", driveTrain._accel.getRawXAccel());
 		SmartDashboard.putNumber("Raw Accel Y", driveTrain._accel.getRawYAccel());
+		SmartDashboard.putNumber("RC_1", driveTrain._accel.Tuning1._rc);
+		SmartDashboard.putNumber("RC_2", driveTrain._accel.Tuning2._rc);
 	}
     
 	public void disabledPeriodic() {

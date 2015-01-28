@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2729.robot.util.Pipeline;
 
 public class HighPassFilter implements IFilter {
-	private double _rc;
+	public double _rc;
 	private double _val;
 	private double _prevInput = 0;
 

@@ -11,18 +11,21 @@ public class senseAccel{
 	private double _hpRC, _lpRC;
 	private double _dt;
 	
-	ISource accelX = new ISource(){public double get(){return _Accel.getX();}};
-	ISource accelY = new ISource(){public double get(){return _Accel.getY();}};
-	FilterChain accelXFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
-	FilterChain accelYFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
-	FilterTask accelXTask = new FilterTask(accelXFilter, accelX, _dt);
-	FilterTask accelYTask = new FilterTask(accelXFilter, accelY, _dt);
+	ISource accelX, accelY;
+	FilterChain accelXFilter, accelYFilter;
+	FilterTask accelXTask, accelYTask;
 	
 	public senseAccel(double deltaT, double HPc, double LPc){
 		_dt = deltaT;
 		_hpRC = HPc;
 		_lpRC = LPc;
 		_Accel.setRange(Accelerometer.Range.k4G);
+		ISource accelX = new ISource(){public double get(){return _Accel.getX();}};
+		ISource accelY = new ISource(){public double get(){return _Accel.getY();}};
+		FilterChain accelXFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
+		FilterChain accelYFilter = new FilterChain(new IFilter[]{new HighPassFilter(_hpRC, 0), new LowPassFilter(_lpRC,0), new Integrator(0), new Integrator(0)});
+		FilterTask accelXTask = new FilterTask(accelXFilter, accelX, _dt);
+		FilterTask accelYTask = new FilterTask(accelXFilter, accelY, _dt);
 	}
 	
 	public double getXPos(){

@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
-		_accel = new senseAccel(0.01,0.8,0.3);
+		_accel = new senseAccel(0.01,0.2,0.05);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 	}
 	

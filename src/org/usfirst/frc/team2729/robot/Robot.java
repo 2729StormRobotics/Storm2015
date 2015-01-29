@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitForChildren;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
@@ -50,16 +51,23 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		SmartDashboard.putNumber("xPos", driveTrain._accel.getXPos());
-		SmartDashboard.putNumber("yPos", driveTrain._accel.getYPos());
+		/*
 		SmartDashboard.putNumber("xVel",driveTrain._accel.getXVel());
 		SmartDashboard.putNumber("yVel", driveTrain._accel.getYVel());
 		SmartDashboard.putNumber("Accel X", driveTrain._accel.getXAccel());
 		SmartDashboard.putNumber("Accel Y", driveTrain._accel.getYAccel());
+		SmartDashboard.putNumber("Prime Accel X", driveTrain._accel.getXPrimeAccel());
+		SmartDashboard.putNumber("Prime Accel Y", driveTrain._accel.getYPrimeAccel());
+		*/
+		SmartDashboard.putNumber("xPos", driveTrain._accel.getXPos());
+		SmartDashboard.putNumber("yPos", driveTrain._accel.getYPos());
 		SmartDashboard.putNumber("Raw Accel X", driveTrain._accel.getRawXAccel());
 		SmartDashboard.putNumber("Raw Accel Y", driveTrain._accel.getRawYAccel());
 		SmartDashboard.putNumber("RC_1", driveTrain._accel.Tuning1._rc);
 		SmartDashboard.putNumber("RC_2", driveTrain._accel.Tuning2._rc);
+		SmartDashboard.putNumber("XVel", driveTrain._accel.getXPrimeAccel());
+		SmartDashboard.putNumber("YVel", driveTrain._accel.getYPrimeAccel());
+		
 	}
     
 	public void disabledPeriodic() {

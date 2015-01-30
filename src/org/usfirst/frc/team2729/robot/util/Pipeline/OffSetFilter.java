@@ -17,7 +17,7 @@ public class OffSetFilter implements IFilter{
 
 	@Override
 	public void addSample(double newVal, double dt) {
-		_val = Math.abs(newVal - _offset) > _range/2 ? _val - _offset : _val;
+		_val = Math.abs(newVal - _offset) > _range/2 ? newVal - _offset : _val;
 	}
 	
 	public void tune(double tuneTime, double tuneDT, ISource s, IFilter f){

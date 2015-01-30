@@ -27,8 +27,8 @@ public class senseAccel{
 		accelY = new ISource(){public double get(){return _Accel.getY();}};
 		OffSetFilter xOff = new OffSetFilter(0.99);
 		OffSetFilter yOff = new OffSetFilter(0.99);
-		xOff.tune(2, 0.01, accelX, new CutOffFilter(0.5));
-		yOff.tune(2, 0.01, accelY, new CutOffFilter(0.5));
+		xOff.tune(2, 0.01, accelX, new CutOffFilter(0.4));
+		yOff.tune(2, 0.01, accelY, new CutOffFilter(0.4));
 		accelXFilter = new FilterChain(new IFilter[]{xOff, new CutOffFilter(0.5), new Integrator(0), new Integrator(0)});
 		accelYFilter = new FilterChain(new IFilter[]{yOff, new CutOffFilter(0.5), new Integrator(0), new Integrator(0)});
 		accelXTask = new FilterTask(accelXFilter, accelX, _dt);

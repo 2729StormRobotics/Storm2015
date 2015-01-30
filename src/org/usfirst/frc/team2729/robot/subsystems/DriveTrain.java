@@ -33,8 +33,8 @@ public class DriveTrain extends Subsystem {
 	private boolean _isHighGear = false;
 	
 	private final double _turningRatio=0.5;
-	private final double RatioLow = .8;
-	private final double RatioHigh = 1.4;
+	private final double RatioLow = 1.2;
+	private final double RatioHigh = 1.63636363;
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized

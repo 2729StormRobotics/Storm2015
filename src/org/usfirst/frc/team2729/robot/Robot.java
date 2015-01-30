@@ -51,18 +51,6 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		
-		SmartDashboard.putNumber("Accel X", driveTrain._accel.getXAccel());
-		SmartDashboard.putNumber("Accel Y", driveTrain._accel.getYAccel());
-		SmartDashboard.putNumber("Prime Accel X", driveTrain._accel.getXPrimeAccel());
-		SmartDashboard.putNumber("Prime Accel Y", driveTrain._accel.getYPrimeAccel());
-		SmartDashboard.putNumber("xPos", driveTrain._accel.getXPos());
-		SmartDashboard.putNumber("yPos", driveTrain._accel.getYPos());
-		SmartDashboard.putNumber("Raw Accel X", driveTrain._accel.getRawXAccel());
-		SmartDashboard.putNumber("Raw Accel Y", driveTrain._accel.getRawYAccel());
-		SmartDashboard.putNumber("XVel", driveTrain._accel.getXVel());
-		SmartDashboard.putNumber("YVel", driveTrain._accel.getYVel());
-		
 	}
     
 	public void disabledPeriodic() {
@@ -82,7 +70,6 @@ public class Robot extends IterativeRobot {
 
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-        new PrintCommand(driveTrain._accel.getXAccel() + " " + driveTrain._accel.getYAccel()).start();
         sendSensorData();   
     }
 

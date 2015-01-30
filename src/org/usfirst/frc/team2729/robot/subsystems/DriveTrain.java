@@ -21,7 +21,6 @@ public class DriveTrain extends Subsystem {
 	//X axis is parallel to the front of the robot
 	//Positive X is towards the right
 	public final senseGyro _gyro;
-	public final senseAccel _accel;
 	
 	private final Talon _left = new Talon(RobotMap.PORT_MOTOR_DRIVE_LEFT),
 					   	_right= new Talon(RobotMap.PORT_MOTOR_DRIVE_RIGHT),
@@ -43,7 +42,6 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
-		_accel = new senseAccel(0.01,0.2,0.05);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
 	}
 	

@@ -4,7 +4,6 @@ import org.usfirst.frc.team2729.robot.commands.RakeArm;
 import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;

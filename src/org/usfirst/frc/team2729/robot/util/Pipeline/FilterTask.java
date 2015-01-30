@@ -3,8 +3,6 @@ package org.usfirst.frc.team2729.robot.util.Pipeline;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.wpi.first.wpilibj.command.PrintCommand;
-
 public class FilterTask implements ISource {
 	private final double _dt;
 	private final IFilter _filter;

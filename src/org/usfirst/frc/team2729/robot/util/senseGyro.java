@@ -1,17 +1,15 @@
-package org.usfirst.frc.team2729.robot.subsystems;
+package org.usfirst.frc.team2729.robot.util;
 
-import org.usfirst.frc.team2729.robot.RobotMap;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Gyro;
 
 
-public class senseGyro extends Subsystem{
+public class senseGyro{
 
 	private final Gyro _gyro;
 	private double _gyroOffset = 0;
 	
 	public senseGyro(double offSet, int channel){
-		_gyro = new Gyro(RobotMap.PORT_SENSOR_GYRO);
+		_gyro = new Gyro(channel);
 		_gyroOffset = offSet;
 	}
 	
@@ -26,8 +24,5 @@ public class senseGyro extends Subsystem{
 	
 	public double getGyroAngle(){
 		return _gyro.getAngle()-_gyroOffset;
-	}
-	protected void initDefaultCommand() {
-	
 	}
 }

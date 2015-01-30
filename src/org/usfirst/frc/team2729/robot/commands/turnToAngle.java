@@ -11,7 +11,6 @@ public class turnToAngle extends Command{
 	private double speed = 0;
 	
 	public turnToAngle(double _target, double _speed){
-		requires(Robot._gyro);
 		requires(Robot.driveTrain);
 	}
 	protected void initialize() {}
@@ -28,18 +27,18 @@ public class turnToAngle extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot._gyro.getGyroAngle() - target) < 2.0;
+		return Math.abs(Robot.driveTrain._gyro.getGyroAngle() - target) < 2.0;
 	}
 
 	@Override
 	protected void end(){
-		Robot._gyro.clearGyro();
+		Robot.driveTrain._gyro.clearGyro();
 		Robot.driveTrain.halt();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot._gyro.clearGyro();
+		Robot.driveTrain._gyro.clearGyro();
 		Robot.driveTrain.halt();
 	}
 }

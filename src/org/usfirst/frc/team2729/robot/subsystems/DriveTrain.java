@@ -81,9 +81,9 @@ public class DriveTrain extends Subsystem {
 			_left.set(rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 
-			_right.set(_right.get()-rotMag*_turningRatio);
+			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}else if(rotMag<0){
-			_left.set(_left.get()-rotMag*_turningRatio);
+			_left.set(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}
 	}
 	

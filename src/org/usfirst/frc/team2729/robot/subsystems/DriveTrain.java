@@ -112,8 +112,20 @@ public class DriveTrain extends Subsystem {
 	public double getCenterDistance(){
 		return _centerEncoder.get();
 	}
+	public double getCenterSpeedEnc() {
+		return _centerEncoder.getRate();
+	}
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
+	}
+	public void resetLeftEnc(){
+		_leftEncoder.reset();
+	}
+	public void resetRightEnc(){
+		_rightEncoder.reset();
+	}
+	public void resetCenterEnc(){
+		_centerEncoder.reset();
 	}
 	/** Reads the right encoder (+ = forward,- = back). */
 	public double getRightSpeedEnc() {
@@ -125,6 +137,9 @@ public class DriveTrain extends Subsystem {
 	public double getRightSpeed(){
 		return _right.get();
 	}
+	public double getCenterSpeed(){
+		return _center.get();
+	}
 	public void setHighGear(boolean enabled) {
 		_isHighGear = enabled;
 		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
@@ -132,5 +147,8 @@ public class DriveTrain extends Subsystem {
 	}
 	public boolean isHighgear() {
 		return _isHighGear;
+	}
+	public double getGearRatio(){
+		return _isHighGear ? RatioHigh : RatioLow;
 	}
 }

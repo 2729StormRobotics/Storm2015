@@ -5,6 +5,7 @@ import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.linearArm;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,12 +23,15 @@ public class Robot extends IterativeRobot {
 	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 	public static rakeArm _rakeArm;
 	public static linearArm _linearArm;
+	Compressor compressor;
     Command autonomousCommand;
     
     public void robotInit() {
 		oi = new OI();
 		driveTrain = new DriveTrain();
 		intake = new Intake();
+		compressor = new Compressor();
+		compressor.start();
 		//_rakeArm = new rakeArm();
 		//_linearArm = new linearArm();
 		new Command("Sensor feedback"){

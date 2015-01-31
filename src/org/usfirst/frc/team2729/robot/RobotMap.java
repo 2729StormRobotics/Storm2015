@@ -39,7 +39,8 @@ public class RobotMap {
 			PORT_ENCODER_ELEVATOR_2	  =  7,
 			PORT_ENCODER_ARM_1		  =  8,
 			PORT_ENCODER_ARM_2		  =  9,
-			PORT_LIMIT_SWITCH		  =  10;
+			PORT_LIMIT_SWITCH		  =  10,
+			PORT_SWITCH_COMPRESSOR	  =  11;
 	
 	//Relay
 	public static final int PORT_RELAY_COMPRESSOR = 0;

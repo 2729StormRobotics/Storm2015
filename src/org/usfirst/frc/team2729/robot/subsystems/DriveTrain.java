@@ -58,19 +58,20 @@ public class DriveTrain extends Subsystem {
 
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
-		if(Math.abs(Y) <= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
+		if(Math.abs(Y) <= 1/4*Math.abs(X)/*(isHighgear() ? RatioHigh : RatioLow)*/){
 			_right.set(Y);
 			_left.set(Y);
 			_center.set(X);
-		} else if (Math.abs(X) >= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
-			_right.set((Y * (Y/X))/4);
-			_left.set((Y * (Y/X))/4);
-			_center.set(Y);
+		} else if (Math.abs(X) >= 1/4*Math.abs(Y)/*((isHighgear() ? RatioHigh : RatioLow))*/){
+			_right.set((Y * Math.abs(Y/X))/4);
+			_left.set((Y * Math.abs(Y/X))/4);
+			_center.set(X);
 		} else {
-			_right.set(Y > 0 ? 1 : -1);
-			_left.set(Y > 0 ? 1 : -1);
+			_right.set(Y);
+			_left.set(Y);
 			_center.set(4*X/Y);
 		}
+		
 		
 		//point turning
 		if(rotMag>0&& transMag==0){
@@ -81,18 +82,30 @@ public class DriveTrain extends Subsystem {
 			_left.set(rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 
-			_right.set(_right.get()-rotMag*_turningRatio);
+			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}else if(rotMag<0){
-			_left.set(_left.get()-rotMag*_turningRatio);
+			_left.set(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}
 	}
 	
 	public void rawDrive(double x, double y, double turning){
 		//X and Y are on the range [-1,1]
 		//turning is on the range [-1,1] with 1 being positive
-		_left.set(y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0));
-		_right.set(y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0));
+		_left.set(y);
+		_right.set(y);
 		_center.set(x);
+		if(turning!=0){
+			_right.set(turning);
+			_left.set(-turning);
+		}
+		
+		/*
+		if(turning >0){
+			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*turning*_turningRatio);
+		}else {
+			_left.set(_left.get()-(_left.get()>0 ? 1:-1)*turning*_turningRatio);
+		}
+		*/
 	}
 	
 	public void stickyDrive(double x, double y, double turning){
@@ -112,8 +125,20 @@ public class DriveTrain extends Subsystem {
 	public double getCenterDistance(){
 		return _centerEncoder.get();
 	}
+	public double getCenterSpeedEnc() {
+		return _centerEncoder.getRate();
+	}
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
+	}
+	public void resetLeftEnc(){
+		_leftEncoder.reset();
+	}
+	public void resetRightEnc(){
+		_rightEncoder.reset();
+	}
+	public void resetCenterEnc(){
+		_centerEncoder.reset();
 	}
 	/** Reads the right encoder (+ = forward,- = back). */
 	public double getRightSpeedEnc() {
@@ -125,6 +150,9 @@ public class DriveTrain extends Subsystem {
 	public double getRightSpeed(){
 		return _right.get();
 	}
+	public double getCenterSpeed(){
+		return _center.get();
+	}
 	public void setHighGear(boolean enabled) {
 		_isHighGear = enabled;
 		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
@@ -132,5 +160,8 @@ public class DriveTrain extends Subsystem {
 	}
 	public boolean isHighgear() {
 		return _isHighGear;
+	}
+	public double getGearRatio(){
+		return _isHighGear ? RatioHigh : RatioLow;
 	}
 }

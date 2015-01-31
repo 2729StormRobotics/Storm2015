@@ -3,6 +3,7 @@ package org.usfirst.frc.team2729.robot.commands;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PrintCommand;
 
 public class HDrive extends Command{
 
@@ -18,6 +19,9 @@ public class HDrive extends Command{
 		double xDrive = Robot.oi.getXDrive(),
 			   yDrive = Robot.oi.getYDrive(),
 			   spin   = Robot.oi.getSpin();
+		new PrintCommand("x: " + xDrive + " y: " + yDrive).start();
+		//division by 256 converts joystick range to [-1,1] range
+		System.out.println("x: " + xDrive + " y: " + yDrive);
 		Robot.driveTrain.gradientDrive(xDrive, yDrive, spin);
 	}
 

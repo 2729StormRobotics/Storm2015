@@ -58,17 +58,17 @@ public class DriveTrain extends Subsystem {
 
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
-		if(Math.abs(Y) <= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
+		if(Math.abs(Y) <= 1/4*X*(isHighgear() ? RatioHigh : RatioLow)){
 			_right.set(Y);
 			_left.set(Y);
 			_center.set(X);
-		} else if (Math.abs(X) >= 1/4*(isHighgear() ? RatioHigh : RatioLow)){
+		} else if (Math.abs(X) >= 1/4*Y*(isHighgear() ? RatioHigh : RatioLow)){
 			_right.set((Y * (Y/X))/4);
 			_left.set((Y * (Y/X))/4);
-			_center.set(Y);
+			_center.set(X);
 		} else {
-			_right.set(Y > 0 ? 1 : -1);
-			_left.set(Y > 0 ? 1 : -1);
+			_right.set(Y);
+			_left.set(Y);
 			_center.set(4*X/Y);
 		}
 		

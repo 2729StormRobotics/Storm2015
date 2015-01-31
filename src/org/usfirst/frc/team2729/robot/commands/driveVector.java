@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class driveVector extends Command{
 	
+	private final double p = 50;
 	private double _distance;
 	private double _xVel, _yVel;
 	private double _targetX, _targetY;
@@ -32,7 +33,8 @@ public class driveVector extends Command{
 	}
 	@Override
 	protected void execute() {
-		Robot.driveTrain.gradientDrive(_xVel, _yVel, 0);
+		double deltaTheta = Math.abs(Robot.driveTrain._gyro.getGyroAngle() - _initRotTheta);
+		Robot.driveTrain.gradientDrive(_xVel, _yVel,deltaTheta > 2 ? deltaTheta/p : 0);
 	}
 	@Override
 	protected boolean isFinished() {

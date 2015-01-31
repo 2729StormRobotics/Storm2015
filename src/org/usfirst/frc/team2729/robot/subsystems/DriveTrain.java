@@ -54,23 +54,24 @@ public class DriveTrain extends Subsystem {
 		_center.set(0);
 	}
 	
-	public void gradientDrive(double Y, double X, double rotMag){
+	public void gradientDrive(double X, double Y, double rotMag){
 
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
-		if(Math.abs(Y) <= 1/4*X*(isHighgear() ? RatioHigh : RatioLow)){
+		if(Math.abs(Y) <= 1/4*Math.abs(X)/*(isHighgear() ? RatioHigh : RatioLow)*/){
 			_right.set(Y);
 			_left.set(Y);
 			_center.set(X);
-		} else if (Math.abs(X) >= 1/4*Y*(isHighgear() ? RatioHigh : RatioLow)){
-			_right.set((Y * (Y/X))/4);
-			_left.set((Y * (Y/X))/4);
+		} else if (Math.abs(X) >= 1/4*Math.abs(Y)/*((isHighgear() ? RatioHigh : RatioLow))*/){
+			_right.set((Y * Math.abs(Y/X))/4);
+			_left.set((Y * Math.abs(Y/X))/4);
 			_center.set(X);
 		} else {
 			_right.set(Y);
 			_left.set(Y);
 			_center.set(4*X/Y);
 		}
+		
 		
 		//point turning
 		if(rotMag>0&& transMag==0){
@@ -90,9 +91,21 @@ public class DriveTrain extends Subsystem {
 	public void rawDrive(double x, double y, double turning){
 		//X and Y are on the range [-1,1]
 		//turning is on the range [-1,1] with 1 being positive
-		_left.set(y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0));
-		_right.set(y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0));
+		_left.set(y);
+		_right.set(y);
 		_center.set(x);
+		if(turning!=0){
+			_right.set(turning);
+			_left.set(-turning);
+		}
+		
+		/*
+		if(turning >0){
+			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*turning*_turningRatio);
+		}else {
+			_left.set(_left.get()-(_left.get()>0 ? 1:-1)*turning*_turningRatio);
+		}
+		*/
 	}
 	
 	public void stickyDrive(double x, double y, double turning){

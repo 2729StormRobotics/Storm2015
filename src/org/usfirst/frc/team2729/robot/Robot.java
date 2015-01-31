@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.WaitForChildren;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
@@ -46,6 +47,8 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
+		SmartDashboard.putNumber("X Drive", oi.getXDrive());
+		SmartDashboard.putNumber("Y Drive", oi.getYDrive());
 	}
     
 	public void disabledPeriodic() {
@@ -81,6 +84,7 @@ public class Robot extends IterativeRobot {
 
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        sendSensorData();
     }
     
     public void testPeriodic() {

@@ -21,10 +21,10 @@ public class RobotMap {
 	
 	//PWM Ports 
 	public static final int 
-			PORT_MOTOR_DRIVE_CENTER	  = 2,
+			PORT_MOTOR_DRIVE_CENTER	  = 3,
 			PORT_MOTOR_DRIVE_LEFT     = 0,
-			PORT_MOTOR_DRIVE_RIGHT    = 1,
-			PORT_MOTOR_ELEVATOR	      = 3,
+			PORT_MOTOR_DRIVE_RIGHT    = 2,
+			PORT_MOTOR_ELEVATOR	      = 1,
 			PORT_MOTOR_ARM            = 4;
 	
 	//Digital I/O Ports

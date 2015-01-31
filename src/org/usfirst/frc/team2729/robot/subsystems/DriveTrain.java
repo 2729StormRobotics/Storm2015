@@ -54,7 +54,7 @@ public class DriveTrain extends Subsystem {
 		_center.set(0);
 	}
 	
-	public void gradientDrive(double X, double Y, double rotMag){
+	public void gradientDrive(double Y, double X, double rotMag){
 
 		double transMag = Math.sqrt(X*X+Y*Y);
 		

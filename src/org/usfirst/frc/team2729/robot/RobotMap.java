@@ -11,13 +11,23 @@ public class RobotMap {
             PORT_JOYSTICK_ARMS  = 1,
             PORT_JOYSTICK_DEBUG = 2;
 	
+	//Axes
 	public static final int 
 			JOYDRIVE_AXIS_DRIVE_X  			   = 0,
 			JOYDRIVE_AXIS_DRIVE_Y 			   = 1,
 			JOYDRIVE_AXIS_SPIN 				   = 2,
-			JOYARM_AXIS_RAKE				   = 1,
-			JOYARM_AXIS_LINEAR				   = 1;
+			JOYARM_AXIS_ELEVATOR			   = 3,
+			JOYARM_AXIS_RAKE				   = 3,
+			JOYARM_AXIS_LINEAR				   = 3;
 	
+	//Buttons
+	public static final int 
+			JOYDRIVE_BUTTON_SHIFT_HIGH_DRIVE   = 4,
+			JOYDRIVE_BUTTON_SHIFT_LOW_DRIVE    = 6,
+			JOYARM_BUTTON_CLAMP_IN              = 4,
+			JOYARM_BUTTON_CLAMP_OUT             = 6,
+			JOYARM_BUTTON_ARM_IN       		   = 5,
+			JOYARM_BUTTON_ARM_OUT      		   = 7;
 	
 	//PWM Ports 
 	public static final int 

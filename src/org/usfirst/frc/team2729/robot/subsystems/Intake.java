@@ -60,7 +60,7 @@ public class Intake extends Subsystem{
 	/**
 	Runs the elevator motors; Power must be a value between -1.0 and 1.0
 	*/
-	public void runElevator(double power){
+	public void setElevator(double power){
 		_elevator.set(power);
     }
 	

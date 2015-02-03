@@ -58,18 +58,18 @@ public class DriveTrain extends Subsystem {
 
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
-		if(Math.abs(Y) <= 1/4*Math.abs(X)/*(isHighgear() ? RatioHigh : RatioLow)*/){
-			_right.set(Y);
-			_left.set(Y);
+		if(Math.abs(Y) <= Math.abs(X)){
+			_right.set(Y/4);
+			_left.set(Y/4);
 			_center.set(X);
-		} else if (Math.abs(X) >= 1/4*Math.abs(Y)/*((isHighgear() ? RatioHigh : RatioLow))*/){
+		} else if (Math.abs(X) >= 1/4*Math.abs(Y)){
 			_right.set((Y * Math.abs(Y/X))/4);
 			_left.set((Y * Math.abs(Y/X))/4);
-			_center.set(X);
+			_center.set(Y);
 		} else {
 			_right.set(Y);
 			_left.set(Y);
-			_center.set(4*X/Y);
+			_center.set(4*X);
 		}
 		
 		
@@ -82,9 +82,9 @@ public class DriveTrain extends Subsystem {
 			_left.set(rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 
-			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			_left.set(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}else if(rotMag<0){
-			_left.set(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			_right.set(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}
 	}
 	

@@ -9,17 +9,19 @@ public class driveVector extends Command{
 	private final double p = 50;
 	private double _distance;
 	private double _xVel, _yVel;
-	private double _targetX, _targetY;
 	private double _initRotTheta;
 	public driveVector(double x, double y, double speed){
-		//finds angle relative to top of robot such that clockwise is positive
-		
+		_distance = Math.sqrt((x*x) + (y*y));
+		_xVel = x/_distance * speed;
+		_yVel = y/_distance * speed;
+		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();
+		Robot.driveTrain.resetCenterEnc();
+		Robot.driveTrain.resetLeftEnc();
+		Robot.driveTrain.resetCenterEnc();
 	}
 	public driveVector(double theta, boolean isRadians, double distance, double speed){
 		_distance = distance;
 		double transTheta = isRadians ? (Math.PI/2) - theta : (Math.PI/2) - (theta * (2*Math.PI / 360));
-		//_targetX = distance * Math.sin(transTheta);
-		//_targetY = distance * Math.cos(transTheta);
 		_xVel = Math.cos(transTheta) * speed;
 		_yVel = Math.sin(transTheta) * speed;
 		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();

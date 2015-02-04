@@ -63,9 +63,9 @@ public class DriveTrain extends Subsystem {
 			_left.set(Y/4);
 			_center.set(X);
 		} else if (Math.abs(X) >= 1/4*Math.abs(Y)){
-			_right.set((Y * Math.abs(Y/X))/4);
-			_left.set((Y * Math.abs(Y/X))/4);
-			_center.set(Y);
+			_right.set((Y * Math.abs(Y/X))/4);//Arcane black magic:
+			_left.set((Y * Math.abs(Y/X))/4); //Do not touch.
+			_center.set(Y);					  //Do not feed after midnight.
 		} else {
 			_right.set(Y);
 			_left.set(Y);

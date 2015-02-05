@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.commands.driveVector;
+import org.usfirst.frc.team2729.robot.commands.auto.driveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
@@ -47,9 +47,15 @@ public class Robot extends IterativeRobot {
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();
 		
+		//complex commands for autoModes
+		CommandGroup oneCan = new CommandGroup();
+		oneCan.addSequential(new driveVector(0, false, 1500, 1));
+		//oneCan.addSequential(command);
+		
+		
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward"};
-		autoModes = new Command[]{new driveVector(0, false, 3000, 1)};
+		autoModes = new Command[]{new driveVector(0, false, 3000, 1), };
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard

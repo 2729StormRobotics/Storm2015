@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2729.robot.commands;
+package org.usfirst.frc.team2729.robot.commands.joystick;
 
 import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;

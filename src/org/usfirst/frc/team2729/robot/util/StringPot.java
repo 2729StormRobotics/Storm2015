@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 public class StringPot implements LiveWindowSendable {
-    public final static double VAL_MAX_SAFE   = 0,
-                               VAL_POS_1      = 0,
-                               VAL_POS_2      = 0;
+	
+	public double VAL_MAX_SAFE = 0;
     
     //Pot is good, especially when it's analog 
     private AnalogPotentiometer _pot;
     
-    public StringPot(int Num) {
+    public StringPot(int Num, double maxSafeVal) {
         _pot = new AnalogPotentiometer(Num);
         SmartDashboard.putNumber("StringPot", this.get());
+        VAL_MAX_SAFE = maxSafeVal;
     }
     
     public double get() {
@@ -24,7 +24,7 @@ public class StringPot implements LiveWindowSendable {
         return val > 0.06 ? val : 0;
     }
     
-    //Makes a Readable and Write-able table
+    //Makes a Readable and Writeable table
     private ITable _table = null;
 
     public void updateTable() {

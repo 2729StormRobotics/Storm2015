@@ -6,23 +6,25 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Elevator extends Command {
 
-	protected void initialize() {
+	public Elevator(){
 		requires(Robot.intake);
 	}
-
+	@Override
+	protected void initialize() {}
+	@Override
 	protected void execute() {
 		double elevator = Robot.oi.getElevator();
 		Robot.intake.setElevator(elevator);
 	}
-
+	@Override
 	protected boolean isFinished() {
 		return false;
 	}
-
+	@Override
 	protected void end() {
 		
 	}
-
+	@Override
 	protected void interrupted() {
 		
 	}

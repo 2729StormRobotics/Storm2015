@@ -14,7 +14,7 @@ public class LinearArm extends Command {
 
 	@Override
 	protected void execute() {
-		double Linear = Robot.oi.get_linear();
+		double Linear = Robot.oi.getRake();
 		Robot._linearArm.moveArm(Linear);
 	}
 

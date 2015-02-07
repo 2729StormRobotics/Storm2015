@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RakeArm extends Command{
 
 	public RakeArm(){
-		requires(Robot._rakeArm);
+		//requires(Robot._rakeArm);
 	}
 	
 	@Override
@@ -15,8 +15,8 @@ public class RakeArm extends Command{
 
 	@Override
 	protected void execute() {
-		double rake = Robot.oi.getRake();
-		Robot._rakeArm.moveArm(rake);	
+		/*double rake = Robot.oi.getRake();
+		Robot._rakeArm.moveArm(rake);*/	
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LiftYellowMove extends CommandGroup {
 
 	public LiftYellowMove() {
+		addSequential(new DriveVector(0, false, 20, 1));
 		addSequential(new Stack());
 		addSequential(new MoveToAuto());
 		addSequential(new LowerArmsToReleasePos());

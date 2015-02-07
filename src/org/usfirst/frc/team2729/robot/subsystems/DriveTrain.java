@@ -60,7 +60,7 @@ public class DriveTrain extends Subsystem {
 				_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*pGain));
 				_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*pGain));
 			}
-		}, 0, 10);
+		}, 10, 10);
 	}
 	
 	protected void initDefaultCommand() {

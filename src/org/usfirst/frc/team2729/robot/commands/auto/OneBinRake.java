@@ -11,7 +11,7 @@ public class OneBinRake extends CommandGroup{
 		addSequential(new Shift(true));
 		addParallel(new RakeArmRaised(false, 1));
 		addSequential(new DriveVector(0, true, 2000, 1));//TODO: find 3rd arg
-		addSequential(new BinAlignVert(0.25));
+		addSequential(new BinAlignDepth(0.25));
 		addSequential(new BinAlignHor(0.5));
 		addSequential(new RakeArmRaised(true, 1));
 		addSequential(new DriveVector(-90, false, 500, 0.75));

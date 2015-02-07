@@ -5,10 +5,10 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class BinAlignVert extends Command{
+public class BinAlignDepth extends Command{
 	public double speed;
 	
-	public BinAlignVert(double _speed){
+	public BinAlignDepth(double _speed){
 		requires(Robot.driveTrain);
 		speed = _speed;
 	}

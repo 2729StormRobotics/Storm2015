@@ -65,13 +65,13 @@ public class OI {
         return Math.abs(joyValue) > dead ? joyValue : 0;
     }
     public double getXDrive() {
-        return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_X),0.07);
+        return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_X),0.15);
     }
     public double getYDrive() {
-        return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_Y),0.07);
+        return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_Y),0.15);
     }
     public double getSpin() {
-    	return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.07);
+    	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.15);
     }
     public double getElevator(){
     	return _zeroDeadzone(-armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_ELEVATOR), 0.15);

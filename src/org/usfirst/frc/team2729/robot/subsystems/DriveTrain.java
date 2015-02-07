@@ -59,15 +59,15 @@ public class DriveTrain extends Subsystem {
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
 		if(Math.abs(Y) <= Math.abs(X)){
-			_right.set(Y/4);
+			_right.set(-Y/4);
 			_left.set(Y/4);
 			_center.set(X);
 		} else if (Math.abs(X) >= 1/4*Math.abs(Y)){
-			_right.set((Y * Math.abs(Y/X))/4);//Arcane black magic:
+			_right.set(-(Y * Math.abs(Y/X))/4);//Arcane black magic:
 			_left.set((Y * Math.abs(Y/X))/4); //Do not touch.
 			_center.set(Y);					  //Do not feed after midnight.
 		} else {
-			_right.set(Y);
+			_right.set(-Y);
 			_left.set(Y);
 			_center.set(4*X);
 		}
@@ -76,9 +76,6 @@ public class DriveTrain extends Subsystem {
 		//point turning
 		if(rotMag>0&& transMag==0){
 			_right.set(rotMag*_turningRatio);
-			_left.set(-rotMag*_turningRatio);
-		}else if(rotMag<0 && transMag==0){
-			_right.set(-rotMag*_turningRatio);
 			_left.set(rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 

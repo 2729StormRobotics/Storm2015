@@ -15,8 +15,8 @@ public class RakeArmJoy extends Command{
 
 	@Override
 	protected void execute() {
-		double rake = Robot.oi.getRake();
-		Robot.rakeArm.moveArm(rake);	
+		//double rake = Robot.oi.getRake();
+		//Robot.rakeArm.moveArm(rake);
 	}
 
 	@Override

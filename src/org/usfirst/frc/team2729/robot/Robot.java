@@ -23,9 +23,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	public static Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
+	
+	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 	public static RakeArm rakeArm;
 	public static LinearArm linearArm;
+	
 	public static Command teleop;
 	Compressor compressor;
 	
@@ -42,7 +44,7 @@ public class Robot extends IterativeRobot {
 		compressor.start();
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
-		//_linearArm = new linearArm();
+		linearArm = new LinearArm();
 		
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();
@@ -81,8 +83,9 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		SmartDashboard.putNumber("X Drive", oi.getXDrive());
+		SmartDashboard.putNumber("Elevator Drive", oi.getElevator());
 		SmartDashboard.putNumber("Y Drive", oi.getYDrive());
+		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
 	}
     
 	public void disabledPeriodic() {

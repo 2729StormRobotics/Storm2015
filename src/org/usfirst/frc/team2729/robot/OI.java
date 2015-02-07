@@ -18,10 +18,10 @@ public class OI {
 	
 	private final Button shiftHighDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_HIGH_DRIVE),
 						 shiftLowDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_LOW_DRIVE),
-						 clampIn = new JoystickButton(driveJoystick, RobotMap.JOYARM_BUTTON_CLAMP_IN),
-						 clampOut = new JoystickButton(driveJoystick, RobotMap.JOYARM_BUTTON_CLAMP_OUT), 
-						 armIn = new JoystickButton(driveJoystick, RobotMap.JOYARM_BUTTON_ARM_IN), 
-						 armOut = new JoystickButton(driveJoystick, RobotMap.JOYARM_BUTTON_ARM_OUT);
+						 clampIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_CLAMP_IN),
+						 clampOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_CLAMP_OUT), 
+						 armIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_IN), 
+						 armOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_OUT);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -79,8 +79,5 @@ public class OI {
     public double getRake(){
     	return _zeroDeadzone(-armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_RAKE), 0.15);
     }
-	public double get_linear() {
-		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_LINEAR), 0.15);
-	}
 }
 

@@ -64,5 +64,7 @@ public class RobotMap {
 			PORT_SOLENOID_CLAMP	  			= 0,
 		    PORT_SOLENOID_SHIFT_HIGH        = 1,
 		    PORT_SOLENOID_SHIFT_LOW         = 2,
-		    PORT_SOLENOID_ARM				= 3;
+		    PORT_SOLENOID_ARM				= 3,
+			PORT_HIGH_SHIFT_ELE             = 4,
+			PORT_LOW_SHIFT_ELE              = 5;  
 }

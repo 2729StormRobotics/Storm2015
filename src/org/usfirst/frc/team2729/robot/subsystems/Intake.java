@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -13,7 +14,8 @@ public class Intake extends Subsystem{
 	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_CLAMP);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
 	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
-
+	private boolean _isHighGear  = false;
+	private DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_HIGH_SHIFT_ELE, RobotMap.PORT_LOW_SHIFT_ELE);
 	
 	public Intake(){
 		LiveWindow.addActuator("Intake", "Arm", _arm);
@@ -79,4 +81,10 @@ public class Intake extends Subsystem{
     public double getElevatorSpeed(){
         return _elevator.get();
     }
+
+    public void setHighGear(boolean enabled) {
+		_isHighGear = enabled;
+		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
+					 DoubleSolenoid.Value.kForward);
+	}
 }

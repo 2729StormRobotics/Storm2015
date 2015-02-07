@@ -8,6 +8,7 @@ public class ElevatorClamp extends Command {
 	private final boolean _clamp;
 	
 	public ElevatorClamp(boolean clamp) {
+		requires(Robot.intake);
 		_clamp = clamp;
 	}
 	

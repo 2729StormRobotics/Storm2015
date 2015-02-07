@@ -5,24 +5,25 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class binAlignVert extends Command{
+public class ToteAlignHor extends Command{
 	public double speed;
 	
-	public binAlignVert(double _speed){
+	public ToteAlignHor(double _speed){
+		requires(Robot.driveTrain);
 		speed = _speed;
 	}
-	
 	@Override
 	protected void initialize() {}
+
 	@Override
 	protected void execute() {
-		Robot.driveTrain.gradientDrive(0, VisionSystem.getBinAngle() <= 0 ? speed : -speed, 0);
+		Robot.driveTrain.gradientDrive(VisionSystem.getToteAngle() <= 0 ? speed : -speed, 0, 0);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(VisionSystem.getBinFound()){
-			if(Math.abs(VisionSystem.BIN_TARGET_ANGLE - VisionSystem.getBinAngle())< 1){
+		if(VisionSystem.getToteFound()){
+			if(Math.abs(VisionSystem.TOTE_TARGET_ANGLE - VisionSystem.getToteAngle())< 1){
 				return true;
 			} else {
 				return false;
@@ -34,10 +35,12 @@ public class binAlignVert extends Command{
 
 	@Override
 	protected void end() {
-		Robot.driveTrain.halt();
+		Robot.driveTrain.halt();	
 	}
 	@Override
 	protected void interrupted() {
 		Robot.driveTrain.halt();
+		
 	}
+
 }

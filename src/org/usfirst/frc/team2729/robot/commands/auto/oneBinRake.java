@@ -17,5 +17,6 @@ public class oneBinRake extends CommandGroup{
 		addSequential(new driveVector(-90, false, 500, 0.75));
 		addSequential(new turnToAngle(-90, .9));
 		addSequential(new RakeArmRaised(false, 1));
+		addSequential(new driveVector(-90, false, 3000, 1)); //Drive into the auto zone
 	}
 }

@@ -10,7 +10,7 @@ public class twoBinRake extends CommandGroup{
 	public twoBinRake(){
 		addSequential(new Shift(true));
 		addParallel(new RakeArmRaised(false, 1));
-		addSequential(new driveVector(0, true, 2000, 1));//Roughly align with bin TODO: find 3rd arg
+		addSequential(new driveVector(0, true, 2000, 1));		//Roughly align with bin TODO: find 3rd arg
 		addSequential(new binAlignVert(0.25));
 		addSequential(new binAlignHor(0.5));
 		addSequential(new RakeArmRaised(true, 1)); 				//Engage bin
@@ -24,5 +24,6 @@ public class twoBinRake extends CommandGroup{
 		addSequential(new driveVector(-90, false, 500, 0.75));	//Move bin clear of the ramp
 		addSequential(new RakeArmRaised(false, 1));				//Release bin
 		addSequential(new driveVector(-90, false, 50, 0.75));	//Move clear of bin
+		addSequential(new driveVector(-90, false, 3000, 1)); 	//Drive into the auto zone
 	}
 }

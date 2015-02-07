@@ -1,12 +1,12 @@
-package org.usfirst.frc.team2729.robot.commands;
+package org.usfirst.frc.team2729.robot.commands.joystick;
 
 import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RakeArm extends Command{
+public class RakeArmJoy extends Command{
 
-	public RakeArm(){
-		//requires(Robot._rakeArm);
+	public RakeArmJoy(){
+		requires(Robot.rakeArm);
 	}
 	
 	@Override
@@ -15,8 +15,8 @@ public class RakeArm extends Command{
 
 	@Override
 	protected void execute() {
-		/*double rake = Robot.oi.getRake();
-		Robot._rakeArm.moveArm(rake);*/	
+		//double rake = Robot.oi.getRake();
+		//Robot.rakeArm.moveArm(rake);
 	}
 
 	@Override

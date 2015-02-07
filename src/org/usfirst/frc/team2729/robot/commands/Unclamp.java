@@ -4,32 +4,38 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorClamp extends Command {
-	private final boolean _clamp;
-	
-	public ElevatorClamp(boolean clamp) {
+public class Unclamp extends Command {
+
+	public Unclamp(){
 		requires(Robot.intake);
-		_clamp = clamp;
 	}
 	
+	@Override
 	protected void initialize() {
-		if(_clamp) Robot.intake.clamp();
-		else Robot.intake.unclamp();
+		Robot.intake.unclamp();		
 	}
 
+	@Override
 	protected void execute() {
+		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	protected boolean isFinished() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
+	@Override
 	protected void end() {
+		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
 	protected void interrupted() {
+		// TODO Auto-generated method stub
 		
 	}
 

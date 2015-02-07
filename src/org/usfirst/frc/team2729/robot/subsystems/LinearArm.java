@@ -1,42 +1,42 @@
 package org.usfirst.frc.team2729.robot.subsystems;
-import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.RakeArm;
-import org.usfirst.frc.team2729.robot.util.StringPot;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import org.usfirst.frc.team2729.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class rakeArm extends Subsystem{
+public class LinearArm extends Subsystem{
+	private final Solenoid _piston = new Solenoid(RobotMap.PORT_SOLENOID_ARM);
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
-	private final StringPot _pot = new StringPot(RobotMap.PORT_STRINGPOT);
-	public rakeArm(){
-		LiveWindow.addActuator("Arm1", "Arm", _arm);
-		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
+	
+	public LinearArm(){
+		LiveWindow.addActuator("Arm2", "Arm", _piston);
+		LiveWindow.addActuator("Arm2", "Arm", _arm);
+		LiveWindow.addSensor("Arm2", "Arm Encoder", _armEncoder);
 	}
+	
+	public Solenoid getPiston(){
+		return _piston;
+	}
+	
 	public Encoder get_ArmEncoder(){
 		return _armEncoder;
 	}
-	public boolean isPressed(){
-		return _switch.get();
-	}
-	public double readStringPot(){
-		return _pot.get();
-	}
-	public boolean isMax(){
-		return _pot.get() > StringPot.VAL_MAX_SAFE;
-	}
+	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RakeArm());
-		//take in joystick values and motor it
 		// TODO Auto-generated method stub
 	}
-	
+	public void retract(){
+		_piston.set(false);
+	}
+	public void extend(){
+		_piston.set(true);
+	}
 	public void moveArm(double power){
 		_arm.set(power);
 	}
@@ -46,7 +46,6 @@ public class rakeArm extends Subsystem{
 	public double getArmDistance() {
 		return _armEncoder.get();
 	}
-	
 	public double getArmRate() {
 		return _armEncoder.getRate();
 	}

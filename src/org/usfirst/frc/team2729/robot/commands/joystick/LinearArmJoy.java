@@ -1,11 +1,11 @@
-package org.usfirst.frc.team2729.robot.commands;
+package org.usfirst.frc.team2729.robot.commands.joystick;
 import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LinearArm extends Command {
+public class LinearArmJoy extends Command {
 	
-	public LinearArm(){
-		requires(Robot._linearArm);
+	public LinearArmJoy(){
+		requires(Robot.linearArm);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class LinearArm extends Command {
 	@Override
 	protected void execute() {
 		double Linear = Robot.oi.getRake();
-		Robot._linearArm.moveArm(Linear);
+		Robot.linearArm.moveArm(Linear);
 	}
 
 	@Override

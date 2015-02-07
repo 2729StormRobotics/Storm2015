@@ -59,12 +59,11 @@ public class RobotMap {
     		PORT_STRINGPOT						  = 1;
 	
 	//Solenoids
-	public static final int 
+	public static final int
 			PORT_SOLENOID_CLAMP	  			  = 2,
 		    PORT_SOLENOID_SHIFT_DRIVE_HIGH    = 0,
 		    PORT_SOLENOID_SHIFT_DRIVE_LOW     = 1,
 		    PORT_SOLENOID_ARM				  = 3,
 		    PORT_SOLENOID_SHIFT_ELEVATOR_HIGH = 4,
 		    PORT_SOLENOID_SHIFT_ELEVATOR_LOW  = 5;
-		    
 }

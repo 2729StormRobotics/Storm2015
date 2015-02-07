@@ -8,12 +8,13 @@ public class LinearPiston extends Command {
 	private final boolean _extend;
 	
 	public LinearPiston(boolean extend) {
+		requires(Robot.linearArm);
 		_extend = extend;
 	}
 	@Override
 	protected void initialize() {
-		if(_extend) Robot._linearArm.extend();
-		else Robot._linearArm.retract();
+		if(_extend) Robot.linearArm.extend();
+		else Robot.linearArm.retract();
 	}
 	@Override
 	protected void execute() {

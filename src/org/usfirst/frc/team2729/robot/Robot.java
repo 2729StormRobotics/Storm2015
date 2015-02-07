@@ -1,10 +1,10 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.commands.driveVector;
+import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
-import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
-import org.usfirst.frc.team2729.robot.subsystems.linearArm;
+import org.usfirst.frc.team2729.robot.subsystems.RakeArm;
+import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -23,9 +23,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
+	
 	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
-	//public static rakeArm _rakeArm;
-	public static linearArm _linearArm;
+	public static RakeArm rakeArm;
+	public static LinearArm linearArm;
+	
 	public static Command teleop;
 	Compressor compressor;
 	
@@ -42,14 +44,20 @@ public class Robot extends IterativeRobot {
 		compressor.start();
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
-		_linearArm = new linearArm();
+		linearArm = new LinearArm();
 		
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();
 		
+		//complex commands for autoModes
+		CommandGroup oneCan = new CommandGroup();
+		oneCan.addSequential(new DriveVector(0, false, 1500, 1));
+		//oneCan.addSequential(command);
+		
+		
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward"};
-		autoModes = new Command[]{new driveVector(0, false, 3000, 1)};
+		autoModes = new Command[]{new DriveVector(0, false, 3000, 1), };
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard

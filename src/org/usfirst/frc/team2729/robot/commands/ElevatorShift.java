@@ -4,16 +4,16 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Shift extends Command {
+public class ElevatorShift extends Command {
     private final boolean _high;
     
-    public Shift(boolean high) {
+    public ElevatorShift(boolean high) {
     	requires(Robot.driveTrain);
         _high = high;
     }
     
     protected void initialize() {
-        Robot.driveTrain.setHighGear(_high);
+        Robot.intake.setHighGear(_high);
     }
 
     protected void execute() {

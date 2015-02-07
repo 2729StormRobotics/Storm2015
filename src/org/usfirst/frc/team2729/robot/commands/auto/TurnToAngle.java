@@ -1,15 +1,15 @@
-package org.usfirst.frc.team2729.robot.commands;
+package org.usfirst.frc.team2729.robot.commands.auto;
 
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class turnToAngle extends Command{
+public class TurnToAngle extends Command{
 
 	private double target = 0;
 	private double speed = 0;
 	
-	public turnToAngle(double _target, double _speed){
+	public TurnToAngle(double _target, double _speed){
 		requires(Robot.driveTrain);
 	}
 	protected void initialize() {}

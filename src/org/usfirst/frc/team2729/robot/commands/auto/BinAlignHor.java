@@ -5,10 +5,10 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class binAlignVert extends Command{
+public class BinAlignHor extends Command{
 	public double speed;
 	
-	public binAlignVert(double _speed){
+	public BinAlignHor(double _speed){
 		speed = _speed;
 	}
 	
@@ -16,17 +16,13 @@ public class binAlignVert extends Command{
 	protected void initialize() {}
 	@Override
 	protected void execute() {
-		Robot.driveTrain.gradientDrive(0, VisionSystem.getBinAngle() <= 0 ? speed : -speed, 0);
+		Robot.driveTrain.gradientDrive(speed, 0, 0);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(VisionSystem.getBinFound()){
-			if(Math.abs(VisionSystem.BIN_TARGET_ANGLE - VisionSystem.getBinAngle())< 1){
-				return true;
-			} else {
-				return false;
-			}
+		if(Robot._rakeArm.isPressed()){
+			return true;
 		} else {
 			return false;
 		}

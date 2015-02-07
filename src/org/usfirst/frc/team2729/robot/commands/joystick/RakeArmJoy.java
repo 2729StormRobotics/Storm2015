@@ -3,9 +3,9 @@ package org.usfirst.frc.team2729.robot.commands.joystick;
 import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RakeArm extends Command{
+public class RakeArmJoy extends Command{
 
-	public RakeArm(){
+	public RakeArmJoy(){
 		requires(Robot._rakeArm);
 	}
 	

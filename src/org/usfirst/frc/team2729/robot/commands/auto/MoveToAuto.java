@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2729.robot.commands.auto;
 
+import org.usfirst.frc.team2729.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -8,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveToAuto extends Command {
 
     public MoveToAuto() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time

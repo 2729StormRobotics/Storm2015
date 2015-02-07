@@ -9,6 +9,7 @@ public class BinAlignVert extends Command{
 	public double speed;
 	
 	public BinAlignVert(double _speed){
+		requires(Robot.driveTrain);
 		speed = _speed;
 	}
 	

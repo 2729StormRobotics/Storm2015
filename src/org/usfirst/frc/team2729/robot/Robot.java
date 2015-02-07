@@ -23,9 +23,9 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
-	public static RakeArm _rakeArm;
-	public static LinearArm _linearArm;
+	public static Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
+	public static RakeArm rakeArm;
+	public static LinearArm linearArm;
 	public static Command teleop;
 	Compressor compressor;
 	

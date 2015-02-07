@@ -11,6 +11,7 @@ public class DriveVector extends Command{
 	private double _xVel, _yVel;
 	private double _initRotTheta;
 	public DriveVector(double x, double y, double speed){
+		requires(Robot.driveTrain);
 		_distance = Math.sqrt((x*x) + (y*y));
 		_xVel = x/_distance * speed;
 		_yVel = y/_distance * speed;
@@ -20,6 +21,7 @@ public class DriveVector extends Command{
 		Robot.driveTrain.resetCenterEnc();
 	}
 	public DriveVector(double theta, boolean isRadians, double distance, double speed){
+		requires(Robot.driveTrain);
 		_distance = distance;
 		double transTheta = isRadians ? (Math.PI/2) - theta : (Math.PI/2) - (theta * (2*Math.PI / 360));
 		_xVel = Math.cos(transTheta) * speed;
@@ -31,7 +33,7 @@ public class DriveVector extends Command{
 	}
 	@Override
 	protected void initialize() {
-		requires(Robot.driveTrain);
+		
 	}
 	@Override
 	protected void execute() {

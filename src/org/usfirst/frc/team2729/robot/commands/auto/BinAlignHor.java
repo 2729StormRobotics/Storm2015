@@ -9,6 +9,7 @@ public class BinAlignHor extends Command{
 	public double speed;
 	
 	public BinAlignHor(double _speed){
+		requires(Robot.driveTrain);
 		speed = _speed;
 	}
 	
@@ -21,7 +22,7 @@ public class BinAlignHor extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		if(Robot._rakeArm.isPressed()){
+		if(Robot.rakeArm.isPressed()){
 			return true;
 		} else {
 			return false;

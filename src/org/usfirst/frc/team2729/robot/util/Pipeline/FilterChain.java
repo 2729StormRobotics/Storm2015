@@ -8,12 +8,10 @@ public class FilterChain implements IFilter{
 		_chain = chain;
 	}
 	
-	@Override
 	public double get() {
 		return _chain[_chain.length-1].get();
 	}
 
-	@Override
 	public void addSample(double newVal, double dt) {
 		_chain[0].addSample(newVal, dt);
 		for(int i = 1; i < _chain.length; i++){

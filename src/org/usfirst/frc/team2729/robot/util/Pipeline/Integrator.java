@@ -9,12 +9,10 @@ public class Integrator implements IFilter{
 		_accum = initValue;
 	}
 	
-	@Override
 	public double get() {
 		return _accum;
 	}
 
-	@Override
 	public void addSample(double newVal, double dt) {
 		_accum += dt * ((newVal + _prevInput)/2);
 		_prevInput = newVal;

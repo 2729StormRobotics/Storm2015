@@ -1,13 +1,16 @@
-package org.usfirst.frc.team2729.robot.commands.auto;
+package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.commands.RakeArmRaised;
 import org.usfirst.frc.team2729.robot.commands.Shift;
+import org.usfirst.frc.team2729.robot.commands.auto.BinAlignDepth;
+import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHor;
+import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class TwoBinRake extends CommandGroup{
+public class TwoContainerRake extends CommandGroup{
 	//TODO: convert encoder ticks (with respect to x) to feet
-	public TwoBinRake(){
+	public TwoContainerRake(){
 		addSequential(new Shift(true));
 		addParallel(new RakeArmRaised(false, 1));
 		addSequential(new DriveVector(0, true, 2000, 1));//Roughly align with bin TODO: find 3rd arg

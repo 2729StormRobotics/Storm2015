@@ -1,4 +1,6 @@
-package org.usfirst.frc.team2729.robot.commands.auto;
+package org.usfirst.frc.team2729.robot.autoModes;
+
+import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

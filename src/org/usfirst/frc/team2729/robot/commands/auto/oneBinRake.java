@@ -5,9 +5,9 @@ import org.usfirst.frc.team2729.robot.commands.Shift;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class oneBin extends CommandGroup{
+public class oneBinRake extends CommandGroup{
 	//TODO: convert encoder ticks (with respect to x) to feet
-	public oneBin(){
+	public oneBinRake(){
 		addSequential(new Shift(true));
 		addParallel(new RakeArmRaised(false, 1));
 		addSequential(new driveVector(0, true, 2000, 1));//TODO: find 3rd arg

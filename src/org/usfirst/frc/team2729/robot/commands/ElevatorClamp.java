@@ -6,19 +6,21 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorClamp extends Command {
 	private final boolean _clamp;
-	
+
 	public ElevatorClamp(boolean clamp) {
 		requires(Robot.intake);
 		_clamp = clamp;
 	}
-	
+
 	protected void initialize() {
-		if(_clamp) Robot.intake.clamp();
-		else Robot.intake.unclamp();
+		if (_clamp)
+			Robot.intake.clamp();
+		else
+			Robot.intake.unclamp();
 	}
 
 	protected void execute() {
-		
+
 	}
 
 	protected boolean isFinished() {
@@ -26,11 +28,11 @@ public class ElevatorClamp extends Command {
 	}
 
 	protected void end() {
-		
+
 	}
 
 	protected void interrupted() {
-		
+
 	}
 
 }

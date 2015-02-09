@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class LinearPiston extends Command {
 	private final boolean _extend;
-	
+
 	public LinearPiston(boolean extend) {
 		requires(Robot.linearArm);
 		_extend = extend;
@@ -18,7 +18,7 @@ public class LinearPiston extends Command {
 	}
 	@Override
 	protected void execute() {
-		
+
 	}
 	@Override
 	protected boolean isFinished() {
@@ -26,11 +26,11 @@ public class LinearPiston extends Command {
 	}
 	@Override
 	protected void end() {
-		
+
 	}
 	@Override
 	protected void interrupted() {
-		
+
 	}
 
 }

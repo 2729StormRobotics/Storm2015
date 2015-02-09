@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveTrain extends Subsystem {
-	//Frame of robot reference.
-	//Theta is in radians
-	//Theta = 0 is at the front of the robot
-	//Theta increases clockwise
-	//Y axis is parallel to the sides of the robot.
-	//Positive Y is towards the front
-	//X axis is parallel to the front of the robot
-	//Positive X is towards the right
+	// Frame of robot reference.
+	// Theta is in radians
+	// Theta = 0 is at the front of the robot
+	// Theta increases clockwise
+	// Y axis is parallel to the sides of the robot.
+	// Positive Y is towards the front
+	// X axis is parallel to the front of the robot
+	// Positive X is towards the right
 	public final senseGyro _gyro;
-	
+
 	private final Talon _left = new Talon(RobotMap.PORT_MOTOR_DRIVE_LEFT),
 					   	_right= new Talon(RobotMap.PORT_MOTOR_DRIVE_RIGHT),
 					   	_center=new Talon(RobotMap.PORT_MOTOR_DRIVE_CENTER);
@@ -33,12 +33,11 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_DRIVE_HIGH,RobotMap.PORT_SOLENOID_SHIFT_DRIVE_LOW);
-	private boolean _isHighGear = false;
-	
-	private final double _turningRatio=0.5;
+
+	private final double _turningRatio = 0.5;
 	private final double RatioLow = 1.2;
 	private final double RatioHigh = 1.63636363;
-	
+
 	private final double HGMax = 1000;
 	private final double LGMax = 500;
 	private final double CMax = 1500;
@@ -46,6 +45,8 @@ public class DriveTrain extends Subsystem {
 	public double iGain = .005;
 	
 	private double leftPower = 0, rightPower = 0, centerPower = 0;
+
+	private boolean _isHighGear = false;
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
@@ -62,12 +63,12 @@ public class DriveTrain extends Subsystem {
 			}
 		}, 10, 10);
 	}
-	
+
 	protected void initDefaultCommand() {
 		setDefaultCommand(new HDrive());
 	}
-	
-	public void halt(){
+
+	public void halt() {
 		_left.set(0);
 		_right.set(0);
 		_center.set(0);
@@ -75,9 +76,7 @@ public class DriveTrain extends Subsystem {
 		rightPower = 0;
 		centerPower= 0;
 	}
-	
-	public void gradientDrive(double X, double Y, double rotMag){
-
+	public void gradientDrive(double X, double Y, double rotMag) {
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
 		if(Math.abs(Y) <= Math.abs(X)){
@@ -132,48 +131,62 @@ public class DriveTrain extends Subsystem {
 	public double getLeftDistance(){
 		return _leftEncoder.get();
 	}
-	public double getRightDistance(){
+
+	public double getRightDistance() {
 		return _rightEncoder.get();
 	}
-	public double getCenterDistance(){
+
+	public double getCenterDistance() {
 		return _centerEncoder.get();
 	}
+
 	public double getCenterSpeedEnc() {
 		return _centerEncoder.getRate();
 	}
+
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
 	}
-	public void resetLeftEnc(){
+
+	public void resetLeftEnc() {
 		_leftEncoder.reset();
 	}
-	public void resetRightEnc(){
+
+	public void resetRightEnc() {
 		_rightEncoder.reset();
 	}
-	public void resetCenterEnc(){
+
+	public void resetCenterEnc() {
 		_centerEncoder.reset();
 	}
+	
 	public double getRightSpeedEnc() {
 		return _rightEncoder.getRate();
 	}
-	public double getLeftSpeed(){
+
+	public double getLeftSpeed() {
 		return -_left.get();
-	}	 
-	public double getRightSpeed(){
+	}
+
+	public double getRightSpeed() {
 		return _right.get();
 	}
-	public double getCenterSpeed(){
+
+	public double getCenterSpeed() {
 		return _center.get();
 	}
+
 	public void setHighGear(boolean enabled) {
-		_isHighGear = enabled;
-		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
-					 DoubleSolenoid.Value.kForward);
+		_isHighGear  = enabled;
+		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse
+				: DoubleSolenoid.Value.kForward);
 	}
+
 	public boolean isHighgear() {
 		return _isHighGear;
 	}
-	public double getGearRatio(){
+
+	public double getGearRatio() {
 		return _isHighGear ? RatioHigh : RatioLow;
 	}
 	public double getLeftSP() {

@@ -8,13 +8,14 @@ public class RakeArmJoy extends Command{
 	public RakeArmJoy(){
 		requires(Robot.rakeArm);
 	}
-	
+
 	@Override
 	protected void initialize() {
 	}
 
 	@Override
 	protected void execute() {
+		//Commented these out because otherwise it crashes the robot to have rake and linear arm existing together
 		//double rake = Robot.oi.getRake();
 		//Robot.rakeArm.moveArm(rake);
 	}
@@ -23,12 +24,14 @@ public class RakeArmJoy extends Command{
 	protected boolean isFinished() {
 		return false;
 	}
-	
-	@Override
-	protected void end() {}
-	
-	@Override
-	protected void interrupted() {}
 
-//require dat rakearm
+	@Override
+	protected void end() {
+	}
+
+	@Override
+	protected void interrupted() {
+	}
+
+	// require dat rakearm
 }

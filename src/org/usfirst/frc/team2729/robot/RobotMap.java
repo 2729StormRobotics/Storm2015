@@ -1,4 +1,5 @@
 package org.usfirst.frc.team2729.robot;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -21,12 +22,12 @@ public class RobotMap {
 	
 	//Buttons
 	public static final int 
-			JOYDRIVE_BUTTON_SHIFT_HIGH_DRIVE   = 4,
-			JOYDRIVE_BUTTON_SHIFT_LOW_DRIVE    = 6,
-			JOYARM_BUTTON_CLAMP_IN             = 4,
-			JOYARM_BUTTON_CLAMP_OUT            = 6,
-			JOYARM_BUTTON_ARM_IN       		   = 5,
-			JOYARM_BUTTON_ARM_OUT      		   = 7;
+			JOYDRIVE_BUTTON_SHIFT_HIGH_DRIVE   = 5,
+			JOYDRIVE_BUTTON_SHIFT_LOW_DRIVE    = 7,
+			JOYARM_BUTTON_CLAMP_IN             = 5,
+			JOYARM_BUTTON_CLAMP_OUT            = 7,
+			JOYARM_BUTTON_ARM_IN       		   = 6,
+			JOYARM_BUTTON_ARM_OUT      		   = 8;
 	
 	//PWM Ports 
 	public static final int 
@@ -53,7 +54,7 @@ public class RobotMap {
 	
 	//Relay
 	public static final int PORT_RELAY_COMPRESSOR = 0;
-	
+
 	// Analog ports
     public static final int PORT_SENSOR_GYRO      = 0,
     		PORT_STRINGPOT						  = 1,

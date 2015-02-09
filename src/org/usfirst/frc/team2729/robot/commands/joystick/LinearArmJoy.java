@@ -1,4 +1,5 @@
 package org.usfirst.frc.team2729.robot.commands.joystick;
+
 import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -28,6 +29,6 @@ public class LinearArmJoy extends Command {
 	}
 
 	@Override
-	protected void interrupted() {	
-	}	
+	protected void interrupted() {
+	}
 }

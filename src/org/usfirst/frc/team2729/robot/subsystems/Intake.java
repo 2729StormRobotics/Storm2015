@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class Intake extends Subsystem{
+public class Intake extends Subsystem {
 
 	private final Solenoid _arm = new Solenoid(RobotMap.PORT_SOLENOID_CLAMP);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
@@ -49,7 +49,7 @@ public class Intake extends Subsystem{
 		
 	    _arm.set(false);
 	}
-		
+
 	public Solenoid get_arm() {
 		return _arm;
 	}
@@ -64,42 +64,42 @@ public class Intake extends Subsystem{
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		setDefaultCommand(new Elevator());
 	}
 
 	/**
-	Clamps moving arm into stationary arm
-	*/
+	 * Clamps moving arm into stationary arm
+	 */
 	public void clamp() {
-        if(!_arm.get())
-            _arm.set(true);
-    }
-	
+		if (!_arm.get())
+			_arm.set(true);
+	}
+
 	/**
-	Unclamps moving arm from stationary arm
-	*/
+	 * Unclamps moving arm from stationary arm
+	 */
 	public void unclamp() {
-        if(_arm.get())
-            _arm.set(false);
-    }
-	
+		if (_arm.get())
+			_arm.set(false);
+	}
+
 	/**
+<<<<<<< Updated upstream
 	Runs the elevator motors; Power must be a value between -1.0 and 1.0
 	*/
 	public void setElevator(double power){
 		elevatorSetSpeed = power;
     }
-	
+
 	public double getElevatorDistance() {
 		return _elevatorEncoder.get();
 	}
-	
+
 	public double getElevatorRate() {
 		return _elevatorEncoder.getRate();
 	}
-	
-	public void clearEncoders(){
+
+	public void clearEncoders() {
 		_elevatorEncoder.reset();
 	}
     

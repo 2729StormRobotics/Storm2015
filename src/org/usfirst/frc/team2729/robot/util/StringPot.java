@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2729.robot.util;
 
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,4 +47,5 @@ public class StringPot implements LiveWindowSendable {
     public String getSmartDashboardType() {
         return "Analog Input";
     }
+
 }

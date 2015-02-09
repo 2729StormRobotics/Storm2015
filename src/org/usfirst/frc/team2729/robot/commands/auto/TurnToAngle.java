@@ -12,16 +12,18 @@ public class TurnToAngle extends Command{
 	public TurnToAngle(double _target, double _speed){
 		requires(Robot.driveTrain);
 	}
-	protected void initialize() {}
+
+	protected void initialize() {
+	}
 
 	@Override
 	protected void execute() {
-		if(target > 0){
-			Robot.driveTrain.gradientDrive(0,0,speed);
+		if (target > 0) {
+			Robot.driveTrain.gradientDrive(0, 0, speed);
 		} else {
-			Robot.driveTrain.gradientDrive(0,0,-speed);
+			Robot.driveTrain.gradientDrive(0, 0, -speed);
 		}
-		
+
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class TurnToAngle extends Command{
 	}
 
 	@Override
-	protected void end(){
+	protected void end() {
 		Robot.driveTrain._gyro.clearGyro();
 		Robot.driveTrain.halt();
 	}

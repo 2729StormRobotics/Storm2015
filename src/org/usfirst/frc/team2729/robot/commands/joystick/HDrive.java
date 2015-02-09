@@ -5,22 +5,22 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.PrintCommand;
 
-public class HDrive extends Command{
+public class HDrive extends Command {
 
 	public HDrive() {
-        requires(Robot.driveTrain);
-    }
-	
+		requires(Robot.driveTrain);
+	}
+
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+	}
 
 	@Override
 	protected void execute() {
-		double xDrive = Robot.oi.getXDrive(),
-			   yDrive = Robot.oi.getYDrive(),
-			   spin   = Robot.oi.getSpin();
+		double xDrive = Robot.oi.getXDrive(), yDrive = Robot.oi.getYDrive(), spin = Robot.oi
+				.getSpin();
 		new PrintCommand("x: " + xDrive + " y: " + yDrive).start();
-		//division by 256 converts joystick range to [-1,1] range
+		// division by 256 converts joystick range to [-1,1] range
 		System.out.println("x: " + xDrive + " y: " + yDrive);
 		Robot.driveTrain.gradientDrive(xDrive, yDrive, spin);
 	}
@@ -34,13 +34,13 @@ public class HDrive extends Command{
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

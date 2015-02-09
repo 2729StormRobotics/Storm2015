@@ -18,37 +18,42 @@ public class LinearArm extends Subsystem{
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
 		LiveWindow.addSensor("Arm2", "Arm Encoder", _armEncoder);
 	}
-	
-	public Solenoid getPiston(){
+
+	public Solenoid getPiston() {
 		return _piston;
 	}
-	
-	public Encoder get_ArmEncoder(){
+
+	public Encoder get_ArmEncoder() {
 		return _armEncoder;
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 	}
-	public void retract(){
+
+	public void retract() {
 		_piston.set(false);
 	}
-	public void extend(){
+
+	public void extend() {
 		_piston.set(true);
 	}
-	public void moveArm(double power){
+
+	public void moveArm(double power) {
 		_arm.set(power);
 	}
-	public void resetEncoders(){
+
+	public void resetEncoders() {
 		_armEncoder.reset();
 	}
+
 	public double getArmDistance() {
 		return _armEncoder.get();
 	}
+
 	public double getArmRate() {
 		return _armEncoder.getRate();
 	}
-	
-}
 
+}

@@ -1,4 +1,5 @@
 package org.usfirst.frc.team2729.robot.subsystems;
+
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.joystick.RakeArmJoy;
 import org.usfirst.frc.team2729.robot.util.StringPot;
@@ -21,38 +22,42 @@ public class RakeArm extends Subsystem{
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
 	}
-	public Encoder get_ArmEncoder(){
+
+	public Encoder get_ArmEncoder() {
 		return _armEncoder;
 	}
-	public boolean isPressed(){
+
+	public boolean isPressed() {
 		return _switch.get();
 	}
-	public double readStringPot(){
+
+	public double readStringPot() {
 		return _pot.get();
 	}
 	public boolean isMax(){
 		return _pot.get() > _pot.VAL_MAX_SAFE;
 	}
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new RakeArmJoy());
 		//take in joystick values and motor it
-		// TODO Auto-generated method stub
 	}
-	
-	public void moveArm(double power){
+
+	public void moveArm(double power) {
 		_arm.set(power);
 	}
-	public void resetEncoders(){
+
+	public void resetEncoders() {
 		_armEncoder.reset();
 	}
+
 	public double getArmDistance() {
 		return _armEncoder.get();
 	}
-	
+
 	public double getArmRate() {
 		return _armEncoder.getRate();
 	}
-	
-}
 
+}

@@ -23,21 +23,21 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	
-	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 	public static RakeArm rakeArm;
 	public static LinearArm linearArm;
 	
+	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
+
 	public static Command teleop;
 	Compressor compressor;
-	
-    Command autoCommand;
-    String[] autoModeNames;
-    Command[] autoModes;
-    SendableChooser chooser = new SendableChooser();
-    Command selectedAutoMode;
-    
-    public void robotInit() {
+
+	Command autoCommand;
+	String[] autoModeNames;
+	Command[] autoModes;
+	SendableChooser chooser = new SendableChooser();
+	Command selectedAutoMode;
+
+	public void robotInit() {
 		driveTrain = new DriveTrain();
 		intake = new Intake();
 		compressor = new Compressor();
@@ -66,18 +66,29 @@ public class Robot extends IterativeRobot {
 		}
 		SmartDashboard.putData("Which Autonomouse mode?", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		
-		new Command("Sensor feedback"){
+
+		new Command("Sensor feedback") {
 			@Override
-			protected void initialize() {}
+			protected void initialize() {
+			}
+
 			@Override
-			protected void execute() {sendSensorData();}
+			protected void execute() {
+				sendSensorData();
+			}
+
 			@Override
-			protected boolean isFinished() {return false;}
+			protected boolean isFinished() {
+				return false;
+			}
+
 			@Override
-			protected void end() {}
+			protected void end() {
+			}
+
 			@Override
-			protected void interrupted() {}
+			protected void interrupted() {
+			}
 		}.start();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
@@ -87,37 +98,41 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Y Drive", oi.getYDrive());
 		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
 	}
-    
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
 	}
 
-    public void autonomousInit() {
-    	if(teleop != null) teleop.cancel();
-    	selectedAutoMode = (Command) chooser.getSelected();
-        if (selectedAutoMode != null) selectedAutoMode.start();
-    }
+	public void autonomousInit() {
+		if (teleop != null)
+			teleop.cancel();
+		selectedAutoMode = (Command) chooser.getSelected();
+		if (selectedAutoMode != null)
+			selectedAutoMode.start();
+	}
 
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-        sendSensorData();   
-    }
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+		sendSensorData();
+	}
 
-    public void teleopInit() {
-        if (selectedAutoMode != null) selectedAutoMode.cancel();
-        if (teleop != null) teleop.start();
-    }
+	public void teleopInit() {
+		if (selectedAutoMode != null)
+			selectedAutoMode.cancel();
+		if (teleop != null)
+			teleop.start();
+	}
 
-    public void disabledInit(){
-    }
+	public void disabledInit() {
+	}
 
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        sendSensorData();
-    }
-    
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+		sendSensorData();
+	}
+
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
 }

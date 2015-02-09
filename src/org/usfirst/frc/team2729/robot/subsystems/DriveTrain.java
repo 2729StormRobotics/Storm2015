@@ -43,7 +43,7 @@ public class DriveTrain extends Subsystem {
 	private final double LGMax = 500;
 	private final double CMax = 1500;
 	
-	public double pGain = .005;
+	public double iGain = .005;
 	
 	private double leftPower = 0, rightPower = 0, centerPower = 0;
 	
@@ -56,9 +56,9 @@ public class DriveTrain extends Subsystem {
 		Timer _timer = new Timer();
 		_timer.schedule(new TimerTask() {
 			public void run() {
-				_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*pGain));
-				_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*pGain));
-				_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*pGain));
+				_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
+				_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
+				_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));
 			}
 		}, 10, 10);
 	}

@@ -56,7 +56,8 @@ public class RobotMap {
 	
 	// Analog ports
     public static final int PORT_SENSOR_GYRO      = 0,
-    		PORT_STRINGPOT						  = 1;
+    		PORT_STRINGPOT						  = 1,
+    		PORT_ELEVATOR_STRINGPOT				  = 2;
 	
 	//Solenoids
 	public static final int

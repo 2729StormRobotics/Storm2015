@@ -9,9 +9,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class LinearArm extends Subsystem{
-	private final Solenoid _piston = new Solenoid(RobotMap.PORT_SOLENOID_ARM);
-	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
-	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
+	
+	private final Solenoid _piston 		= new Solenoid(RobotMap.PORT_SOLENOID_ARM);
+	private final Talon    _arm 		= new Talon(RobotMap.PORT_MOTOR_ARM);
+	private final Encoder  _armEncoder 	= new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
 	
 	public LinearArm(){
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
@@ -23,7 +24,7 @@ public class LinearArm extends Subsystem{
 		return _piston;
 	}
 
-	public Encoder get_ArmEncoder() {
+	public Encoder getArmEncoder() {
 		return _armEncoder;
 	}
 

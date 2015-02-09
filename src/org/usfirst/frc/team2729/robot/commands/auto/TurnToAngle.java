@@ -7,10 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TurnToAngle extends Command{
 
 	private double target = 0;
-	private double speed = 0;
+	private double speed  = 0;
 	
 	public TurnToAngle(double _target, double _speed){
 		requires(Robot.driveTrain);
+		target = _target;
+		speed  = _speed;
 	}
 
 	protected void initialize() {
@@ -18,7 +20,8 @@ public class TurnToAngle extends Command{
 
 	@Override
 	protected void execute() {
-		if (target > 0) {
+		//turns left or right depending on target location
+		if (target > 0) { 
 			Robot.driveTrain.gradientDrive(0, 0, speed);
 		} else {
 			Robot.driveTrain.gradientDrive(0, 0, -speed);
@@ -28,7 +31,7 @@ public class TurnToAngle extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.driveTrain._gyro.getGyroAngle() - target) < 2.0;
+		return Math.abs(Robot.driveTrain._gyro.getGyroAngle() - target) < 2.0; //finished if within 2 degrees
 	}
 
 	@Override

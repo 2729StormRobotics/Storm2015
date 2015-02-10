@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class RakeArm extends Subsystem{
-	public static double VAL_POS_DOWN = 0,//TODO: determine these values
-						 VAL_POS_UP = 0;
-	
-	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
-	private final Encoder _armEncoder =  new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
-	private final StringPot _pot = new StringPot(RobotMap.PORT_STRINGPOT, 0);//TODO: find max val
+	public static double VAL_POS_DOWN = 0,//TODO: determine 3 values: down, up, stored
+						 VAL_POS_UP = 0,
+						 VAL_POS_STORED = 0;
+	private final Talon _arm 			= new Talon(RobotMap.PORT_MOTOR_ARM);
+	private final Encoder _armEncoder 	= new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
+	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
+	private final StringPot _pot 		= new StringPot(RobotMap.PORT_STRINGPOT, 0); //TODO: find max val
 	public RakeArm(){
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
@@ -45,7 +45,7 @@ public class RakeArm extends Subsystem{
 	}
 
 	public void moveArm(double power) {
-		_arm.set(power);
+		_arm.set(power); //Sets a power to move the arm
 	}
 
 	public void resetEncoders() {

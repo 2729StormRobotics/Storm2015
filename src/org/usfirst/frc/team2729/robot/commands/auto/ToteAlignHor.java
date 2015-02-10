@@ -18,12 +18,14 @@ public class ToteAlignHor extends Command{
 	@Override
 	protected void execute() {
 		Robot.driveTrain.gradientDrive(VisionSystem.getToteAngle() <= 0 ? speed : -speed, 0, 0);
+		//Is the robot on the left or right of tote?
+		//moves left/right accordingly
 	}
 
 	@Override
 	protected boolean isFinished() {
 		if(VisionSystem.getToteFound()){
-			if(Math.abs(VisionSystem.TOTE_TARGET_ANGLE - VisionSystem.getToteAngle())< 1){
+			if(Math.abs(VisionSystem.TOTE_TARGET_ANGLE - VisionSystem.getToteAngle())< 1){ //if it's aligned, you done
 				return true;
 			} else {
 				return false;

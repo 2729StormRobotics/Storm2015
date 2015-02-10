@@ -59,5 +59,4 @@ public class RakeArm extends Subsystem{
 	public double getArmRate() {
 		return _armEncoder.getRate();
 	}
-
 }

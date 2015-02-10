@@ -52,10 +52,10 @@ public class DriveVector extends Command{
 	protected boolean isFinished() {
 		// I am well aware of how nasty this line is
 		// it's that long for efficiency
-		if (_distance >= 0.99 * Math
-				.sqrt((Robot.driveTrain.getCenterDistance() * Robot.driveTrain.getCenterDistance())
-						+ (Robot.driveTrain.getLeftDistance()/ Robot.driveTrain.getGearRatio()
-								* Robot.driveTrain.getLeftDistance() / Robot.driveTrain.getGearRatio()))) {
+		if (_distance >= 0.99
+				 * Math.sqrt((Robot.driveTrain.getCenterDistance() * Robot.driveTrain.getCenterDistance())
+				 + (Robot.driveTrain.getLeftDistance()/ Robot.driveTrain.getGearRatio()
+				 * Robot.driveTrain.getLeftDistance() / Robot.driveTrain.getGearRatio()))){
 			return false;
 		} else {
 			return true;

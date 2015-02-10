@@ -25,8 +25,8 @@ public class Intake extends Subsystem {
 	
 	private double elevatorSetSpeed = 0;
 	
-	private double stringPotSP, iGain = .005, dT = 10; 
-	private final double HGMax = 700, LGMax = 500; //TODO: Determine real values for these
+	private double stringPotSP, pGain = .005, dT = 10;  //dT is in milliseconds
+	private final double HGMax = 700, LGMax = 500; 		//TODO: Determine real values for these
 	
 	public Intake(){
 		LiveWindow.addActuator("Intake", "Arm", _arm);
@@ -39,7 +39,7 @@ public class Intake extends Subsystem {
 		_timer.schedule(new TimerTask() {
 			public void run() {
 				if(getElevatorSpeed() == 0){
-					_elevator.set(_elevator.get() + ((stringPotSP - (getElevatorSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
+					_elevator.set((stringPotSP - _pot.get())*pGain);
 				} else {
 					_elevator.set(elevatorSetSpeed);
 					stringPotSP = _pot.get();
@@ -84,8 +84,9 @@ public class Intake extends Subsystem {
 	}
 
 	/**
-<<<<<<< Updated upstream
-	Runs the elevator motors; Power must be a value between -1.0 and 1.0
+	 * Updated upstream
+	 * Runs the elevator motors; 
+	 * Power must be a value between -1.0 and 1.0
 	*/
 	public void setElevator(double power){
 		elevatorSetSpeed = power;

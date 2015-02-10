@@ -57,9 +57,32 @@ public class DriveTrain extends Subsystem {
 		Timer _timer = new Timer();
 		_timer.schedule(new TimerTask() {
 			public void run() {
-				_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
-				_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
-				_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));
+				if(getRightSP() == getLeftSP()){
+					double diff = iGain * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
+					double left = getLeftSP() + diff/2,
+							right = getRightSP() - diff/2;
+					if(right < -1) {
+						left -= (right+1);
+						right = -1;
+					} else if(right > 1) {
+						left -= (right-1);
+						right = 1;
+					}
+					if(left < -1) {
+						right -= (left+1);
+						left = -1;
+					} else if(left > 1) {
+						right -= (left-1);
+						left = 1;
+					}
+					_left.set(Math.max(-1, Math.min(1, left )));
+					_right.set(Math.max(-1, Math.min(1, right)));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));	
+				} else {
+					_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
+					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));	
+				}
 			}
 		}, 10, 10);
 	}

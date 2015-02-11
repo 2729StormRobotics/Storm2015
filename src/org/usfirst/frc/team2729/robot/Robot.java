@@ -3,6 +3,7 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
+import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.RakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static RakeArm rakeArm;
 	public static LinearArm linearArm;
+	public static LEDStrip LEDs;
 	
 	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 
@@ -42,6 +44,7 @@ public class Robot extends IterativeRobot {
 		intake = new Intake();
 		compressor = new Compressor();
 		compressor.start();
+		LEDs=new LEDStrip();
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new LinearArm();

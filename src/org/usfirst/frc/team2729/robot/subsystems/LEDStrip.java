@@ -8,27 +8,31 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class LEDStrip extends Subsystem{
-	public static final int _Disabled        =0;
-	public static final int _Teleop          =1;
-	public static final int _Autonomous      =2;
-	public static final int _MorseMode       =3;
-	public static final int _BlackMagic      =4;
-	public static final int _DoubleStack     =5;
-	public static final int _TwoSpeedStack   =6;
-	public static final int _RainbowDance    =7;
-	public static final int _RandomMode      =8;
+	public static final byte _Disabled        =0;
+	public static final byte _Teleop          =1;
+	public static final byte _Autonomous      =2;
+	public static final byte _MorseMode       =3;
+	public static final byte _BlackMagic      =4;
+	public static final byte _DoubleStack     =5;
+	public static final byte _TwoSpeedStack   =6;
+	public static final byte _RainbowDance    =7;
+	public static final byte _RandomMode      =8;
 	//The modes of us^^^^^^^^^^^^
-	public static final int _blueAlliance    =0;
-	public static final int _redAlliance     =1;
-	public static final int _invalidAlliance =2;
-	public static final int _whatAlliance    =3;
+	public static final byte _blueAlliance    =0;
+	public static final byte _redAlliance     =1;
+	public static final byte _invalidAlliance =2;
+	public static final byte _whatAlliance    =3;
 	
 	public static boolean _connection=true;
 	
 	public static final String _socketIP="socket://10.27.29.100:6969";   //because I can
 					//The IP of the Arduino, on same network as Roborio	 //and also I'm imature
-	private static int _curMode=_Disabled;
+	private static byte _curMode=_Disabled;
 	protected void initDefaultCommand() {}
+	
+	public LEDStrip(){
+		
+	}
 	
 	public void setMode(final int mode){
 		new Thread(){

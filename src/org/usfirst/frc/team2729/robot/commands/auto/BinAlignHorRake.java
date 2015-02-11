@@ -5,10 +5,10 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class BinAlignHor extends Command{
+public class BinAlignHorRake extends Command{
 	public double speed;
 	
-	public BinAlignHor(double _speed){
+	public BinAlignHorRake(double _speed){
 		requires(Robot.driveTrain);
 		speed = _speed;
 	}

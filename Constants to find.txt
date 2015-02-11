@@ -11,9 +11,15 @@ Elevator
   |PID Delta t
   |HGMax
   |LGMax
+  |String Pot directionality
+  |String Pot Max values
+  |String pot values for tote heights
 
 Linear Arm
   |StringPot Values
+  |StringPot Directionality
+  |StringPot Max
+  |Encoders?
 
 Autonomous
   |MoveToAuto Distance

@@ -3,10 +3,14 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Shift;
+import org.usfirst.frc.team2729.robot.commands.SpinIntake;
+import org.usfirst.frc.team2729.robot.commands.Strafe;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.InternalButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,12 +20,17 @@ public class OI {
 	private final Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE),
 						   armJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
 	
-	private final Button shiftHighDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_HIGH_DRIVE),
-						 shiftLowDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_LOW_DRIVE),
+	private final Button shiftHighDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH),
+						 shiftLowDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW),
 						 clampIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_CLAMP_IN),
 						 clampOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_CLAMP_OUT), 
 						 armIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_IN), 
-						 armOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_OUT);
+						 armOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_OUT),
+						 halveStrafe = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_STRAFE),
+						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
+						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
+						 spinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_IN),
+						 spinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_OUT);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -59,6 +68,45 @@ public class OI {
 		
 		armIn.whenPressed(new LinearPiston(true));
 		armOut.whenPressed(new LinearPiston(false));
+		
+		halveStrafe.whileHeld(new Command() {
+
+			@Override
+			protected void initialize() {
+				Robot.driveTrain.halveStrafe(true);
+			}
+
+			@Override
+			protected void execute() {}
+
+			@Override
+			protected boolean isFinished() {
+				return false;
+			}
+
+			@Override
+			protected void end() {
+				Robot.driveTrain.halveStrafe(false);
+			}
+
+			@Override
+			protected void interrupted() {
+				end();
+			}
+			
+		});
+		
+		strafeLeft.whileHeld(new Strafe(-1.0));
+		strafeRight.whileHeld(new Strafe(1.0));
+		
+		spinIn.whileHeld(new SpinIntake(0.5));
+		spinOut.whileHeld(new SpinIntake(-0.5));
+		
+		/*if(driveJoystick.getPOV() == 0){
+			new Shift(true);
+		}else if(driveJoystick.getPOV() == 4){
+			new Shift(false);
+		}*/
 	}
 	
     private double _zeroDeadzone(double joyValue,double dead) {
@@ -73,11 +121,21 @@ public class OI {
     public double getSpin() {
     	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.15);
     }
+    //This should be negated, but the motor is backwards, so negating here works
     public double getElevator(){
-    	return _zeroDeadzone(-armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_ELEVATOR), 0.15);
+    	return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_ELEVATOR), 0.15);
     }
     public double getRake(){
     	return _zeroDeadzone(-armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_RAKE), 0.15);
+    }
+    public double getLeftDrive(){
+    	return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_LEFT), 0.15);
+    }
+    public double getRightDrive(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_RIGHT), 0.15);
+    }
+    public boolean DPadPressedUp(){
+    	return shiftHighDrive.get();
     }
 }
 

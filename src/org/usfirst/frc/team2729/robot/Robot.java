@@ -23,7 +23,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 	//public static rakeArm _rakeArm;
 	public static linearArm _linearArm;
 	public static Command teleop;
@@ -75,9 +74,11 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		SmartDashboard.putNumber("Elevator Drive", oi.getElevator());
-		SmartDashboard.putNumber("Y Drive", oi.getYDrive());
+		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
+		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
+		SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
+		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
 	}
     
 	public void disabledPeriodic() {

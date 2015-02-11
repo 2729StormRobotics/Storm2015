@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.HDrive;
+import org.usfirst.frc.team2729.robot.commands.KnaussDrive;
 import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -26,6 +27,7 @@ public class DriveTrain extends Subsystem {
 					   	_center=new Talon(RobotMap.PORT_MOTOR_DRIVE_CENTER);
 	
 	private final Encoder _leftEncoder = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
+	//forwards is negative atm, so it's negated in calls
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
@@ -36,6 +38,8 @@ public class DriveTrain extends Subsystem {
 	private final double RatioLow = 1.2;
 	private final double RatioHigh = 1.63636363;
 	
+	private boolean _half = false;
+	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
@@ -45,13 +49,21 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	protected void initDefaultCommand() {
-		setDefaultCommand(new HDrive());
+		setDefaultCommand(new KnaussDrive());
+	}
+	
+	public void halveStrafe(boolean half){
+		_half = half;
 	}
 	
 	public void halt(){
 		_left.set(0);
 		_right.set(0);
 		_center.set(0);
+	}
+	
+	public void strafeLeft(double _power){
+		_center.set(_power * (_half ? 0.5 : 1));
 	}
 	
 	public void gradientDrive(double X, double Y, double rotMag){
@@ -85,6 +97,11 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 	
+	public void knaussDrive(double left, double right){
+		_left.set(left);
+		_right.set(right);
+	}
+	
 	public void rawDrive(double x, double y, double turning){
 		//X and Y are on the range [-1,1]
 		//turning is on the range [-1,1] with 1 being positive
@@ -116,8 +133,9 @@ public class DriveTrain extends Subsystem {
 	public double getLeftDistance(){
 		return _leftEncoder.get();
 	}
+	//negated due to encoder being backwards
 	public double getRightDistance(){
-		return _rightEncoder.get();
+		return -_rightEncoder.get();
 	}
 	public double getCenterDistance(){
 		return _centerEncoder.get();
@@ -137,7 +155,7 @@ public class DriveTrain extends Subsystem {
 	public void resetCenterEnc(){
 		_centerEncoder.reset();
 	}
-	/** Reads the right encoder (+ = forward,- = back). */
+	/** Reads the right encoder (+ = forward,- = back), might need to be negated */
 	public double getRightSpeedEnc() {
 		return _rightEncoder.getRate();
 	}

@@ -4,7 +4,7 @@ import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.RakeArmRaised;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.auto.BinAlignDepth;
-import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHor;
+import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 import org.usfirst.frc.team2729.robot.commands.auto.TurnToAngle;
 
@@ -17,7 +17,7 @@ public class OneContainerLinear extends CommandGroup{
 		addParallel(new LinearPiston(false));
 		addSequential(new DriveVector(0, true, 2000, 1));//TODO: find 3rd arg
 		addSequential(new BinAlignDepth(0.25));
-		addSequential(new BinAlignHor(0.5));
+		addSequential(new BinAlignHorLinear(0.5));
 		addSequential(new LinearPiston(true));
 		addSequential(new DriveVector(-90, false, 500, 0.75));
 		addSequential(new TurnToAngle(-90, .9));

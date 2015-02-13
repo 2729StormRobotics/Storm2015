@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
@@ -13,7 +14,8 @@ public class LinearArm extends Subsystem{
 	private final Solenoid _piston 		= new Solenoid(RobotMap.PORT_SOLENOID_ARM);
 	private final Talon    _arm 		= new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final Encoder  _armEncoder 	= new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	
+	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
+
 	public LinearArm(){
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
@@ -48,7 +50,9 @@ public class LinearArm extends Subsystem{
 	public void resetEncoders() {
 		_armEncoder.reset();
 	}
-
+	public boolean isPressed() {
+		return _switch.get();
+	}
 	public double getArmDistance() {
 		return _armEncoder.get();
 	}

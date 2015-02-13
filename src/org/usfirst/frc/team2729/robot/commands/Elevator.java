@@ -14,7 +14,7 @@ public class Elevator extends Command {
 	@Override
 	protected void execute() {
 		double elevator = Robot.oi.getElevator();
-		Robot.intake.setElevator(elevator);
+		Robot.intake.setElevatorPower(elevator);
 	}
 	@Override
 	protected boolean isFinished() {

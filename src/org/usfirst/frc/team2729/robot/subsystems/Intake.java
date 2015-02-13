@@ -43,14 +43,28 @@ public class Intake extends Subsystem{
 		_timer.schedule(new TimerTask() {
 			public void run() {
 				if (getElevatorSpeed() == 0) {
-					_elevator.set((stringPotSP - _stringPot.get()) * pGain);
+					setElevatorPower((stringPotSP - _stringPot.get()) * pGain);
 				} else {
-					_elevator.set(elevatorSetSpeed);
+					setElevatorPower(elevatorSetSpeed);
 					stringPotSP = _stringPot.get();
 				}
 			}
 		}, (long) dT, (long) dT);
-		_arm.set(DoubleSolenoid.Value.kForward);
+        
+	    _arm.set(DoubleSolenoid.Value.kForward);
+	    _extended = true;
+	}
+	
+	public void spin(double power){
+		_spin.set(power);
+	}
+	
+	public double getElevHeight(){
+		return _stringPot.get();
+	}
+	
+	public boolean isBottom(){
+		return !_switch.get();
 	}
 
 
@@ -101,6 +115,13 @@ public class Intake extends Subsystem{
 		elevatorSetSpeed = power;
 	}
 
+	public void setElevatorPower(double power){
+		if((Math.abs(power) == power && !_switch.get())){
+			_elevator.set(0);
+		}else{
+			_elevator.set(-power);
+		}
+    }
 	public double getElevatorDistance() {
 		return _elevatorEncoder.get();
 	}

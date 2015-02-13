@@ -46,6 +46,7 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
+		//Encoder: 0.09237 in/tick
 		LiveWindow.addSensor ("Drive Train", "Left Front Encoder", _leftEncoder);
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);

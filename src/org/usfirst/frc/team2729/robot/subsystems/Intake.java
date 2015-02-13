@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Intake extends Subsystem{
 
 	private final DoubleSolenoid _arm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_CLAMP_IN, RobotMap.PORT_SOLENOID_CLAMP_OUT);
-	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR),
-						_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
+	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
+						//_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
 	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
 	private boolean _extended;
 	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT);
@@ -31,32 +31,41 @@ public class Intake extends Subsystem{
 	
 	private double[] setPoints = {0, .166, .384, .605, .824};
 	
-	private double stringPotSP = 0, pGain = 0.005, dT = 10;
+	private double pGain = 0.005, dT = 10;
+	private int  stringPotPoint = 0, newStringPoint = stringPotPoint;
+	
 	
 	public Intake() {
 		LiveWindow.addActuator("Intake", "Arm", _arm);
 		LiveWindow.addActuator("Intake", "Elevator", _elevator);
 		LiveWindow.addSensor("Intake", "Elevator Encoder", _elevatorEncoder);
-		stringPotSP = _stringPot.get(); // sets initial setpoint to the initial height
-									// of the elevator
+		
 		Timer _timer = new Timer();
-		_timer.schedule(new TimerTask() {
+		/*_timer.schedule(new TimerTask() {
 			public void run() {
 				if (getElevatorSpeed() == 0) {
-					setElevatorPower((stringPotSP - _stringPot.get()) * pGain);
+					setElevatorPower((stringPotPoint - _stringPot.get()) * pGain);
 				} else {
 					setElevatorPower(elevatorSetSpeed);
-					stringPotSP = _stringPot.get();
+					//ToDo: Set old point to new point
 				}
 			}
-		}, (long) dT, (long) dT);
+		}, (long) dT, (long) dT);*/
         
 	    _arm.set(DoubleSolenoid.Value.kForward);
 	    _extended = true;
 	}
 	
-	public void spin(double power){
+	/*public void spin(double power){
 		_spin.set(power);
+	}*/
+	
+	public void increment(int increment){
+		newStringPoint += increment;
+	}
+	
+	public double getPoint(){
+		return setPoints[newStringPoint];
 	}
 	
 	public double getElevHeight(){
@@ -73,14 +82,8 @@ public class Intake extends Subsystem{
 	}
 
 	public double getStringPotSP() {
-		return stringPotSP;
+		return stringPotPoint;
 	}
-
-
-	public void setStringPotSP(double stringPotSP) {
-		this.stringPotSP = stringPotSP;
-	}
-
 
 	public Encoder get_elevatorEncoder() {
 		return _elevatorEncoder;
@@ -136,5 +139,17 @@ public class Intake extends Subsystem{
 
 	public double getElevatorSpeed() {
 		return elevatorSetSpeed;
+	}
+	
+	public void updateIndex(){
+		double diff = Math.abs(setPoints[0] - _stringPot.get());
+		int index = 0;
+		for(int i = 1; i < setPoints.length; i++){
+			if(diff > Math.abs(setPoints[i] - _stringPot.get())){
+				diff = Math.abs(setPoints[i] - _stringPot.get());
+				index = i;
+			}
+		}
+		newStringPoint = index;
 	}
 }

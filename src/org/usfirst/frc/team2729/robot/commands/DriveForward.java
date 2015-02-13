@@ -44,7 +44,7 @@ public class DriveForward extends Command {
 			left = 1;
 		}
 		Robot.driveTrain.kDrive(Math.max(-1, Math.min(1, left )),
-		-Math.max(-1, Math.min(1, right)));
+								-Math.max(-1, Math.min(1, right)));
 	}
 	protected boolean isFinished() {
 		double left = Robot.driveTrain.getLeftDistance(),

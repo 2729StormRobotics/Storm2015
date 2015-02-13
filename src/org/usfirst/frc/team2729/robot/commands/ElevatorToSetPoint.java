@@ -9,7 +9,7 @@ public class ElevatorToSetPoint extends Command {
 	boolean waitUntilButton;
 	
 	public ElevatorToSetPoint(double setPoint){
-		Robot.intake.setStringPotSP(setPoint);
+		//Robot.intake.setStringPotSP(setPoint);
 	}
 	
 	@Override

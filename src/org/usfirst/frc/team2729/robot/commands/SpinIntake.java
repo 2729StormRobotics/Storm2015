@@ -17,7 +17,7 @@ public class SpinIntake extends Command{
 
 	@Override
 	protected void execute() {
-		Robot.intake.spin(_power);
+		//Robot.intake.spin(_power);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class SpinIntake extends Command{
 
 	@Override
 	protected void end() {
-		Robot.intake.spin(0);
+		//Robot.intake.spin(0);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
@@ -71,11 +72,10 @@ public class OI {
 		
 		//armIn.whenPressed(new LinearPiston(true));
 		//armOut.whenPressed(new LinearPiston(false));
-		armIn.whenPressed(new ElevatorToSetPoint(.166));
-		armOut.whenPressed(new ElevatorToSetPoint(.384));
-		test1.whenPressed(new ElevatorToSetPoint(.605));
-		test2.whenPressed(new ElevatorToSetPoint(.824));
-		
+		/*armIn.whenPressed(new ElevatorToSetPoint(.166));
+		armOut.whenPressed(new ElevatorToSetPoint(.384));*/
+		test1.whenPressed(new ChangeElevPosition(-1));
+		test2.whenPressed(new ChangeElevPosition(1));
 		
 		halveStrafe.whileHeld(new Command() {
 

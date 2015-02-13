@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.Elevator;
 import org.usfirst.frc.team2729.robot.util.StringPot;
@@ -21,86 +24,96 @@ public class Intake extends Subsystem{
 	private boolean _extended;
 	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT);
 	
+	private double elevatorSetSpeed = 0;
+	
 	//false is bottom
 	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_ELEVATOR);
-
 	
-	public Intake(){
+	private double[] setPoints = {0, .166, .384, .605, .824};
+	
+	private double stringPotSP = 0, pGain = 0.005, dT = 10;
+	
+	public Intake() {
 		LiveWindow.addActuator("Intake", "Arm", _arm);
 		LiveWindow.addActuator("Intake", "Elevator", _elevator);
 		LiveWindow.addSensor("Intake", "Elevator Encoder", _elevatorEncoder);
-        
-	    _arm.set(DoubleSolenoid.Value.kForward);
-	    _extended = true;
+		stringPotSP = _stringPot.get(); // sets initial setpoint to the initial height
+									// of the elevator
+		Timer _timer = new Timer();
+		_timer.schedule(new TimerTask() {
+			public void run() {
+				if (getElevatorSpeed() == 0) {
+					_elevator.set((stringPotSP - _stringPot.get()) * pGain);
+				} else {
+					_elevator.set(elevatorSetSpeed);
+					stringPotSP = _stringPot.get();
+				}
+			}
+		}, (long) dT, (long) dT);
+		_arm.set(DoubleSolenoid.Value.kForward);
 	}
-	
-	public void spin(double power){
-		_spin.set(power);
-	}
-	
-	public double getElevHeight(){
-		return _stringPot.get();
-	}
-	
-	public boolean isBottom(){
-		return _switch.get();
-	}
-	
+
+
 	public Talon get_elevator() {
 		return _elevator;
 	}
 
-	public boolean isExtended() {
-		return _extended;
+	public double getStringPotSP() {
+		return stringPotSP;
 	}
-	
-	public Encoder getElevatorEncoder() {
+
+
+	public void setStringPotSP(double stringPotSP) {
+		this.stringPotSP = stringPotSP;
+	}
+
+
+	public Encoder get_elevatorEncoder() {
 		return _elevatorEncoder;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		setDefaultCommand(new Elevator());
 	}
 
 	/**
-	Clamps moving arm into stationary arm
-	*/
+	 * Clamps moving arm into stationary arm
+	 */
 	public void clamp() {
 		_arm.set(DoubleSolenoid.Value.kReverse);
 		_extended = false;
 	}
-	
+
 	/**
-	Unclamps moving arm from stationary arm
-	*/
+	 * Unclamps moving arm from stationary arm
+	 */
 	public void unclamp() {
 		_arm.set(DoubleSolenoid.Value.kForward);
 		_extended = true;
-    }
-	
+	}
+
 	/**
-	Runs the elevator motors; Power must be a value between -1.0 and 1.0
-	*/
-	public void setElevator(double power){
-		_elevator.set(-power);
-    }
-	
+	 * Updated upstream Runs the elevator motors; Power must be a value between
+	 * -1.0 and 1.0
+	 */
+	public void setElevator(double power) {
+		elevatorSetSpeed = power;
+	}
+
 	public double getElevatorDistance() {
 		return _elevatorEncoder.get();
 	}
-	
+
 	public double getElevatorRate() {
 		return _elevatorEncoder.getRate();
 	}
-	
-	public void clearEncoders(){
+
+	public void clearEncoders() {
 		_elevatorEncoder.reset();
 	}
-    
-    public double getElevatorSpeed(){
-        return _elevator.get();
-    }
-    
+
+	public double getElevatorSpeed() {
+		return elevatorSetSpeed;
+	}
 }

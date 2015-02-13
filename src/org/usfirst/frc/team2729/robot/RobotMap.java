@@ -34,7 +34,9 @@ public class RobotMap {
 			JOYARM_BUTTON_ARM_IN       		   = 6,
 			JOYARM_BUTTON_ARM_OUT      		   = 8,
 			JOYARM_BUTTON_SPIN_IN			   = 4,
-			JOYARM_BUTTON_SPIN_OUT			   = 2;
+			JOYARM_BUTTON_SPIN_OUT			   = 2,
+			JOYARM_BUTTON_TEST_1			   = 1,
+			JOYARM_BUTTON_TEST_2			   = 3;
 	
 	//PWM Ports 
 	public static final int 

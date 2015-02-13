@@ -77,8 +77,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
-		SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
-		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
+		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
+		//SmartDashboard.putNumber("String Pot", intake.getElevHeight());
 	}
     
 	public void disabledPeriodic() {

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
+import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.SpinIntake;
@@ -30,7 +31,9 @@ public class OI {
 						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
 						 spinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_IN),
-						 spinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_OUT);
+						 spinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_OUT),
+						 test1 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_1),
+						 test2 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_2);
 	
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -66,8 +69,13 @@ public class OI {
 		clampIn.whenPressed(new ElevatorClamp(true));
 		clampOut.whenPressed(new ElevatorClamp(false));
 		
-		armIn.whenPressed(new LinearPiston(true));
-		armOut.whenPressed(new LinearPiston(false));
+		//armIn.whenPressed(new LinearPiston(true));
+		//armOut.whenPressed(new LinearPiston(false));
+		armIn.whenPressed(new ElevatorToSetPoint(.166));
+		armOut.whenPressed(new ElevatorToSetPoint(.384));
+		test1.whenPressed(new ElevatorToSetPoint(.605));
+		test2.whenPressed(new ElevatorToSetPoint(.824));
+		
 		
 		halveStrafe.whileHeld(new Command() {
 

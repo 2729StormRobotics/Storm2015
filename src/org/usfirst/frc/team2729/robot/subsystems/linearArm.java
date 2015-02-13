@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
+import org.usfirst.frc.team2729.robot.commands.LinearArm;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -32,7 +33,7 @@ public class linearArm extends Subsystem{
 	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new LinearArm());
 	}
 	public void lower(){
 		_piston.set(DoubleSolenoid.Value.kReverse);

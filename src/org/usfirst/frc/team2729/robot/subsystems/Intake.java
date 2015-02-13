@@ -43,7 +43,7 @@ public class Intake extends Subsystem{
 	}
 	
 	public boolean isBottom(){
-		return _switch.get();
+		return !_switch.get();
 	}
 	
 	public Talon get_elevator() {
@@ -84,7 +84,11 @@ public class Intake extends Subsystem{
 	Runs the elevator motors; Power must be a value between -1.0 and 1.0
 	*/
 	public void setElevator(double power){
-		_elevator.set(-power);
+		if((Math.abs(power) == power && !_switch.get())){
+			_elevator.set(0);
+		}else{
+			_elevator.set(-power);
+		}
     }
 	
 	public double getElevatorDistance() {

@@ -32,7 +32,7 @@ public class Intake extends Subsystem{
 	private double[] setPoints = {0, .166, .384, .605, .824};
 	
 	private double pGain = 0.005, dT = 10;
-	private int  stringPotPoint = 0, newStringPoint = stringPotPoint;
+	private int  stringPotPoint = 0, newStringPoint = stringPotPoint, _nextUp = 0, _nextDown = 0;
 	
 	
 	public Intake() {
@@ -61,7 +61,11 @@ public class Intake extends Subsystem{
 	}*/
 	
 	public void increment(int increment){
-		newStringPoint += increment;
+		if(Math.abs(increment) == increment){
+			newStringPoint = _nextUp;
+		}else{
+			newStringPoint = _nextDown;
+		}
 	}
 	
 	public double getPoint(){
@@ -139,6 +143,27 @@ public class Intake extends Subsystem{
 
 	public double getElevatorSpeed() {
 		return elevatorSetSpeed;
+	}
+	
+	public void defIndexes(){
+		double diff = setPoints[0] - _stringPot.get();
+		int index = 0;
+		for(int i = 1; i < setPoints.length; i++){
+			if(diff > setPoints[i] - _stringPot.get() && setPoints[i] >= _stringPot.get()){
+				diff = setPoints[i] - _stringPot.get();
+				index = i;
+			}
+		}
+		_nextDown = index;
+		diff = setPoints[0] - _stringPot.get();
+		index = 0;
+		for(int i = 1; i < setPoints.length; i++){
+			if(diff < setPoints[i] - _stringPot.get() && setPoints[i] <= _stringPot.get()){
+				diff = setPoints[i] - _stringPot.get();
+				index = i;
+			}
+		}
+		_nextUp = index;
 	}
 	
 	public void updateIndex(){

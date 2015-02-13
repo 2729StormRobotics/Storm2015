@@ -15,7 +15,7 @@ public class ChangeElevPosition extends Command{
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		Robot.intake.updateIndex();
+		Robot.intake.defIndexes();
 		Robot.intake.increment(_change);
 	}
 

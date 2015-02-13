@@ -4,9 +4,9 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class KnaussDrive extends Command{
+public class KDrive extends Command{
 
-	public KnaussDrive(){
+	public KDrive(){
 		requires(Robot.driveTrain);
 	}
 	
@@ -20,7 +20,7 @@ public class KnaussDrive extends Command{
 	protected void execute() {
 		double left = Robot.oi.getLeftDrive(),
 			   right = Robot.oi.getRightDrive();
-		Robot.driveTrain.knaussDrive(left, right);
+		Robot.driveTrain.kDrive(left, right);
 		
 	}
 

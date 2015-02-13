@@ -1,8 +1,12 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.HDrive;
-import org.usfirst.frc.team2729.robot.commands.KnaussDrive;
+import org.usfirst.frc.team2729.robot.commands.KDrive;
 import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -46,10 +50,11 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
+		
 	}
 	
 	protected void initDefaultCommand() {
-		setDefaultCommand(new KnaussDrive());
+		setDefaultCommand(new KDrive());
 	}
 	
 	public void halveStrafe(boolean half){
@@ -97,7 +102,7 @@ public class DriveTrain extends Subsystem {
 		}
 	}
 	
-	public void knaussDrive(double left, double right){
+	public void kDrive(double left, double right){
 		_left.set(left);
 		_right.set(right);
 	}

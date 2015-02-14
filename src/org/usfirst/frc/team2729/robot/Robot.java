@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.autoModes.TwoContainerLinear;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
@@ -58,8 +59,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward"};
-		autoModes = new Command[]{new DriveForward(.45, 1000)};
+		autoModeNames = new String[]{"Drive Forward", "2 Container"};
+		autoModes = new Command[]{new DriveForward(.45, 1000), new TwoContainerLinear()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard
@@ -101,7 +102,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
 		SmartDashboard.putNumber("Hall Effect count", linearArm.getCount());
 		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
-		//SmartDashboard.putNumber("String Pot", intake.getElevHeight());
+		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
+		SmartDashboard.putNumber("String Pot Point", intake.getPoint());
 	}
 
 	public void disabledPeriodic() {

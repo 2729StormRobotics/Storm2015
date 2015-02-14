@@ -50,7 +50,7 @@ public class DriveTrain extends Subsystem {
 
 	private boolean _isHighGear = false;
 	
-	private boolean _half = false;
+	private boolean _halfOne = false, _halfTwo = false;
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
@@ -96,8 +96,12 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new KDrive());
 	}
 	
-	public void halveStrafe(boolean half){
-		_half = half;
+	public void halveOne(boolean half){
+		_halfOne = half;
+	}
+	
+	public void halveTwo(boolean half){
+		_halfTwo = half;
 	}
 
 	public void halt() {
@@ -110,7 +114,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void strafeLeft(double _power){
-		setCenterSP(_power * (_half ? 0.5 : 1));
+		setCenterSP(_power * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
 	}
 	
 	public void stop(){
@@ -151,8 +155,8 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void kDrive(double left, double right){
-		setLeftSP(left);
-		setRightSP(right);
+		setLeftSP(left * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
+		setRightSP(right * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
 	}
 	
 	public void rawDrive(double x, double y, double turning){

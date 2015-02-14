@@ -1,0 +1,3 @@
+.9 string pot max
+
+linear arm 25 ticks to max

@@ -57,7 +57,7 @@ public class DriveTrain extends Subsystem {
 		Timer _timer = new Timer();
 		_timer.schedule(new TimerTask() {
 			public void run() {
-				if(getRightSP() == getLeftSP()){
+				if(getRightSP() == getLeftSP() && Math.abs(getRightSP()) > .9 &&  Math.abs(getLeftSP()) > .9){
 					double diff = iGain * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
 					double left = getLeftSP() + diff/2,
 							right = getRightSP() - diff/2;

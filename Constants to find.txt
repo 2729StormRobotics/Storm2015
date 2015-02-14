@@ -9,11 +9,7 @@ DriveTrain
 Elevator
   |pGain
   |PID Delta t
-  |HGMax
-  |LGMax
-  |String Pot directionality
-  |String Pot Max values
-  |String pot values for tote heights
+  |GMax
 
 Linear Arm
   |StringPot Values

@@ -28,7 +28,8 @@ public class OI {
 						 clampOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_CLAMP_OUT), 
 						 armIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_IN), 
 						 armOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ARM_OUT),
-						 halveStrafe = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_STRAFE),
+						 halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
+						 halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
 						 spinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_IN),
@@ -70,18 +71,18 @@ public class OI {
 		clampIn.whenPressed(new ElevatorClamp(true));
 		clampOut.whenPressed(new ElevatorClamp(false));
 		
-		//armIn.whenPressed(new LinearPiston(true));
-		//armOut.whenPressed(new LinearPiston(false));
+		armIn.whenPressed(new LinearPiston(true));
+		armOut.whenPressed(new LinearPiston(false));
 		/*armIn.whenPressed(new ElevatorToSetPoint(.166));
 		armOut.whenPressed(new ElevatorToSetPoint(.384));*/
 		test1.whenPressed(new ChangeElevPosition(-1));
 		test2.whenPressed(new ChangeElevPosition(1));
 		
-		halveStrafe.whileHeld(new Command() {
+		halveOne.whileHeld(new Command() {
 
 			@Override
 			protected void initialize() {
-				Robot.driveTrain.halveStrafe(true);
+				Robot.driveTrain.halveOne(true);
 			}
 
 			@Override
@@ -94,7 +95,34 @@ public class OI {
 
 			@Override
 			protected void end() {
-				Robot.driveTrain.halveStrafe(false);
+				Robot.driveTrain.halveOne(false);
+			}
+
+			@Override
+			protected void interrupted() {
+				end();
+			}
+			
+		});
+		
+		halveTwo.whileHeld(new Command() {
+
+			@Override
+			protected void initialize() {
+				Robot.driveTrain.halveTwo(true);
+			}
+
+			@Override
+			protected void execute() {}
+
+			@Override
+			protected boolean isFinished() {
+				return false;
+			}
+
+			@Override
+			protected void end() {
+				Robot.driveTrain.halveTwo(false);
 			}
 
 			@Override

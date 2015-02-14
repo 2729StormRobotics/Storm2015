@@ -42,7 +42,7 @@ public class DriveTrain extends Subsystem {
 	private final double RatioLow = 1.2;
 	private final double RatioHigh = 1.63636363;
 	
-	private boolean _half = false;
+	private boolean _halfOne = false, _halfTwo = false;
 	
 	public DriveTrain(){
 		//Encoders are started when they are initialized
@@ -58,8 +58,12 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new KDrive());
 	}
 	
-	public void halveStrafe(boolean half){
-		_half = half;
+	public void halveOne(boolean half){
+		_halfOne = half;
+	}
+	
+	public void halveTwo(boolean half){
+		_halfTwo = half;
 	}
 	
 	public void halt(){
@@ -69,7 +73,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void strafeLeft(double _power){
-		_center.set(_power * (_half ? 0.5 : 1));
+		_center.set(_power * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
 	}
 	
 	public void gradientDrive(double X, double Y, double rotMag){
@@ -104,8 +108,8 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void kDrive(double left, double right){
-		_left.set(left);
-		_right.set(right);
+		_left.set(left * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
+		_right.set(right * (_halfOne ? 0.5 : 1) * (_halfTwo ? 0.5 : 1));
 	}
 	
 	public void rawDrive(double x, double y, double turning){

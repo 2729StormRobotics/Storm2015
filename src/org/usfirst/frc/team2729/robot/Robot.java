@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerLinear;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
+import org.usfirst.frc.team2729.robot.commands.UpdateIndexes;
 import org.usfirst.frc.team2729.robot.commands.driveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
@@ -78,10 +79,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
-		SmartDashboard.putNumber("Hall Effect count", linearArm.getCount());
+		SmartDashboard.putNumber("Hall Effect count", linearArm.getRawHallCount());
 		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
 		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
 		SmartDashboard.putNumber("String Pot Point", intake.getPoint());
+		SmartDashboard.putData("Update indexes", new UpdateIndexes());
 	}
     
 	public void disabledPeriodic() {

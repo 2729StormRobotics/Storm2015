@@ -28,7 +28,7 @@ public class Intake extends Subsystem{
 	//false is bottom
 	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_ELEVATOR);
 	
-	private double[] setPoints = {0, .166, .384, .605, .824};
+	private double[] setPoints = {0, .166, .384, .605, .824, 0.90};
 	
 	private double pGain = 0.005, dT = 10;
 	private int  stringPotPoint = 0, newStringPoint = stringPotPoint, _nextUp = 0, _nextDown = 0;
@@ -59,7 +59,7 @@ public class Intake extends Subsystem{
 	}*/
 	
 	public void increment(int increment){
-		if(Math.abs(increment) == increment){
+		if(increment >= 0){
 			newStringPoint = _nextUp;
 		}else{
 			newStringPoint = _nextDown;
@@ -117,9 +117,10 @@ public class Intake extends Subsystem{
 	}
 
 	public void setElevatorPower(double power){
-		if((Math.abs(power) == power && !_switch.get() && _stringPot.get() == 0)){
+		if((Math.abs(power) == power && !_switch.get() && _stringPot.get() == 0) || 
+				(_stringPot.get() > 0.900 && Math.abs(power) != power)){
 			_elevator.set(0);
-		}else if(_stringPot.get() <= 0.958){
+		}else{
 			_elevator.set(-power);
 		}
     }
@@ -129,24 +130,20 @@ public class Intake extends Subsystem{
 	}
 	
 	public void defIndexes(){
-		double diff = setPoints[0] - _stringPot.get();
-		int index = 0;
-		for(int i = 1; i < setPoints.length; i++){
-			if(diff > setPoints[i] - _stringPot.get() && setPoints[i] >= _stringPot.get()){
-				diff = setPoints[i] - _stringPot.get();
-				index = i;
+		int index;
+		for(index = 0;index<setPoints.length;index++){
+			if(setPoints[index] > _stringPot.get()){
+				_nextUp = index;
+				_nextDown = Math.max(index - 1, 0);
+				break;
+			}else if(setPoints[index] == _stringPot.get()){
+				_nextUp = Math.min(index + 1, setPoints.length -1);
+				_nextDown = Math.max(index - 1, 0);
+				break;
 			}
 		}
-		_nextDown = index;
-		diff = setPoints[0] - _stringPot.get();
-		index = 0;
-		for(int i = 1; i < setPoints.length; i++){
-			if(diff < setPoints[i] - _stringPot.get() && setPoints[i] <= _stringPot.get()){
-				diff = setPoints[i] - _stringPot.get();
-				index = i;
-			}
-		}
-		_nextUp = index;
+
+		
 	}
 	
 	public void updateIndex(){

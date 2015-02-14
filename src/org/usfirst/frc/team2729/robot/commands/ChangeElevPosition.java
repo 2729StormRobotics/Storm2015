@@ -3,13 +3,19 @@ package org.usfirst.frc.team2729.robot.commands;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ChangeElevPosition extends Command{
 
 	private int _change;
+	private boolean _up;
+	private long _startTime, _endTime;
+	
 	
 	public ChangeElevPosition(int change){
 		_change = change;
+		_up = _change > 0;
+		_startTime = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -22,12 +28,25 @@ public class ChangeElevPosition extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.intake.setElevatorPower(0.80 * (Math.abs(_change)/_change));
+		Robot.intake.setElevatorPower(0.80 * (_change > 0 ? 1 : -1));
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (Robot.intake.getPoint() == Robot.intake.getElevHeight() - 0.009 || Robot.intake.getPoint() == Robot.intake.getElevHeight() + 0.009);
+		_endTime = System.currentTimeMillis();
+		/**
+		 * This ends it if it goes too long
+		 */
+		/*if(_endTime - _startTime == 60000){
+			SmartDashboard.putBoolean("Too long", true);
+			return true;
+		}*/
+		if(_up){
+			return Robot.intake.getElevHeight() >= Robot.intake.getPoint();
+		}else{
+			return Robot.intake.getElevHeight() <= Robot.intake.getPoint();
+		}
+		
 	}
 
 	@Override

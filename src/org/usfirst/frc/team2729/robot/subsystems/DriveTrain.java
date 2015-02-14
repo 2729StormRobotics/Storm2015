@@ -3,7 +3,6 @@ package org.usfirst.frc.team2729.robot.subsystems;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.HDrive;
 import org.usfirst.frc.team2729.robot.commands.KDrive;
@@ -51,7 +50,6 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
-		
 	}
 	
 	protected void initDefaultCommand() {
@@ -122,7 +120,6 @@ public class DriveTrain extends Subsystem {
 			_right.set(turning);
 			_left.set(-turning);
 		}
-		
 		/*
 		if(turning >0){
 			_right.set(_right.get()-(_right.get()>0 ? 1:-1)*turning*_turningRatio);

@@ -1,0 +1,25 @@
+DriveTrain
+  |_turningRatio
+  |HGMax
+  |LGMax
+  |CMax
+  |iGain
+  |PID Delta t
+
+Elevator
+  |pGain
+  |PID Delta t
+  |GMax
+
+Linear Arm
+  |StringPot Values
+  |StringPot Directionality
+  |StringPot Max
+  |Encoders?
+
+Autonomous
+  |MoveToAuto Distance
+  |One Container Distances
+  |Two Container Distances
+  |1 tote
+  |2 totes

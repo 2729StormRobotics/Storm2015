@@ -4,8 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.HDrive;
 import org.usfirst.frc.team2729.robot.commands.KDrive;
+
 import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -15,16 +15,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveTrain extends Subsystem {
-	//Frame of robot reference.
-	//Theta is in radians
-	//Theta = 0 is at the front of the robot
-	//Theta increases clockwise
-	//Y axis is parallel to the sides of the robot.
-	//Positive Y is towards the front
-	//X axis is parallel to the front of the robot
-	//Positive X is towards the right
+	// Frame of robot reference.
+	// Theta is in radians
+	// Theta = 0 is at the front of the robot
+	// Theta increases clockwise
+	// Y axis is parallel to the sides of the robot.
+	// Positive Y is towards the front
+	// X axis is parallel to the front of the robot
+	// Positive X is towards the right
 	public final senseGyro _gyro;
-	
+
 	private final Talon _left = new Talon(RobotMap.PORT_MOTOR_DRIVE_LEFT),
 					   	_right= new Talon(RobotMap.PORT_MOTOR_DRIVE_RIGHT),
 					   	_center=new Talon(RobotMap.PORT_MOTOR_DRIVE_CENTER);
@@ -35,11 +35,20 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_DRIVE_HIGH,RobotMap.PORT_SOLENOID_SHIFT_DRIVE_LOW);
-	private boolean _isHighGear = false;
-	
-	private final double _turningRatio=0.5;
+
+	private final double _turningRatio = 0.5;
 	private final double RatioLow = 1.2;
 	private final double RatioHigh = 1.63636363;
+
+	private final double HGMax = 1000;
+	private final double LGMax = 500;
+	private final double CMax = 1500;
+	
+	public double iGainHG = .005; //a lower iGain for the
+	public double iGainLG = .003; //low gear prevents jerky movements
+	private double leftPower = 0, rightPower = 0, centerPower = 0;
+
+	private boolean _isHighGear = false;
 	
 	private boolean _half = false;
 	
@@ -50,8 +59,39 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
+		Timer _timer = new Timer();
+		_timer.schedule(new TimerTask() {
+			public void run() {
+				if(getRightSP() == getLeftSP() && Math.abs(getRightSP()) > .9 &&  Math.abs(getLeftSP()) > .9){
+					double diff = (isHighgear() ? iGainHG : iGainLG) * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
+					double left = getLeftSP() + diff/2,
+							right = getRightSP() - diff/2;
+					if(right < -1) {
+						left -= (right+1);
+						right = -1;
+					} else if(right > 1) {
+						left -= (right-1);
+						right = 1;
+					}
+					if(left < -1) {
+						right -= (left+1);
+						left = -1;
+					} else if(left > 1) {
+						right -= (left-1);
+						left = 1;
+					}
+					_left.set(Math.max(-1, Math.min(1, left )));
+					_right.set(Math.max(-1, Math.min(1, right)));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
+				} else {
+					_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
+					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
+				}
+			}
+		}, 10, 10);
 	}
-	
+
 	protected void initDefaultCommand() {
 		setDefaultCommand(new KDrive());
 	}
@@ -59,62 +99,71 @@ public class DriveTrain extends Subsystem {
 	public void halveStrafe(boolean half){
 		_half = half;
 	}
-	
-	public void halt(){
+
+	public void halt() {
 		_left.set(0);
 		_right.set(0);
 		_center.set(0);
+		leftPower = 0;
+		rightPower = 0;
+		centerPower= 0;
 	}
 	
 	public void strafeLeft(double _power){
-		_center.set(_power * (_half ? 0.5 : 1));
+		setCenterSP(_power * (_half ? 0.5 : 1));
 	}
 	
-	public void gradientDrive(double X, double Y, double rotMag){
-
+	public void stop(){
+		leftPower = 0;
+		rightPower = 0;
+		centerPower= 0;
+	}
+	public void gradientDrive(double X, double Y, double rotMag) {
 		double transMag = Math.sqrt(X*X+Y*Y);
 		
 		if(Math.abs(Y) <= Math.abs(X)){
-			_right.set(-Y/4);
-			_left.set(Y/4);
-			_center.set(X);
+			setRightSP(Y/4);
+			setLeftSP(Y/4);
+			setCenterSP(X);
 		} else if (Math.abs(X) >= 1/4*Math.abs(Y)){
-			_right.set(-(Y * Math.abs(Y/X))/4);//Arcane black magic:
-			_left.set((Y * Math.abs(Y/X))/4); //Do not touch.
-			_center.set(Y);					  //Do not feed after midnight.
+			setRightSP((Y * Math.abs(Y/X))/4);//Arcane black magic:
+			setLeftSP((Y * Math.abs(Y/X))/4); //Do not touch.
+			setCenterSP(Y);					  //Do not feed after midnight.
 		} else {
-			_right.set(-Y);
-			_left.set(Y);
-			_center.set(4*X);
+			setRightSP(Y);
+			setLeftSP(Y);
+			setCenterSP(4*X);
 		}
-		
 		
 		//point turning
 		if(rotMag>0&& transMag==0){
-			_right.set(rotMag*_turningRatio);
-			_left.set(rotMag*_turningRatio);
+			setRightSP(rotMag*_turningRatio);
+			setLeftSP(-rotMag*_turningRatio);
+		}else if(rotMag<0 && transMag==0){
+			setRightSP(-rotMag*_turningRatio);
+			setLeftSP(rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 
-			_left.set(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			setLeftSP(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}else if(rotMag<0){
-			_right.set(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			setRightSP(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
 		}
 	}
 	
 	public void kDrive(double left, double right){
-		_left.set(left);
-		_right.set(right);
+		setLeftSP(left);
+		setRightSP(right);
 	}
 	
 	public void rawDrive(double x, double y, double turning){
 		//X and Y are on the range [-1,1]
 		//turning is on the range [-1,1] with 1 being positive
-		_left.set(y);
-		_right.set(y);
-		_center.set(x);
+		setLeftSP(y);
+		setRightSP(y);
+		setCenterSP(x);
 		if(turning!=0){
-			_right.set(turning);
-			_left.set(-turning);
+			setRightSP(turning);
+			setLeftSP(-turning);
 		}
 		/*
 		if(turning >0){
@@ -128,9 +177,9 @@ public class DriveTrain extends Subsystem {
 	public void stickyDrive(double x, double y, double turning){
 		//Functionally identical to rawDrive EXCEPT if a parameter is 0, the old value is maintained.
 		//turning with sticky drive is not recommended
-		_left.set(y != 0 ? y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0) : _left.get());
-		_right.set(y != 0 ? y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0) : _right.get());
-		_center.set(x != 0 ? x: _center.get());
+		setLeftSP(y != 0 ? y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0) : _left.get());
+		setRightSP(y != 0 ? y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0) : _right.get());
+		setCenterSP(x != 0 ? x: _center.get());
 	}
 	
 	public double getLeftDistance(){
@@ -140,46 +189,77 @@ public class DriveTrain extends Subsystem {
 	public double getRightDistance(){
 		return -_rightEncoder.get();
 	}
-	public double getCenterDistance(){
+
+	public double getCenterDistance() {
 		return _centerEncoder.get();
 	}
+
 	public double getCenterSpeedEnc() {
 		return _centerEncoder.getRate();
 	}
+
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
 	}
-	public void resetLeftEnc(){
+
+	public void resetLeftEnc() {
 		_leftEncoder.reset();
 	}
-	public void resetRightEnc(){
+
+	public void resetRightEnc() {
 		_rightEncoder.reset();
 	}
-	public void resetCenterEnc(){
+
+	public void resetCenterEnc() {
 		_centerEncoder.reset();
 	}
+
 	/** Reads the right encoder (+ = forward,- = back), might need to be negated */
 	public double getRightSpeedEnc() {
 		return _rightEncoder.getRate();
 	}
-	public double getLeftSpeed(){
+
+	public double getLeftSpeed() {
 		return -_left.get();
-	}	 
-	public double getRightSpeed(){
+	}
+
+	public double getRightSpeed() {
 		return _right.get();
 	}
-	public double getCenterSpeed(){
+
+	public double getCenterSpeed() {
 		return _center.get();
 	}
+
 	public void setHighGear(boolean enabled) {
-		_isHighGear = enabled;
-		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse :
-					 DoubleSolenoid.Value.kForward);
+		_isHighGear  = enabled;
+		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse
+				: DoubleSolenoid.Value.kForward);
 	}
+
 	public boolean isHighgear() {
 		return _isHighGear;
 	}
-	public double getGearRatio(){
+
+	public double getGearRatio() {
 		return _isHighGear ? RatioHigh : RatioLow;
+	}
+	public double getLeftSP() {
+		return leftPower;
+	}
+	public void setLeftSP(double leftPower) {
+		this.leftPower = leftPower;
+	}
+	public double getRightSP() {
+		return rightPower;
+	}
+	public void setRightSP(double rightPower) {
+		this.rightPower = rightPower;
+	}
+	public double getCenterSP() {
+		return centerPower;
+	}
+	public void setCenterSP(double centerPower) {
+		this.centerPower = centerPower;
 	}
 }

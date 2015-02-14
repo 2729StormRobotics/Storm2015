@@ -9,14 +9,17 @@ public class HighPassFilter implements IFilter {
 		_rc = rc;
 		_val = initVal;
 	}
-	public void addSample(double input,double dt) {
-		double alpha = _rc/(_rc+dt);
-		_val = alpha*(input-_prevInput) + alpha*_val;
+
+	public void addSample(double input, double dt) {
+		double alpha = _rc / (_rc + dt);
+		_val = alpha * (input - _prevInput) + alpha * _val;
 		_prevInput = input;
 	}
+
 	public void setRC(double rc) {
 		_rc = rc;
 	}
+
 	public double get() {
 		return _val;
 	}

@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class Intake extends Subsystem{
+public class Intake extends Subsystem {
 
 	private final DoubleSolenoid _arm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_CLAMP_IN, RobotMap.PORT_SOLENOID_CLAMP_OUT);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);

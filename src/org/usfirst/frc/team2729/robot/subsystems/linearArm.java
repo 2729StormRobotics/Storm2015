@@ -4,6 +4,7 @@ import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.LinearArm;
 import org.usfirst.frc.team2729.robot.util.HallEffectSensor;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,7 +17,8 @@ public class linearArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private boolean _up = false;
 	private final HallEffectSensor _hallEffect = new HallEffectSensor(RobotMap.PORT_SENSOR_HALLEFFECT);
-	
+	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
+
 	public linearArm(){
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
@@ -49,7 +51,9 @@ public class linearArm extends Subsystem{
 	public int getCount(){
 		return _hallEffect.count();
 	}
-	
+	public boolean isPressed(){
+		return _switch.get();
+	}
 	
 }
 

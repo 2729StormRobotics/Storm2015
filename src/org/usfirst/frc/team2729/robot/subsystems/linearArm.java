@@ -17,12 +17,16 @@ public class linearArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private boolean _up = false;
 	private final HallEffectSensor _hallEffect = new HallEffectSensor(RobotMap.PORT_SENSOR_HALLEFFECT);
-	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
-
+	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
+	
 	public linearArm(){
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
 		_piston.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public boolean isPressed(){
+		return _switch.get();
 	}
 	
 	public boolean isUp(){
@@ -51,9 +55,5 @@ public class linearArm extends Subsystem{
 	public int getCount(){
 		return _hallEffect.count();
 	}
-	public boolean isPressed(){
-		return _switch.get();
-	}
-	
 }
 

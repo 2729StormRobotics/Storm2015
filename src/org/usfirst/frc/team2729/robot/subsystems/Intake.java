@@ -117,9 +117,9 @@ public class Intake extends Subsystem{
 	}
 
 	public void setElevatorPower(double power){
-		if((Math.abs(power) == power && !_switch.get())){
+		if((Math.abs(power) == power && !_switch.get() && _stringPot.get() == 0)){
 			_elevator.set(0);
-		}else{
+		}else if(_stringPot.get() <= 0.958){
 			_elevator.set(-power);
 		}
     }

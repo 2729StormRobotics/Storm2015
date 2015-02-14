@@ -4,7 +4,6 @@ import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.driveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
-import org.usfirst.frc.team2729.robot.subsystems.rakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.linearArm;
 
 import edu.wpi.first.wpilibj.Compressor;

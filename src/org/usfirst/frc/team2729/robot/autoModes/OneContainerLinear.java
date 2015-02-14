@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
-import org.usfirst.frc.team2729.robot.commands.RakeArmRaised;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.auto.BinAlignDepth;
 import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;

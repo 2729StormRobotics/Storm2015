@@ -12,8 +12,8 @@ public class LinearPiston extends Command {
 	}
 	@Override
 	protected void initialize() {
-		if(_extend) Robot._linearArm.raise();
-		else Robot._linearArm.lower();
+		if(_extend) Robot.linearArm.raise();
+		else Robot.linearArm.lower();
 	}
 	@Override
 	protected void execute() {

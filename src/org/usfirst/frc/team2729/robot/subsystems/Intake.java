@@ -20,7 +20,6 @@ public class Intake extends Subsystem{
 	private final DoubleSolenoid _arm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_CLAMP_IN, RobotMap.PORT_SOLENOID_CLAMP_OUT);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
 						//_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
-	private final Encoder _elevatorEncoder =  new Encoder(RobotMap.PORT_ENCODER_ELEVATOR_1, RobotMap.PORT_ENCODER_ELEVATOR_2);
 	private boolean _extended;
 	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT);
 	
@@ -38,7 +37,6 @@ public class Intake extends Subsystem{
 	public Intake() {
 		LiveWindow.addActuator("Intake", "Arm", _arm);
 		LiveWindow.addActuator("Intake", "Elevator", _elevator);
-		LiveWindow.addSensor("Intake", "Elevator Encoder", _elevatorEncoder);
 		
 		Timer _timer = new Timer();
 		/*_timer.schedule(new TimerTask() {
@@ -89,10 +87,6 @@ public class Intake extends Subsystem{
 		return stringPotPoint;
 	}
 
-	public Encoder get_elevatorEncoder() {
-		return _elevatorEncoder;
-	}
-
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Elevator());
@@ -129,17 +123,6 @@ public class Intake extends Subsystem{
 			_elevator.set(-power);
 		}
     }
-	public double getElevatorDistance() {
-		return _elevatorEncoder.get();
-	}
-
-	public double getElevatorRate() {
-		return _elevatorEncoder.getRate();
-	}
-
-	public void clearEncoders() {
-		_elevatorEncoder.reset();
-	}
 
 	public double getElevatorSpeed() {
 		return elevatorSetSpeed;

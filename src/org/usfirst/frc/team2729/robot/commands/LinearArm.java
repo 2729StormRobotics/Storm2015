@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LinearArm extends Command {
 	
 	public LinearArm(){
-		requires(Robot._linearArm);
+		requires(Robot.linearArm);
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class LinearArm extends Command {
 	@Override
 	protected void execute() {
 		double Linear = Robot.oi.getRake();
-		Robot._linearArm.moveArm(Linear);
+		Robot.linearArm.moveArm(Linear);
 	}
 
 	@Override

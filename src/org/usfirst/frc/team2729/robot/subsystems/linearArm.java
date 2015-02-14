@@ -45,7 +45,7 @@ public class linearArm extends Subsystem{
 	public void moveArm(double power){
 		_arm.set(power);
 	}
-	
+
 	public int getCount(){
 		return _hallEffect.count();
 	}

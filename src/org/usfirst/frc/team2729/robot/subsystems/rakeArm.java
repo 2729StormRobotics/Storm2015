@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.RakeArm;
+//import org.usfirst.frc.team2729.robot.commands.RakeArm;
 import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -27,7 +27,7 @@ public class rakeArm extends Subsystem{
 	}
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new RakeArm());
+		//setDefaultCommand(new RakeArm());
 		//take in joystick values and motor it
 		// TODO Auto-generated method stub
 	}

@@ -2,3 +2,4 @@ bin/
 build/
 dist/
 .settings/
+*.DS_Store

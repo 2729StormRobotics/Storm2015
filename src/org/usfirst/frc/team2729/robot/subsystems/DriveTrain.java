@@ -42,8 +42,8 @@ public class DriveTrain extends Subsystem {
 	private final double LGMax = 500;
 	private final double CMax = 1500;
 	
-	public double iGain = .005;
-	
+	public double iGainHG = .005; //a lower iGain for the
+	public double iGainLG = .003; //low gear prevents jerky movements
 	private double leftPower = 0, rightPower = 0, centerPower = 0;
 
 	private boolean _isHighGear = false;
@@ -58,7 +58,7 @@ public class DriveTrain extends Subsystem {
 		_timer.schedule(new TimerTask() {
 			public void run() {
 				if(getRightSP() == getLeftSP() && Math.abs(getRightSP()) > .9 &&  Math.abs(getLeftSP()) > .9){
-					double diff = iGain * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
+					double diff = (isHighgear() ? iGainHG : iGainLG) * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
 					double left = getLeftSP() + diff/2,
 							right = getRightSP() - diff/2;
 					if(right < -1) {
@@ -77,11 +77,11 @@ public class DriveTrain extends Subsystem {
 					}
 					_left.set(Math.max(-1, Math.min(1, left )));
 					_right.set(Math.max(-1, Math.min(1, right)));
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));	
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
 				} else {
-					_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
-					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*iGain));
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGain));	
+					_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
+					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
 				}
 			}
 		}, 10, 10);
@@ -95,6 +95,11 @@ public class DriveTrain extends Subsystem {
 		_left.set(0);
 		_right.set(0);
 		_center.set(0);
+		leftPower = 0;
+		rightPower = 0;
+		centerPower= 0;
+	}
+	public void stop(){
 		leftPower = 0;
 		rightPower = 0;
 		centerPower= 0;

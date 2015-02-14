@@ -21,7 +21,7 @@ public class Intake extends Subsystem {
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
 						//_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
 	private boolean _extended;
-	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT);
+	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT, .965);
 	
 	private double elevatorSetSpeed = 0;
 	

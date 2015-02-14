@@ -5,7 +5,6 @@ import org.usfirst.frc.team2729.robot.commands.joystick.RakeArmJoy;
 import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,7 +12,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class RakeArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
-	private final StringPot _pot = new StringPot(RobotMap.PORT_STRINGPOT);
+	private final StringPot _pot = new StringPot(RobotMap.PORT_STRINGPOT, 1);
 	public RakeArm(){
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
 	}

@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class OneToteAuto extends CommandGroup {
 
-public OneToteAuto() {
-addSequential(new ToteAlignHor(.5));
-addSequential(new DriveVector(0, false, 20, 1));
-addSequential(new Stack());
-addSequential(new MoveToAuto());
-addSequential(new LowerArmsToReleasePos());
-addSequential(new Unclamp());
-}
+	public OneToteAuto() {
+		addSequential(new ToteAlignHor(.5));
+		addSequential(new DriveVector(0, false, 20, 1));
+		addSequential(new Stack());
+		addSequential(new MoveToAuto());
+		addSequential(new LowerArmsToReleasePos());
+		addSequential(new Unclamp());
+	}
 
 }

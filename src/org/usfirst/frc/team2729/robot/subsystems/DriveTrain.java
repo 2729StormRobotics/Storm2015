@@ -40,12 +40,12 @@ public class DriveTrain extends Subsystem {
 	private final double RatioLow = 1.2;
 	private final double RatioHigh = 1.63636363;
 
-	private final double HGMax = 1000;
-	private final double LGMax = 500;
-	private final double CMax = 1500;
+	private final double HGMax = 1640;
+	private final double LGMax = 700;
+	private final double CMax = 500;
 	
-	public double iGainHG = .005; //a lower iGain for the
-	public double iGainLG = .003; //low gear prevents jerky movements
+	public double iGainHG = .05; //a lower iGain for the
+	public double iGainLG = .03; //low gear prevents jerky movements
 	private double leftPower = 0, rightPower = 0, centerPower = 0;
 
 	private boolean _isHighGear = false;
@@ -65,7 +65,7 @@ public class DriveTrain extends Subsystem {
 				if(getRightSP() == getLeftSP() && Math.abs(getRightSP()) > .9 &&  Math.abs(getLeftSP()) > .9){
 					double diff = (isHighgear() ? iGainHG : iGainLG) * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
 					double left = getLeftSP() + diff/2,
-							right = getRightSP() - diff/2;
+						   right = getRightSP() - diff/2;
 					if(right < -1) {
 						left -= (right+1);
 						right = -1;

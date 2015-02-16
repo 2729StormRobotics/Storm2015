@@ -41,6 +41,7 @@ public class ChangeElevPosition extends Command{
 			SmartDashboard.putBoolean("Too long", true);
 			return true;
 		}*/
+		System.out.println(Robot.intake.getPoint());
 		if(_up){
 			return Robot.intake.getElevHeight() >= Robot.intake.getPoint();
 		}else{

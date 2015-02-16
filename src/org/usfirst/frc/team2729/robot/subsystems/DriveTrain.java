@@ -32,7 +32,7 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _leftEncoder = new Encoder(RobotMap.PORT_ENCODER_LEFT_1, RobotMap.PORT_ENCODER_LEFT_2);
 	//forwards is negative atm, so it's negated in calls
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
-	private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
+	//private final Encoder _centerEncoder = new Encoder(RobotMap.PORT_ENCODER_CENTER_1, RobotMap.PORT_ENCODER_CENTER_2);
 	
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_DRIVE_HIGH,RobotMap.PORT_SOLENOID_SHIFT_DRIVE_LOW);
 
@@ -84,12 +84,14 @@ public class DriveTrain extends Subsystem {
 					}
 					_left.set(Math.max(-1, Math.min(1, left )));
 					_right.set(-Math.max(-1, Math.min(1, right))); //negated due to motor being backwards
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
+					//_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));
+					_center.set(getCenterSP());
 				} else {
 					//right is negated doing to being backwards
 					_right.set(-((-_right.get()) + ((getRightSP() - (getRightSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG))));
 					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeedEnc()/CMax))*iGainLG));	
+					//_center.set(_center.get() + ((getCenterSP() - (getCenterSpeedEnc()/CMax))*iGainLG));	
+					_center.set(getCenterSP());
 				}
 			}
 		}, 10, 10);

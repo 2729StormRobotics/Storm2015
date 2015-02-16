@@ -81,12 +81,13 @@ public class DriveTrain extends Subsystem {
 						left = 1;
 					}
 					_left.set(Math.max(-1, Math.min(1, left )));
-					_right.set(Math.max(-1, Math.min(1, right)));
+					_right.set(-Math.max(-1, Math.min(1, right))); //negated due to motor being backwards
 					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
 				} else {
-					_right.set(_right.get() + ((getRightSP() - (getRightSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
-					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeed()/CMax))*iGainHG));	
+					//right is negated doing to being backwards
+					_right.set(-((-_right.get()) + ((getRightSP() - (getRightSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG))));
+					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeedEnc()/CMax))*iGainHG));	
 				}
 			}
 		}, 10, 10);
@@ -140,17 +141,17 @@ public class DriveTrain extends Subsystem {
 		}
 		
 		//point turning
-		if(rotMag>0&& transMag==0){
-			setRightSP(rotMag*_turningRatio);
-			setLeftSP(-rotMag*_turningRatio);
-		}else if(rotMag<0 && transMag==0){
+		if(rotMag>0&& transMag==0){ //Clockwise rotation
 			setRightSP(-rotMag*_turningRatio);
 			setLeftSP(rotMag*_turningRatio);
+		}else if(rotMag<0 && transMag==0){ //anti-clockwise rotation
+			setRightSP(rotMag*_turningRatio);
+			setLeftSP(-rotMag*_turningRatio);
 		//drift turning
 		}else if(rotMag>0){ 
-			setLeftSP(_right.get()-(_right.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			setRightSP(getRightSP()-(getRightSP()>0 ? 1:-1)*rotMag*_turningRatio);
 		}else if(rotMag<0){
-			setRightSP(_left.get()-(_left.get()>0 ? 1:-1)*rotMag*_turningRatio);
+			setLeftSP(getLeftSP()-(getLeftSP()>0 ? 1:-1)*rotMag*_turningRatio);
 		}
 	}
 	
@@ -181,9 +182,9 @@ public class DriveTrain extends Subsystem {
 	public void stickyDrive(double x, double y, double turning){
 		//Functionally identical to rawDrive EXCEPT if a parameter is 0, the old value is maintained.
 		//turning with sticky drive is not recommended
-		setLeftSP(y != 0 ? y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0) : _left.get());
-		setRightSP(y != 0 ? y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0) : _right.get());
-		setCenterSP(x != 0 ? x: _center.get());
+		setLeftSP(y != 0 ? y > 0 ? y - (turning < 0 ? _turningRatio * turning:0): y + (turning < 0 ? _turningRatio * turning:0) : getLeftSP());
+		setRightSP(y != 0 ? y > 0? y - (turning > 0 ? _turningRatio * turning:0): y + (turning > 0 ? _turningRatio * turning:0) : getRightSP());
+		setCenterSP(x != 0 ? x: getCenterSP());
 	}
 	
 	public double getLeftDistance(){
@@ -220,11 +221,11 @@ public class DriveTrain extends Subsystem {
 
 	/** Reads the right encoder (+ = forward,- = back), might need to be negated */
 	public double getRightSpeedEnc() {
-		return _rightEncoder.getRate();
+		return -_rightEncoder.getRate();
 	}
 
 	public double getLeftSpeed() {
-		return -_left.get();
+		return _left.get();
 	}
 
 	public double getRightSpeed() {

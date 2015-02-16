@@ -1,7 +1,4 @@
 DriveTrain
-  |_turningRatio
-  |HGMax
-  |LGMax
   |CMax
   |iGain
   |PID Delta t
@@ -9,13 +6,6 @@ DriveTrain
 Elevator
   |pGain
   |PID Delta t
-  |GMax
-
-Linear Arm
-  |StringPot Values
-  |StringPot Directionality
-  |StringPot Max
-  |Encoders?
 
 Autonomous
   |MoveToAuto Distance

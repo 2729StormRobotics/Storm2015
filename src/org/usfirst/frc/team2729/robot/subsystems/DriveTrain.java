@@ -87,7 +87,7 @@ public class DriveTrain extends Subsystem {
 					//right is negated doing to being backwards
 					_right.set(-((-_right.get()) + ((getRightSP() - (getRightSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG))));
 					_left.set(_left.get() + ((getLeftSP() - (getLeftSpeedEnc()/(isHighgear() ? HGMax : LGMax)))*(isHighgear() ? iGainHG : iGainLG)));
-					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeedEnc()/CMax))*iGainHG));	
+					_center.set(_center.get() + ((getCenterSP() - (getCenterSpeedEnc()/CMax))*iGainLG));	
 				}
 			}
 		}, 10, 10);

@@ -24,7 +24,7 @@ public class LEDStrip extends Subsystem{
 	public static final byte _invalidAlliance = 2;
 	public static final byte _whatAlliance    = 3;
 	
-	public static boolean _connection=true;
+	public static boolean _connection = true;
 	
 	public static final String _socketIP="socket://10.27.29.100:6969";  
 					//The IP of the Arduino, on same network as RoboRio	 

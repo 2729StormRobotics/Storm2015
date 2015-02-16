@@ -7,12 +7,13 @@ public class senseGyro {
 	private final Gyro _gyro;
 	private double _gyroOffset = 0;
 
-	public senseGyro(double offSet, int channel) {
+	public senseGyro(double offset, int channel) {
 		_gyro = new Gyro(channel);
-		_gyroOffset = offSet;
+		_gyroOffset = offset;
 	}
 
 	public void resetGyro() {
+		//resets and clears the gyro duh
 		_gyro.reset();
 		clearGyro();
 	}

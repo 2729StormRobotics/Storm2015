@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ChangeElevPosition extends Command{
 
-	private int _change;
+	private int _change, _loop;
 	private boolean _up;
 	private long _startTime, _endTime;
-	
+	private double _err, _speed;
+	private final double _maxDis = 0.229;
 	
 	public ChangeElevPosition(int change){
 		_change = change;
@@ -20,15 +21,23 @@ public class ChangeElevPosition extends Command{
 	
 	@Override
 	protected void initialize() {
+		_loop = 3;
 		// TODO Auto-generated method stub
-		Robot.intake.defIndexes();
-		Robot.intake.increment(_change);
+		if(Robot.intake.defIndexes()){
+			Robot.intake.increment(_change);
+		}else{
+			end();
+		}
 	}
-
+	
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		Robot.intake.setElevatorPower(0.80 * (_change > 0 ? 1 : -1));
+		double speed;
+		SmartDashboard.putNumber("Loop count", _loop);
+		speed = 0.80;
+		_err = Math.abs(Robot.intake.getElevHeight() - Robot.intake.getPoint());
+		Robot.intake.setElevatorPower(speed * (_up ? -1 : 1) * Math.min(Math.max(_err/_maxDis * 2, 0.2), 1));
+//		Robot.intake.setElevatorPower(0.65 * (_up ? -1 : 1));
 	}
 
 	@Override
@@ -41,12 +50,20 @@ public class ChangeElevPosition extends Command{
 			SmartDashboard.putBoolean("Too long", true);
 			return true;
 		}*/
+		System.out.println(Robot.intake.getPoint());
 		if(_up){
-			return Robot.intake.getElevHeight() >= Robot.intake.getPoint();
+			if(Robot.intake.getElevHeight() >= Robot.intake.getPoint()){
+				_up = false;
+				_loop--;
+			}
+				
 		}else{
-			return Robot.intake.getElevHeight() <= Robot.intake.getPoint();
+			if(Robot.intake.getElevHeight() <= Robot.intake.getPoint()){
+				_up = true;
+				_loop --;
+			}
 		}
-		
+		return _loop <= 0;
 	}
 
 	@Override

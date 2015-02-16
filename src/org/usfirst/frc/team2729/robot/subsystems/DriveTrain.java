@@ -50,6 +50,8 @@ public class DriveTrain extends Subsystem {
 		LiveWindow.addSensor ("Drive Train", "Right Front Encoder", _rightEncoder);
 		LiveWindow.addActuator("Drive Train", "Shifter", _shifter);
 		_gyro  = new senseGyro(0, RobotMap.PORT_SENSOR_GYRO);
+		_shifter.set(DoubleSolenoid.Value.kForward);
+		_isHighGear = false;
 	}
 	
 	protected void initDefaultCommand() {

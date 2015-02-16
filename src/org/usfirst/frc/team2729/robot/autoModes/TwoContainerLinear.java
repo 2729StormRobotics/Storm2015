@@ -15,14 +15,14 @@ public class TwoContainerLinear extends CommandGroup{
 		addParallel(new LinearPiston(true));
 		addSequential(new DriveVector(0, true, 2000, 1));//Roughly align with bin TODO: find 3rd arg
 		addSequential(new BinAlignDepth(0.25));
-		addSequential(new BinAlignHorLinear(0.5));
+		//addSequential(new BinAlignHorLinear(0.5));
 		addSequential(new LinearPiston(true)); 				//Engage bin
 		addSequential(new DriveVector(-90, false, 500, 0.75));
 		addSequential(new LinearPiston(false)); 			//Release bin
 		addSequential(new DriveVector(-90, false, 50, 0.75));   //Move Clear of the bin
 		addSequential(new DriveVector(0, false, 2000, 0.75));	//Roughly align with 2nd bin
 		addSequential(new BinAlignDepth(0.25));					
-		addSequential(new BinAlignHorLinear(0.5));
+		//addSequential(new BinAlignHorLinear(0.5));
 		addSequential(new LinearPiston(true));				//Engage bin
 		addSequential(new DriveVector(-90, false, 500, 0.75));	//Move bin clear of the ramp
 		addSequential(new LinearPiston(false));				//Release bin

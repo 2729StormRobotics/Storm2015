@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveForward extends Command {
-	private static final double P_GAIN = 0.01;
+	private static final double P_GAIN = 0.02;
 	static {
 		SmartDashboard.putNumber("Encoder feedback gain", P_GAIN);
 	}

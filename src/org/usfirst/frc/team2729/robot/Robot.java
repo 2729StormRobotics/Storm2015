@@ -161,6 +161,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Max Right speed", maxRightSpeed);
 		SmartDashboard.putNumber("Max Left speed", maxLeftSpeed);
 		SmartDashboard.putNumber("Max Center speed", maxCenterSpeed);
+		SmartDashboard.putNumber("LG iGain", driveTrain.iGainLG);
+		SmartDashboard.putNumber("HG iGain", driveTrain.iGainHG);
 	}
 
 	public void disabledPeriodic() {

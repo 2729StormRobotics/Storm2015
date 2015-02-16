@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.KDrive;
-
 import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -13,6 +12,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends Subsystem {
 	// Frame of robot reference.
@@ -62,6 +62,8 @@ public class DriveTrain extends Subsystem {
 		Timer _timer = new Timer();
 		_timer.schedule(new TimerTask() {
 			public void run() {
+				iGainHG = SmartDashboard.getNumber("HG iGain");
+				iGainLG = SmartDashboard.getNumber("LG iGain");
 				if(getRightSP() == getLeftSP() && Math.abs(getRightSP()) > .9 &&  Math.abs(getLeftSP()) > .9){
 					double diff = (isHighgear() ? iGainHG : iGainLG) * ((getRightSpeed()/(isHighgear() ? HGMax : LGMax)) - (getLeftSpeed()/(isHighgear() ? HGMax : LGMax))); 
 					double left = getLeftSP() + diff/2,

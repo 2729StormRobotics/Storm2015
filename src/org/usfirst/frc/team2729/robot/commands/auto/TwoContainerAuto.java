@@ -15,12 +15,41 @@ public class TwoContainerAuto extends CommandGroup{
 	public TwoContainerAuto(){
 		addSequential(new OneContainerAuto());
 		addSequential(new DriveForward(-0.5, 530));
-		addSequential(new WaitCommand(2));
+		addSequential(new WaitCommand(1.5));
+		/*addSequential(new Command() {
+			
+			@Override
+			protected boolean isFinished() {
+				return Robot.driveTrain.getLeftDistance() >= 30;
+			}
+			
+			@Override
+			protected void interrupted() {
+				end();
+			}
+			
+			@Override
+			protected void initialize() {
+				Robot.driveTrain.resetLeftEnc();
+				Robot.driveTrain.resetRightEnc();
+			}
+			
+			@Override
+			protected void execute() {
+				Robot.driveTrain.kDrive(-0.3, 0);
+			}
+			
+			@Override
+			protected void end() {
+				Robot.driveTrain.halt();
+			}
+		});*/
+		//addSequential(new Strafe(1), 0.1);
 		addSequential(new CommandGroup(){
 			//Anonymous Constructor. Fun things to use
 			{
 				//addSequential(new BinAlignDepth(0.6));
-				addSequential(new BinAlignHorLinear(1, 22+45), 1.5);
+				addSequential(new BinAlignHorLinear(0.5, 35+46), 2.5);
 				addSequential(new PrintCommand("Waiting"));
 				addSequential(new WaitCommand(0.2));
 				addSequential(new PrintCommand("Linear up"));
@@ -38,7 +67,7 @@ public class TwoContainerAuto extends CommandGroup{
 					
 					@Override
 					protected boolean isFinished() {
-						return Robot.linearArm.getRawHallCount() >= 36+45;
+						return Robot.linearArm.getRawHallCount() >= 48+45;
 					}
 
 					@Override
@@ -49,7 +78,7 @@ public class TwoContainerAuto extends CommandGroup{
 					@Override
 					protected void interrupted() {}
 					
-				});
+				}, 1.5);
 			addSequential(new Strafe(-1), 1);
 			}
 		});

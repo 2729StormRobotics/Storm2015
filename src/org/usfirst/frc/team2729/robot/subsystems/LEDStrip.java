@@ -24,7 +24,7 @@ public class LEDStrip extends Subsystem{
 	public static final byte _invalidAlliance = 2;
 	public static final byte _whatAlliance    = 3;
 	
-	public static boolean _connection = true;
+	public static boolean _connection = false;
 	
 	public static final String _socketIP="socket://10.27.29.100:6969";  
 					//The IP of the Arduino, on same network as RoboRio	 
@@ -33,10 +33,10 @@ public class LEDStrip extends Subsystem{
 	
 	public LEDStrip(){}
 	
-	public void setMode(final int mode){
-		new Thread(){
+	//public void setMode(final int mode){
+	//	new Thread(){
 			int newMode;
-			public void modeChange(){ 
+			public void setMode(final int mode){ 
 				newMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off
 				//and because you can't use a switch for DriverStation.getInstance()
@@ -51,7 +51,7 @@ public class LEDStrip extends Subsystem{
 				}else{
 					newMode = _Disabled;
 				}
-				if(_connection){
+				if(!_connection){
 					try{
 						Socket connect = new Socket("10.27.29.100", 6969);
 						OutputStream out = connect.getOutputStream();
@@ -69,6 +69,7 @@ public class LEDStrip extends Subsystem{
 						//if we got here we are done
 						out.close();
 						connect.close();
+						_connection = true;
 					}catch(IOException e){
 						//if we're here we didn't connect
 						System.out.println("Not Connected");
@@ -76,6 +77,6 @@ public class LEDStrip extends Subsystem{
 					}
 				}
 			}
-		}.start();
-	}
+	//	}.start();
+	//}
 }

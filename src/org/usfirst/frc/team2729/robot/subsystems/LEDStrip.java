@@ -26,7 +26,7 @@ public class LEDStrip extends Subsystem{
 	
 	public static boolean _connection = false;
 	
-	public static final String _socketIP="socket://10.27.29.100:6969";  
+	public static final String _socketIP="socket://10.27.29.100:1024";  
 					//The IP of the Arduino, on same network as RoboRio	 
 	private static byte _curMode=_Disabled;
 	protected void initDefaultCommand() {}
@@ -53,7 +53,7 @@ public class LEDStrip extends Subsystem{
 				}
 				if(!_connection){
 					try{
-						Socket connect = new Socket("10.27.29.100", 6969);
+						Socket connect = new Socket("10.27.29.100", 1024);
 						OutputStream out = connect.getOutputStream();
 						out.write(newMode);
 						if(newMode == _Teleop){

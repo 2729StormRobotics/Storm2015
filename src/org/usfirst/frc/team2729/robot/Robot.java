@@ -134,8 +134,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("LG iGain", driveTrain.iGainLG);
 		SmartDashboard.putNumber("HG iGain", driveTrain.iGainHG);
 		//SmartDashboard.putNumber("String Pot Point", intake.getPoint());
-		SmartDashboard.putNumber("Index", intake.getPoint());
+		SmartDashboard.putNumber("Elevator Set Point", intake.getPoint());
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
+		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
+		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
 	}
 
 	public void disabledPeriodic() {

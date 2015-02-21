@@ -3,6 +3,7 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
+import org.usfirst.frc.team2729.robot.commands.LEDChangeMode;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.Strafe;
@@ -34,7 +35,9 @@ public class OI {
 						 spinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_IN),
 						 spinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_OUT),
 						 test1 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_1),
-						 test2 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_2);
+						 test2 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_2),
+						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW);
+
 	public OI() {
 		shiftHighDrive.whenPressed(new Shift(true));
 		shiftLowDrive.whenPressed(new Shift(false));
@@ -46,6 +49,8 @@ public class OI {
 		armOut.whenPressed(new LinearPiston(false));
 		test1.whenPressed(new ChangeElevPosition(-1));
 		test2.whenPressed(new ChangeElevPosition(1));
+		
+		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		
 		halveOne.whileHeld(new Command() {
 

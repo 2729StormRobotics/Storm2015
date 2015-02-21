@@ -157,4 +157,8 @@ public class Intake extends Subsystem {
 		}
 		newStringPoint = index;
 	}
+	
+	public boolean isClamped(){
+		return !_extended;
+	}
 }

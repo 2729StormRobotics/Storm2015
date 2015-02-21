@@ -31,6 +31,7 @@ public class RobotMap {
 			JOYDRIVE_BUTTON_HALVE_2			   = 7,
 			JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH   = 4,
 			JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW    = 2,
+			JOYDRIVE_BUTTON_RAINBOW			   = 10,
 			JOYARM_BUTTON_CLAMP_IN             = 5,
 			JOYARM_BUTTON_CLAMP_OUT            = 7,
 			JOYARM_BUTTON_ARM_IN       		   = 6,

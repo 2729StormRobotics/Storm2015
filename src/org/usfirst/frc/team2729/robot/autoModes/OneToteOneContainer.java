@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class OneToteOneContainer extends CommandGroup{
 	public OneToteOneContainer(){
-		addSequential(new DriveForward(.7, 500));
 		addSequential(new ElevatorClamp(true));
 		addSequential(new ChangeElevPosition(1));
-		addSequential(new Strafe(-1), 3);
+		addSequential(new DriveForward(.7, 500));
+		addSequential(new Strafe(1), 3);
 	}
 }

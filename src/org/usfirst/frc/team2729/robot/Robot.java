@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.Shift;
@@ -67,8 +68,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container"};
-		autoModes = new Command[]{new DriveForward(.45, 1000), new OneContainerAuto(), new TwoContainerAuto()};
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container"};
+		autoModes = new Command[]{new DriveForward(.45, 1000), new OneContainerAuto(), new TwoContainerAuto(), new OneToteOneContainer()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard

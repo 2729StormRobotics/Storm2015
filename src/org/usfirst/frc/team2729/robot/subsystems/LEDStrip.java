@@ -28,14 +28,14 @@ public class LEDStrip extends Subsystem{
 	
 	public static final String _socketIP="socket://10.27.29.100:1024";  
 					//The IP of the Arduino, on same network as RoboRio	 
-	private static byte _curMode=_Disabled;
+	private static int _curMode=_Disabled;
 	protected void initDefaultCommand() {}
 	
 	public LEDStrip(){}
 	
 	//public void setMode(final int mode){
 	//	new Thread(){
-			public void setMode(final byte mode){ 
+			public void setMode(final int mode){ 
 				_curMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off
 				//and because you can't use a switch for DriverStation.getInstance()

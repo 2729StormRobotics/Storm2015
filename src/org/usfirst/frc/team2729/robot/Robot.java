@@ -8,6 +8,7 @@ import org.usfirst.frc.team2729.robot.commands.auto.OneContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.auto.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
+import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.linearArm;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 	//public static rakeArm _rakeArm;
 	public static linearArm linearArm;
 	public static Command teleop;
+	public static LEDStrip LEDs;
 	Compressor compressor;
 	
     Command autoCommand;
@@ -46,7 +48,7 @@ public class Robot extends IterativeRobot {
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new linearArm();
-		
+		LEDs = new LEDStrip();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();
 		

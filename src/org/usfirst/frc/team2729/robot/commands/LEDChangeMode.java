@@ -9,32 +9,20 @@ public class LEDChangeMode extends Command{
 	public LEDChangeMode(byte mode){
 		_mode=mode;
 	}
-	@Override
+	
 	protected void initialize() {
 		Robot.LEDs.setMode(_mode);
 	}
+	protected void execute() {}
 
-	@Override
-	protected void execute() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	protected boolean isFinished() {
 		return true;
-	}
+		}
 
-	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	protected void end() {}
 
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void interrupted() {}
 	
 }

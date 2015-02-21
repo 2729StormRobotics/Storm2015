@@ -6,6 +6,8 @@ import org.usfirst.frc.team2729.robot.commands.KDrive;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.UpdateIndexes;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
+import org.usfirst.frc.team2729.robot.commands.auto.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.commands.auto.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
@@ -65,37 +67,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward", "2 Container"};
-		autoModes = new Command[]{new Command(){
-
-			@Override
-			protected void initialize() {
-				// TODO Auto-generated method stub
-				new Shift(false).start();
-			}
-
-			@Override
-			protected void execute() {
-				driveTrain.kDrive(1, -1);
-			}
-
-			@Override
-			protected boolean isFinished() {
-				return driveTrain.getLeftDistance() >= 500;
-			}
-
-			@Override
-			protected void end() {
-				driveTrain.kDrive(0, 0);
-			}
-
-			@Override
-			protected void interrupted() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		}, new TwoContainerLinear()};
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container"};
+		autoModes = new Command[]{new DriveForward(.45, 1000), new OneContainerAuto(), new TwoContainerAuto()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard
@@ -155,14 +128,14 @@ public class Robot extends IterativeRobot {
 		if(Math.abs(driveTrain.getLeftSpeedEnc()) > Math.abs(maxLeftSpeed)){
 			maxLeftSpeed = driveTrain.getLeftSpeedEnc();
 		}
-		if(Math.abs(driveTrain.getCenterSpeedEnc()) > Math.abs(maxCenterSpeed)){
-			maxCenterSpeed = driveTrain.getCenterSpeedEnc();
-		}
 		SmartDashboard.putNumber("Max Right speed", maxRightSpeed);
 		SmartDashboard.putNumber("Max Left speed", maxLeftSpeed);
 		SmartDashboard.putNumber("Max Center speed", maxCenterSpeed);
 		SmartDashboard.putNumber("LG iGain", driveTrain.iGainLG);
 		SmartDashboard.putNumber("HG iGain", driveTrain.iGainHG);
+		//SmartDashboard.putNumber("String Pot Point", intake.getPoint());
+		SmartDashboard.putNumber("Index", intake.getPoint());
+		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 	}
 
 	public void disabledPeriodic() {

@@ -95,6 +95,8 @@ public class DriveTrain extends Subsystem {
 				}
 			}
 		}, 10, 10);
+		_shifter.set(DoubleSolenoid.Value.kForward);
+		_isHighGear = false;
 	}
 
 	protected void initDefaultCommand() {
@@ -198,15 +200,6 @@ public class DriveTrain extends Subsystem {
 	public double getRightDistance(){
 		return -_rightEncoder.get();
 	}
-
-	public double getCenterDistance() {
-		return _centerEncoder.get();
-	}
-
-	public double getCenterSpeedEnc() {
-		return _centerEncoder.getRate();
-	}
-
 	public double getLeftSpeedEnc() {
 		return _leftEncoder.getRate();
 	}
@@ -218,11 +211,6 @@ public class DriveTrain extends Subsystem {
 	public void resetRightEnc() {
 		_rightEncoder.reset();
 	}
-
-	public void resetCenterEnc() {
-		_centerEncoder.reset();
-	}
-
 	/** Reads the right encoder (+ = forward,- = back), might need to be negated */
 	public double getRightSpeedEnc() {
 		return -_rightEncoder.getRate();
@@ -270,5 +258,10 @@ public class DriveTrain extends Subsystem {
 	}
 	public void setCenterSP(double centerPower) {
 		this.centerPower = centerPower;
+	}
+
+	public int getCenterDistance() {
+		//return center encoder once attached
+		return 0;
 	}
 }

@@ -129,20 +129,20 @@ public class Intake extends Subsystem {
 		return elevatorSetSpeed;
 	}
 	
-	public void defIndexes(){
+	public boolean defIndexes(){
 		int index;
 		for(index = 0;index<setPoints.length;index++){
 			if(setPoints[index] > _stringPot.get()){
 				_nextUp = index;
 				_nextDown = Math.max(index - 1, 0);
-				break;
-			}else if(setPoints[index] == _stringPot.get()){
+				return true;
+			}else if(Math.abs(setPoints[index] - _stringPot.get()) <= 0.005){
 				_nextUp = Math.min(index + 1, setPoints.length -1);
 				_nextDown = Math.max(index - 1, 0);
-				break;
+				return true;
 			}
 		}
-
+		return false;
 		
 	}
 	

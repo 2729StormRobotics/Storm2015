@@ -19,7 +19,7 @@ public class BinAlignDepth extends Command{
 	protected void execute() {
 		//what side of the bin is the robot on? 
 		//moves left or right accordingly
-		Robot.driveTrain.gradientDrive(0, VisionSystem.getBinAngle() <= 0 ? speed : -speed, 0);
+		Robot.driveTrain.kDrive(VisionSystem.getBinAngle() <= 0 ? speed : -speed, VisionSystem.getBinAngle() <= 0 ? -speed : speed);
 	}
 
 	@Override

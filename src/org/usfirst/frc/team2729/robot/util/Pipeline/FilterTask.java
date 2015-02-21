@@ -8,7 +8,7 @@ public class FilterTask implements ISource {
 	private final IFilter _filter;
 	private final ISource _source;
 	private final Timer _timer;
-	
+
 	public FilterTask(IFilter filter, ISource source, double dt) {
 		_filter = filter;
 		_source = source;
@@ -18,15 +18,17 @@ public class FilterTask implements ISource {
 			public void run() {
 				_filter.addSample(_source.get(), _dt);
 			}
-		}, 0, (long)(1000*dt));
+		}, 0, (long) (1000 * dt));
 	}
 
 	public double get() {
 		return _filter.get();
 	}
+
 	public IFilter getFilter() {
 		return _filter;
 	}
+
 	public ISource getSource() {
 		return _source;
 	}

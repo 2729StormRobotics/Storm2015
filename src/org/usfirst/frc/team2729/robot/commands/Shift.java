@@ -8,6 +8,7 @@ public class Shift extends Command {
     private final boolean _high;
     
     public Shift(boolean high) {
+    	requires(Robot.driveTrain);
         _high = high;
     }
     

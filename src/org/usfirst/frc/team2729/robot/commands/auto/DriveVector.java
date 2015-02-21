@@ -20,6 +20,7 @@ public class DriveVector extends Command{
 		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
+		Robot.driveTrain.resetCenterEnc();
 	}
 	public DriveVector(double theta, boolean isRadians, double distance, double speed){
 		requires(Robot.driveTrain);
@@ -31,6 +32,7 @@ public class DriveVector extends Command{
 		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
+		Robot.driveTrain.resetCenterEnc();
 	}
 
 	@Override

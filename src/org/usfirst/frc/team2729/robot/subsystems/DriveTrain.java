@@ -95,7 +95,7 @@ public class DriveTrain extends Subsystem {
 				_left.set(getLeftSP());
 				_center.set(getCenterSP());
 			}
-		}, 10, 10);
+		}, 5, 5);
 		_shifter.set(DoubleSolenoid.Value.kForward);
 		_isHighGear = false;
 	}

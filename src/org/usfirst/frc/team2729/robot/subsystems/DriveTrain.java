@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.KDrive;
+import org.usfirst.frc.team2729.robot.commands.joystick.KDrive;
 import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;

@@ -5,7 +5,6 @@ import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Shift;
-import org.usfirst.frc.team2729.robot.commands.SpinIntake;
 import org.usfirst.frc.team2729.robot.commands.Strafe;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -104,10 +103,6 @@ public class OI {
 		
 		strafeLeft.whileHeld(new Strafe(-1.0));
 		strafeRight.whileHeld(new Strafe(1.0));
-		
-		spinIn.whileHeld(new SpinIntake(0.5));
-		spinOut.whileHeld(new SpinIntake(-0.5));
-		
 		/*if(driveJoystick.getPOV() == 0){
 			new Shift(true);
 		}else if(driveJoystick.getPOV() == 4){

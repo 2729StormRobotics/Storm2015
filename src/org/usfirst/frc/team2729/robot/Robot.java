@@ -1,13 +1,12 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.autoModes.TwoContainerLinear;
+import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.KDrive;
 import org.usfirst.frc.team2729.robot.commands.Shift;
-import org.usfirst.frc.team2729.robot.commands.UpdateIndexes;
+import org.usfirst.frc.team2729.robot.commands.UpdateIndices;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
-import org.usfirst.frc.team2729.robot.commands.auto.OneContainerAuto;
-import org.usfirst.frc.team2729.robot.commands.auto.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
@@ -112,7 +111,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
 		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
 		SmartDashboard.putNumber("String Pot Point", intake.getPoint());
-		SmartDashboard.putData("Update indexes", new UpdateIndexes());
+		SmartDashboard.putData("Update indexes", new UpdateIndices());
 		SmartDashboard.putNumber("RightSP", driveTrain.getRightSP());
 		SmartDashboard.putNumber("LeftSP", driveTrain.getLeftSP());
 		SmartDashboard.putNumber("CenterSP", driveTrain.getCenterSP());
@@ -121,7 +120,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Center power", driveTrain.getCenterSpeed());
 		SmartDashboard.putNumber("Right enc speed", driveTrain.getRightSpeedEnc());
 		SmartDashboard.putNumber("Left power", driveTrain.getLeftSpeedEnc());
-		SmartDashboard.putNumber("Center power", driveTrain.getCenterSpeedEnc());
+		//SmartDashboard.putNumber("Center power", driveTrain.getCenterSpeedEnc());
 		if(Math.abs(driveTrain.getRightSpeedEnc()) > Math.abs(maxRightSpeed)){
 			maxRightSpeed = driveTrain.getRightSpeedEnc();
 		}

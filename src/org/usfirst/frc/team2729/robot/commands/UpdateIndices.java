@@ -4,9 +4,9 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class UpdateIndexes extends Command{
+public class UpdateIndices extends Command{
 
-	public UpdateIndexes(){
+	public UpdateIndices(){
 		
 	}
 	

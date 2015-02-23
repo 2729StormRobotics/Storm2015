@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LEDStrip extends Subsystem{
 	//Modes
@@ -56,6 +57,7 @@ public class LEDStrip extends Subsystem{
 						OutputStream out = connect.getOutputStream();
 						out.write(_curMode);
 						if(_curMode == _Teleop){
+							out.write((int) (SmartDashboard.getNumber("String Pot")*1000));
 							DriverStation.Alliance side = DriverStation.getInstance().getAlliance();
 							if(side == DriverStation.Alliance.Blue){
 								out.write(_blueAlliance);

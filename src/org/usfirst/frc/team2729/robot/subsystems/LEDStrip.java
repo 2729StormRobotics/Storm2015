@@ -2,7 +2,11 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -36,7 +40,8 @@ public class LEDStrip extends Subsystem{
 	
 	//public void setMode(final int mode){
 	//	new Thread(){
-			public void setMode(final int mode){ 
+			public void setMode(final int mode) throws IOException{ 
+			     SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
 				_curMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off
 				//and because you can't use a switch for DriverStation.getInstance()
@@ -52,8 +57,28 @@ public class LEDStrip extends Subsystem{
 					_curMode = _Disabled;
 				}
 				if(!_connection){
-					try{
-						Socket connect = new Socket("10.27.29.100", 1024);
+					try(
+						Socket arduino= new Socket("10.27.29.100",1024);
+						OutputStream writeOut = arduino.getOutputStream();
+					) {
+						arduino.bind(arduinoAddress);
+						writeOut.write(_curMode);
+						if(_curMode == _Teleop){
+							DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
+							if(alliance == DriverStation.Alliance.Blue) 
+								writeOut.write(_blueAlliance);
+							else if(alliance == DriverStation.Alliance.Red) 
+								writeOut.write(_redAlliance);
+							else if(alliance == DriverStation.Alliance.Invalid) 
+								writeOut.write(_invalidAlliance);
+							else 
+								writeOut.write(_whatAlliance);
+							
+						}
+						writeOut.close();
+						arduino.close();
+						_connection = true;
+						/*Socket connect = new Socket("10.27.29.100", 1024);
 						OutputStream out = connect.getOutputStream();
 						out.write(_curMode);
 						if(_curMode == _Teleop){
@@ -70,12 +95,13 @@ public class LEDStrip extends Subsystem{
 						//if we got here we are done
 						out.close();
 						connect.close();
-						_connection = true;
+						_connection = true;*/
 					}catch(IOException e){
 						//if we're here we didn't connect
 						System.out.println("Not Connected");
 						_connection = false;
 					}
+					
 				}
 			}
 	//	}.start();

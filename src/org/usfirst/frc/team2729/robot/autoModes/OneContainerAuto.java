@@ -1,8 +1,8 @@
-package org.usfirst.frc.team2729.robot.commands.auto;
+package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.Robot;
-import org.usfirst.frc.team2729.robot.autoModes.OneContainerLinear;
 import org.usfirst.frc.team2729.robot.commands.*;
+import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;

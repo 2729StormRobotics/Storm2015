@@ -18,7 +18,6 @@ public class DriveForward extends Command {
 		_distance = distance;
 	}
 	protected void initialize() {
-		Robot.driveTrain.resetCenterEnc();
 		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetLeftEnc();
 	}

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.LinearArm;
+import org.usfirst.frc.team2729.robot.commands.joystick.LinearArmJoy;
 import org.usfirst.frc.team2729.robot.util.HallEffectSensor;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class linearArm extends Subsystem{
+
+public class LinearArm extends Subsystem{
 	private final Solenoid _piston = new Solenoid(RobotMap.PORT_SOLENOID_ARM_UP);
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private boolean _up = false;
@@ -20,7 +21,7 @@ public class linearArm extends Subsystem{
 	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
 	private int _count;
 	
-	public linearArm(){
+	public LinearArm(){
 		_count = 0;
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
@@ -34,10 +35,10 @@ public class linearArm extends Subsystem{
 	public boolean isUp(){
 		return _up;
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new LinearArm());
+		setDefaultCommand(new LinearArmJoy());
 	}
 	
 	public void lower(){
@@ -66,4 +67,3 @@ public class linearArm extends Subsystem{
 		return _hallEffect.count();
 	}
 }
-

@@ -15,13 +15,13 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class Intake extends Subsystem{
+public class Intake extends Subsystem {
 
 	private final DoubleSolenoid _arm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_CLAMP_IN, RobotMap.PORT_SOLENOID_CLAMP_OUT);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
 						//_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
 	private boolean _extended;
-	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT);
+	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT, 1);
 	
 	private double elevatorSetSpeed = 0;
 	
@@ -156,5 +156,9 @@ public class Intake extends Subsystem{
 			}
 		}
 		newStringPoint = index;
+	}
+	
+	public boolean isClamped(){
+		return !_extended;
 	}
 }

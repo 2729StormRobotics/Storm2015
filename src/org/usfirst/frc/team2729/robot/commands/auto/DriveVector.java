@@ -18,8 +18,8 @@ public class DriveVector extends Command{
 		_yVel = y/_distance * speed;
 
 		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();
-		Robot.driveTrain.resetCenterEnc();
 		Robot.driveTrain.resetLeftEnc();
+		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetCenterEnc();
 	}
 	public DriveVector(double theta, boolean isRadians, double distance, double speed){
@@ -30,8 +30,8 @@ public class DriveVector extends Command{
 		_xVel = Math.cos(transTheta) * speed;
 		_yVel = Math.sin(transTheta) * speed;
 		_initRotTheta = Robot.driveTrain._gyro.getGyroAngle();
-		Robot.driveTrain.resetCenterEnc();
 		Robot.driveTrain.resetLeftEnc();
+		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetCenterEnc();
 	}
 
@@ -52,10 +52,11 @@ public class DriveVector extends Command{
 	protected boolean isFinished() {
 		// I am well aware of how nasty this line is
 		// it's that long for efficiency
+		double avg = (Robot.driveTrain.getLeftDistance() + Robot.driveTrain.getRightDistance())/2;
 		if (_distance >= 0.99
 				 * Math.sqrt((Robot.driveTrain.getCenterDistance() * Robot.driveTrain.getCenterDistance())
-				 + (Robot.driveTrain.getLeftDistance()/ Robot.driveTrain.getGearRatio()
-				 * Robot.driveTrain.getLeftDistance() / Robot.driveTrain.getGearRatio()))){
+				 + (avg/ Robot.driveTrain.getGearRatio()
+				 * avg / Robot.driveTrain.getGearRatio()))){
 			return false;
 		} else {
 			return true;

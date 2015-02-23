@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2729.robot.commands;
+package org.usfirst.frc.team2729.robot.commands.joystick;
 
 import org.usfirst.frc.team2729.robot.Robot;
 
@@ -41,5 +41,4 @@ public class KDrive extends Command{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

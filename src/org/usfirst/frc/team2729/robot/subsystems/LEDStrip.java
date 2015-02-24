@@ -31,14 +31,14 @@ public class LEDStrip extends Subsystem{
 	public static final String _socketIP="socket://10.27.29.100:1024";  
 					//The IP of the Arduino, on same network as RoboRio	 
 	private static int _curMode=_Disabled;
-	protected void initDefaultCommand() {}
-	
+    static SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
+    static OutputStream _writeOut;
 	public LEDStrip(){}
-	
+	protected void initDefaultCommand() {}
+
 	//public void setMode(final int mode){
 	//	new Thread(){
 			public void setMode(final int mode) { 
-			     SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
 				_curMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off
 				//and because you can't use a switch for DriverStation.getInstance()
@@ -54,27 +54,37 @@ public class LEDStrip extends Subsystem{
 					_curMode = _Disabled;
 				}
 				if(!_connection){
-					try(
+					connect();
+				}
+				if(_curMode == _Teleop){
+					try{
+					DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
+					if(alliance == DriverStation.Alliance.Blue) 
+						_writeOut.write(_blueAlliance);
+					else if(alliance == DriverStation.Alliance.Red) 
+						_writeOut.write(_redAlliance);
+					else if(alliance == DriverStation.Alliance.Invalid) 
+						_writeOut.write(_invalidAlliance);
+					else 
+						_writeOut.write(_whatAlliance);
+					}catch(IOException e ){
+						System.out.println("Failure to change Alliance: AKA You're not Italy.");
+						_connection=false;
+						connect();
+					}
+					
+				}
+			}
+			public static void connect(){
+				try(
 						Socket arduino= new Socket("10.27.29.100",1024);
-						OutputStream writeOut = arduino.getOutputStream();
 					) {
+					while(!_connection){
+						_writeOut = arduino.getOutputStream();
 						arduino.bind(arduinoAddress);
-						writeOut.write(_curMode);
-						if(_curMode == _Teleop){
-							DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
-							if(alliance == DriverStation.Alliance.Blue) 
-								writeOut.write(_blueAlliance);
-							else if(alliance == DriverStation.Alliance.Red) 
-								writeOut.write(_redAlliance);
-							else if(alliance == DriverStation.Alliance.Invalid) 
-								writeOut.write(_invalidAlliance);
-							else 
-								writeOut.write(_whatAlliance);
-							
-						}
-						writeOut.close();
-						arduino.close();
-						_connection = true;
+						if(arduino.isConnected()) _connection=true;						
+					}
+						
 						/*Socket connect = new Socket("10.27.29.100", 1024);
 						OutputStream out = connect.getOutputStream();
 						out.write(_curMode);
@@ -98,8 +108,16 @@ public class LEDStrip extends Subsystem{
 						System.out.println("Not Connected");
 						_connection = false;
 					}
-					
+			}
+			public static void stringPotLEDs(double stringPot){
+				try{
+					_writeOut.write((int)(stringPot*1000));
+				}catch(IOException e){
+					System.out.println("Failure to send String Pot Data to Arduino.");
+					_connection=false;
+					connect();
 				}
+				
 			}
 	//	}.start();
 	//}

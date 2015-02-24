@@ -11,6 +11,7 @@ import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -143,6 +144,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		if(DriverStation.getInstance().isOperatorControl()) 
+			LEDStrip.stringPotLEDs(Intake.getElevHeight());
 	}
 
 	public void testPeriodic() {

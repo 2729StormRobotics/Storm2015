@@ -17,6 +17,7 @@ public class RobotMap {
 			JOYDRIVE_AXIS_DRIVE_X  			   = 0,
 			JOYDRIVE_AXIS_DRIVE_Y 			   = 1,
 			JOYDRIVE_AXIS_SPIN 				   = 2,
+			JOYDRIVE_AXIS_CARDINAL 			   = 5,
 			JOYARM_AXIS_ELEVATOR			   = 1,
 			JOYARM_AXIS_RAKE				   = 3,
 			JOYDRIVE_AXIS_DRIVE_LEFT		   = 1,
@@ -38,8 +39,8 @@ public class RobotMap {
 			JOYARM_BUTTON_ARM_OUT      		   = 8,
 			JOYARM_BUTTON_SPIN_IN			   = 4,
 			JOYARM_BUTTON_SPIN_OUT			   = 2,
-			JOYARM_BUTTON_TEST_1			   = 1,
-			JOYARM_BUTTON_TEST_2			   = 3;
+			JOYARM_BUTTON_ELEVATOR_DOWN		   = 1,
+			JOYARM_BUTTON_ELEVATOR_UP		   = 3;
 	
 	//PWM Ports 
 	public static final int 

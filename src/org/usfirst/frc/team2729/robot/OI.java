@@ -32,10 +32,8 @@ public class OI {
 						 halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
-						 spinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_IN),
-						 spinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SPIN_OUT),
-						 test1 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_1),
-						 test2 = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_TEST_2),
+						 elevDown = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_DOWN),
+						 elevUp = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_UP),
 						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW);
 
 	public OI() {
@@ -47,8 +45,8 @@ public class OI {
 		
 		armIn.whenPressed(new LinearPiston(true));
 		armOut.whenPressed(new LinearPiston(false));
-		test1.whenPressed(new ChangeElevPosition(-1));
-		test2.whenPressed(new ChangeElevPosition(1));
+		elevDown.whenPressed(new ChangeElevPosition(-1));
+		elevUp.whenPressed(new ChangeElevPosition(1));
 		
 		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		

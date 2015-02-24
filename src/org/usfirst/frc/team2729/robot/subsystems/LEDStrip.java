@@ -78,9 +78,10 @@ public class LEDStrip extends Subsystem{
 			public static void connect(){
 				try(
 						Socket arduino= new Socket("10.27.29.100",1024);
+						OutputStream writeOut = arduino.getOutputStream();
 					) {
 					while(!_connection){
-						_writeOut = arduino.getOutputStream();
+						_writeOut = writeOut;
 						arduino.bind(arduinoAddress);
 						if(arduino.isConnected()) _connection=true;						
 					}
@@ -119,8 +120,9 @@ public class LEDStrip extends Subsystem{
 				}
 				
 			}
-			public static void armsClamped(boolean clamped){
+			public static void armsClampedLEDs(boolean clamped){
 				try{
+					
 					_writeOut.write((!clamped ? 1: 0));
 				}catch(IOException e){
 					System.out.println("Failed to tell the Arduino if the arm is clamped. "

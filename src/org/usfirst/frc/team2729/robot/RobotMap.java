@@ -17,7 +17,7 @@ public class RobotMap {
 			JOYDRIVE_AXIS_DRIVE_X  			   = 0,
 			JOYDRIVE_AXIS_DRIVE_Y 			   = 1,
 			JOYDRIVE_AXIS_SPIN 				   = 2,
-			JOYDRIVE_AXIS_CARDINAL 			   = 5,
+			JOYDRIVE_AXIS_CARDINAL 			   = 6,
 			JOYARM_AXIS_ELEVATOR			   = 1,
 			JOYARM_AXIS_RAKE				   = 3,
 			JOYDRIVE_AXIS_DRIVE_LEFT		   = 1,

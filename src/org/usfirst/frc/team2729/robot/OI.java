@@ -144,4 +144,13 @@ public class OI {
     public double getCardinalDrive(){
     	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_CARDINAL), 0.15);
     }
+    public double getAxis2(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(2), 0.15);
+    }
+    public double getAxis3(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(3), 0.15);
+    }
+    public double getAxis4(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(4), 0.15);
+    }
 }

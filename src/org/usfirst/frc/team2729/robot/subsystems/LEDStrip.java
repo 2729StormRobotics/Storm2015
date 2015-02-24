@@ -119,6 +119,16 @@ public class LEDStrip extends Subsystem{
 				}
 				
 			}
+			public static void armsClamped(boolean clamped){
+				try{
+					_writeOut.write((!clamped ? 1: 0));
+				}catch(IOException e){
+					System.out.println("Failed to tell the Arduino if the arm is clamped. "
+							+ "Yell at it loud enough and it might hear.");
+					_connection=false;
+					connect();
+				}
+			}
 	//	}.start();
 	//}
 }

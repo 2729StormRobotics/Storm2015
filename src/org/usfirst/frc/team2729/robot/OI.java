@@ -143,4 +143,7 @@ public class OI {
     public boolean DPadPressedUp(){
     	return shiftHighDrive.get();
     }
+    public double getCardinalDrive(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_CARDINAL), 0.15);
+    }
 }

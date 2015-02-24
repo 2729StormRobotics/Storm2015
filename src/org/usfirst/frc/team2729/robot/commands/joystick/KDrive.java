@@ -22,6 +22,8 @@ public class KDrive extends Command{
 			   right = Robot.oi.getRightDrive();
 		Robot.driveTrain.kDrive(left, right);
 		
+		double cardinal = Robot.oi.getCardinalDrive();
+		if(left==0 && right==0) Robot.driveTrain.kDrive(.8*Math.abs(cardinal)/cardinal, .8*Math.abs(cardinal)/cardinal);
 	}
 
 	@Override

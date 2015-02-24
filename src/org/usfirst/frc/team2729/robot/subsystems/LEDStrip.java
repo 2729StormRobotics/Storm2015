@@ -40,7 +40,7 @@ public class LEDStrip extends Subsystem{
 	
 	//public void setMode(final int mode){
 	//	new Thread(){
-			public void setMode(final int mode) throws IOException{ 
+			public void setMode(final int mode) { 
 			     SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
 				_curMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off

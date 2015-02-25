@@ -51,7 +51,6 @@ public class Robot extends IterativeRobot {
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new LinearArm();
-		LEDs = new LEDStrip();
 		LEDs.connect();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();

@@ -28,7 +28,6 @@ public class LEDStrip extends Subsystem{
 	
 	public static boolean _connection = false;
 	
-	public static final String _socketIP="socket://10.27.29.100:1024";  
 					//The IP of the Arduino, on same network as RoboRio	 
 	private static int _curMode=_Disabled;
     static SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
@@ -57,16 +56,19 @@ public class LEDStrip extends Subsystem{
 					connect();
 				}
 				if(_curMode == _Teleop){
-					try{
+					try(
+						Socket arduino= new Socket("10.27.29.100",1024);
+						OutputStream writeOut = arduino.getOutputStream();
+					){
 					DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
 					if(alliance == DriverStation.Alliance.Blue) 
-						_writeOut.write(_blueAlliance);
+						writeOut.write(_blueAlliance);
 					else if(alliance == DriverStation.Alliance.Red) 
-						_writeOut.write(_redAlliance);
+						writeOut.write(_redAlliance);
 					else if(alliance == DriverStation.Alliance.Invalid) 
-						_writeOut.write(_invalidAlliance);
+						writeOut.write(_invalidAlliance);
 					else 
-						_writeOut.write(_whatAlliance);
+						writeOut.write(_whatAlliance);
 					}catch(IOException e ){
 						System.out.println("Failure to change Alliance: AKA You're not Italy.");
 						_connection=false;
@@ -78,9 +80,9 @@ public class LEDStrip extends Subsystem{
 			public static void connect(){
 				try(
 						Socket arduino= new Socket("10.27.29.100",1024);
+						OutputStream writeOut = arduino.getOutputStream();
 					) {
 					while(!_connection){
-						_writeOut = arduino.getOutputStream();
 						arduino.bind(arduinoAddress);
 						if(arduino.isConnected()) _connection=true;						
 					}
@@ -110,8 +112,11 @@ public class LEDStrip extends Subsystem{
 					}
 			}
 			public static void stringPotLEDs(double stringPot){
-				try{
-					_writeOut.write((int)(stringPot*1000));
+				try(
+					Socket arduino= new Socket("10.27.29.100",1024);
+					OutputStream writeOut = arduino.getOutputStream();
+				   ){
+					writeOut.write((int)(stringPot*1000));
 				}catch(IOException e){
 					System.out.println("Failure to send String Pot Data to Arduino.");
 					_connection=false;
@@ -119,9 +124,13 @@ public class LEDStrip extends Subsystem{
 				}
 				
 			}
-			public static void armsClamped(boolean clamped){
-				try{
-					_writeOut.write((!clamped ? 1: 0));
+			public static void armsClampedLEDs(boolean clamped){
+				try(
+					Socket arduino= new Socket("10.27.29.100",1024);
+					OutputStream writeOut = arduino.getOutputStream();
+				){
+					
+					writeOut.write((!clamped ? 1: 0));
 				}catch(IOException e){
 					System.out.println("Failed to tell the Arduino if the arm is clamped. "
 							+ "Yell at it loud enough and it might hear.");

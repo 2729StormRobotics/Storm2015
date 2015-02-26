@@ -8,33 +8,15 @@ public class ElevatorToSetPoint extends Command {
 
 	boolean waitUntilButton;
 	
-	public ElevatorToSetPoint(double setPoint){
-		//Robot.intake.setStringPotSP(setPoint);
-	}
-	
+	public ElevatorToSetPoint(double setPoint){}
 	@Override
-	protected void initialize() {
-		requires(Robot.intake);
-	}
-
+	protected void initialize() {requires(Robot.intake);}
 	@Override
-	protected void execute() {
-		
-	}
-
+	protected void execute() {}
 	@Override
-	protected boolean isFinished() {
-		return false;
-	}
-
+	protected boolean isFinished() {return false;}
 	@Override
-	protected void end() {
-
-	}
-
+	protected void end() {}
 	@Override
-	protected void interrupted() {
-		
-	}
-
+	protected void interrupted() {}
 }

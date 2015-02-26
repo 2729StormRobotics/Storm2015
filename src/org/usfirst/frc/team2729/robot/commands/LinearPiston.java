@@ -17,20 +17,11 @@ public class LinearPiston extends Command {
 		else Robot.linearArm.lower();
 	}
 	@Override
-	protected void execute() {
-
-	}
+	protected void execute() {}
 	@Override
-	protected boolean isFinished() {
-		return true;
-	}
+	protected boolean isFinished() {return true;}
 	@Override
-	protected void end() {
-
-	}
+	protected void end() {}
 	@Override
-	protected void interrupted() {
-
-	}
-
+	protected void interrupted() {}
 }

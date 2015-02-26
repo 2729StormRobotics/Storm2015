@@ -4,23 +4,18 @@ import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
-import org.usfirst.frc.team2729.robot.commands.Shift;
-import org.usfirst.frc.team2729.robot.commands.UpdateIndices;
 import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
-import org.usfirst.frc.team2729.robot.commands.joystick.KDrive;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.WaitForChildren;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,8 +51,7 @@ public class Robot extends IterativeRobot {
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new LinearArm();
-		LEDs = new LEDStrip();
-
+		LEDs.connect();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();
 		
@@ -112,33 +106,14 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Hall Effect count", linearArm.getRawHallCount());
 		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
 		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
-		SmartDashboard.putNumber("String Pot Point", intake.getPoint());
-		SmartDashboard.putData("Update indexes", new UpdateIndices());
-		SmartDashboard.putNumber("RightSP", driveTrain.getRightSP());
-		SmartDashboard.putNumber("LeftSP", driveTrain.getLeftSP());
-		SmartDashboard.putNumber("CenterSP", driveTrain.getCenterSP());
-		SmartDashboard.putNumber("Right power", driveTrain.getRightSpeed());
-		SmartDashboard.putNumber("Left power", driveTrain.getLeftSpeed());
-		SmartDashboard.putNumber("Center power", driveTrain.getCenterSpeed());
-		SmartDashboard.putNumber("Right enc speed", driveTrain.getRightSpeedEnc());
-		SmartDashboard.putNumber("Left power", driveTrain.getLeftSpeedEnc());
-		//SmartDashboard.putNumber("Center power", driveTrain.getCenterSpeedEnc());
-		if(Math.abs(driveTrain.getRightSpeedEnc()) > Math.abs(maxRightSpeed)){
-			maxRightSpeed = driveTrain.getRightSpeedEnc();
-		}
-		if(Math.abs(driveTrain.getLeftSpeedEnc()) > Math.abs(maxLeftSpeed)){
-			maxLeftSpeed = driveTrain.getLeftSpeedEnc();
-		}
-		SmartDashboard.putNumber("Max Right speed", maxRightSpeed);
-		SmartDashboard.putNumber("Max Left speed", maxLeftSpeed);
-		SmartDashboard.putNumber("Max Center speed", maxCenterSpeed);
-		SmartDashboard.putNumber("LG iGain", driveTrain.iGainLG);
-		SmartDashboard.putNumber("HG iGain", driveTrain.iGainHG);
-		//SmartDashboard.putNumber("String Pot Point", intake.getPoint());
 		SmartDashboard.putNumber("Elevator Set Point", intake.getPoint());
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
+		SmartDashboard.putNumber("Axis 6", oi.getCardinalDrive());
+		SmartDashboard.putNumber("Axis 2", oi.getAxis2());
+		SmartDashboard.putNumber("Axis 3", oi.getAxis3());
+		SmartDashboard.putNumber("Axis 4", oi.getAxis4());
 	}
 
 	public void disabledPeriodic() {
@@ -172,6 +147,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		if(DriverStation.getInstance().isOperatorControl()) 
+			LEDStrip.stringPotLEDs(Intake.getElevHeight());
 	}
 
 	public void testPeriodic() {

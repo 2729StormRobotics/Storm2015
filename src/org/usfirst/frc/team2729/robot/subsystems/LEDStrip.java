@@ -2,15 +2,12 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LEDStrip extends Subsystem{
 	//Modes
@@ -31,17 +28,16 @@ public class LEDStrip extends Subsystem{
 	
 	public static boolean _connection = false;
 	
-	public static final String _socketIP="socket://10.27.29.100:1024";  
 					//The IP of the Arduino, on same network as RoboRio	 
 	private static int _curMode=_Disabled;
-	protected void initDefaultCommand() {}
-	
+    static SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
+    static OutputStream _writeOut;
 	public LEDStrip(){}
-	
+	protected void initDefaultCommand() {}
+
 	//public void setMode(final int mode){
 	//	new Thread(){
 			public void setMode(final int mode) { 
-			     SocketAddress arduinoAddress = new InetSocketAddress("10.27.29.100",1024);
 				_curMode = mode; //make the new mode we are using what we sent it to
 				//if we are doing anything other than showing off
 				//and because you can't use a switch for DriverStation.getInstance()
@@ -57,27 +53,40 @@ public class LEDStrip extends Subsystem{
 					_curMode = _Disabled;
 				}
 				if(!_connection){
+					connect();
+				}
+				if(_curMode == _Teleop){
 					try(
 						Socket arduino= new Socket("10.27.29.100",1024);
 						OutputStream writeOut = arduino.getOutputStream();
+					){
+					DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
+					if(alliance == DriverStation.Alliance.Blue) 
+						writeOut.write(_blueAlliance);
+					else if(alliance == DriverStation.Alliance.Red) 
+						writeOut.write(_redAlliance);
+					else if(alliance == DriverStation.Alliance.Invalid) 
+						writeOut.write(_invalidAlliance);
+					else 
+						writeOut.write(_whatAlliance);
+					}catch(IOException e ){
+						System.out.println("Failure to change Alliance: AKA You're not Italy.");
+						_connection=false;
+						connect();
+					}
+					
+				}
+			}
+			public static void connect(){
+				try(
+						Socket arduino= new Socket("10.27.29.100",1024);
+						OutputStream writeOut = arduino.getOutputStream();
 					) {
+					while(!_connection){
 						arduino.bind(arduinoAddress);
-						writeOut.write(_curMode);
-						if(_curMode == _Teleop){
-							DriverStation.Alliance alliance = DriverStation.getInstance().getAlliance();
-							if(alliance == DriverStation.Alliance.Blue) 
-								writeOut.write(_blueAlliance);
-							else if(alliance == DriverStation.Alliance.Red) 
-								writeOut.write(_redAlliance);
-							else if(alliance == DriverStation.Alliance.Invalid) 
-								writeOut.write(_invalidAlliance);
-							else 
-								writeOut.write(_whatAlliance);
-							
-						}
-						writeOut.close();
-						arduino.close();
-						_connection = true;
+						if(arduino.isConnected()) _connection=true;						
+					}
+						
 						/*Socket connect = new Socket("10.27.29.100", 1024);
 						OutputStream out = connect.getOutputStream();
 						out.write(_curMode);
@@ -101,7 +110,32 @@ public class LEDStrip extends Subsystem{
 						System.out.println("Not Connected");
 						_connection = false;
 					}
+			}
+			public static void stringPotLEDs(double stringPot){
+				try(
+					Socket arduino= new Socket("10.27.29.100",1024);
+					OutputStream writeOut = arduino.getOutputStream();
+				   ){
+					writeOut.write((int)(stringPot*1000));
+				}catch(IOException e){
+					System.out.println("Failure to send String Pot Data to Arduino.");
+					_connection=false;
+					connect();
+				}
+				
+			}
+			public static void armsClampedLEDs(boolean clamped){
+				try(
+					Socket arduino= new Socket("10.27.29.100",1024);
+					OutputStream writeOut = arduino.getOutputStream();
+				){
 					
+					writeOut.write((!clamped ? 1: 0));
+				}catch(IOException e){
+					System.out.println("Failed to tell the Arduino if the arm is clamped. "
+							+ "Yell at it loud enough and it might hear.");
+					_connection=false;
+					connect();
 				}
 			}
 	//	}.start();

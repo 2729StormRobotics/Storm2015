@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
+import org.usfirst.frc.team2729.robot.commands.Drive;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LEDChangeMode;
@@ -32,6 +33,8 @@ public class OI {
 						 halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
+						 driveForward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_DRIVE_FORWARD),
+						 driveBackward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_DRIVE_BACKWARD),
 						 elevDown = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_DOWN),
 						 elevUp = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_UP),
 						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW);
@@ -47,6 +50,9 @@ public class OI {
 		armOut.whenPressed(new LinearPiston(false));
 		elevDown.whenPressed(new ChangeElevPosition(-1));
 		elevUp.whenPressed(new ChangeElevPosition(1));
+		
+		driveForward.whileHeld(new Drive(0.8));
+		driveBackward.whileHeld(new Drive(-0.8));
 		
 		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		
@@ -111,6 +117,7 @@ public class OI {
 		}else if(driveJoystick.getPOV() == 4){
 			new Shift(false);
 		}*/
+		
 	}
 	
     private double _zeroDeadzone(double joyValue,double dead) {

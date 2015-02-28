@@ -42,7 +42,7 @@ public class TwoContainerAuto extends CommandGroup{
 			}
 		});
 		addSequential(new DriveForward(-0.5, 530));
-		addSequential(new WaitCommand(1.5));
+		addSequential(new WaitCommand(0.75));
 		/*addSequential(new Command() {
 			
 			@Override

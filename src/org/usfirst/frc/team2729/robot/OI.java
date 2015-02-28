@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
+import org.usfirst.frc.team2729.robot.commands.Drive;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LEDChangeMode;
@@ -34,9 +35,14 @@ public class OI {
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
 						 elevDown = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_DOWN),
 						 elevUp = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_UP),
+						 forward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
+						 backwards = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS),
 						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW);
 
 	public OI() {
+		forward.whileHeld(new Drive(0.8));
+		backwards.whileHeld(new Drive(-0.8));
+		
 		shiftHighDrive.whenPressed(new Shift(true));
 		shiftLowDrive.whenPressed(new Shift(false));
 

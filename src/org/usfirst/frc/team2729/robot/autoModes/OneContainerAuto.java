@@ -14,8 +14,8 @@ public class OneContainerAuto extends CommandGroup{
 		addParallel(new LinearPiston(false));
 		//addSequential(new DriveForward(.80, 1000));//TODO: find distance
 		//addSequential(new BinAlignDepth(0.25)); //NOTE: May not need vision for first grab
-		addSequential(new BinAlignHorLinear(0.7, 27), 3);
-		addSequential(new WaitCommand(0.5));
+		addSequential(new BinAlignHorLinear(0.9, 27), 2);
+		addSequential(new WaitCommand(0.3));
 		addSequential(new LinearPiston(true));
 		addSequential(new WaitCommand(0.2));
 		addSequential(new Command(){
@@ -67,6 +67,6 @@ public class OneContainerAuto extends CommandGroup{
 			@Override
 			protected void interrupted() {}
 			
-		});
+		}, 1);
 	}
 }

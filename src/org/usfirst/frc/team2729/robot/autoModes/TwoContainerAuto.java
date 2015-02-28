@@ -5,6 +5,7 @@ import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Strafe;
 import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;
+import org.usfirst.frc.team2729.robot.commands.auto.TurnToAngle;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -15,6 +16,31 @@ public class TwoContainerAuto extends CommandGroup{
 
 	public TwoContainerAuto(){
 		addSequential(new OneContainerAuto());
+		addParallel(new Command() {
+			
+			@Override
+			protected boolean isFinished() {
+				return Robot.linearArm.getRawHallCount() >=46;
+			}
+			
+			@Override
+			protected void interrupted() {
+				end();
+			}
+			
+			@Override
+			protected void initialize() {}
+			
+			@Override
+			protected void execute() {
+				Robot.linearArm.moveArm(-1);
+			}
+			
+			@Override
+			protected void end() {
+				Robot.linearArm.moveArm(0);
+			}
+		});
 		addSequential(new DriveForward(-0.5, 530));
 		addSequential(new WaitCommand(1.5));
 		/*addSequential(new Command() {
@@ -80,7 +106,37 @@ public class TwoContainerAuto extends CommandGroup{
 					protected void interrupted() {}
 					
 				}, 1.5);
-			addSequential(new Strafe(-1), 1);
+			addSequential(new Command() {
+				
+				@Override
+				protected boolean isFinished() {
+					// TODO Auto-generated method stub
+					return Robot.driveTrain.getLeftDistance() <= -225;
+				}
+				
+				@Override
+				protected void interrupted() {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				protected void initialize() {
+					Robot.driveTrain.resetLeftEnc();
+					Robot.driveTrain.resetRightEnc();
+				}
+				
+				@Override
+				protected void execute() {
+					Robot.driveTrain.kDrive(-0.3, -0.3);
+				}
+				
+				@Override
+				protected void end() {
+					Robot.driveTrain.halt();
+				}
+			});
+			addSequential(new DriveForward(0.8, 800));
 			}
 		});
 	}

@@ -19,20 +19,11 @@ public class ElevatorClamp extends Command {
 			Robot.intake.unclamp();
 	}
 
-	protected void execute() {
+	protected void execute() {}
 
-	}
+	protected boolean isFinished() {return true;}
 
-	protected boolean isFinished() {
-		return true;
-	}
+	protected void end() {}
 
-	protected void end() {
-
-	}
-
-	protected void interrupted() {
-
-	}
-
+	protected void interrupted() {}
 }

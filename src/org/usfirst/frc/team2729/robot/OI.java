@@ -33,6 +33,8 @@ public class OI {
 						 halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 						 strafeLeft = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_LEFT),
 						 strafeRight = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_STRAFE_RIGHT),
+						 driveForward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
+						 driveBackward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS),
 						 elevDown = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_DOWN),
 						 elevUp = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_UP),
 						 forward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
@@ -54,60 +56,35 @@ public class OI {
 		elevDown.whenPressed(new ChangeElevPosition(-1));
 		elevUp.whenPressed(new ChangeElevPosition(1));
 		
+		driveForward.whileHeld(new Drive(0.8));
+		driveBackward.whileHeld(new Drive(-0.8));
+		
 		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		
 		halveOne.whileHeld(new Command() {
-
 			@Override
-			protected void initialize() {
-				Robot.driveTrain.halveOne(true);
-			}
-
+			protected void initialize() { Robot.driveTrain.halveOne(true); }
 			@Override
 			protected void execute() {}
-
 			@Override
-			protected boolean isFinished() {
-				return false;
-			}
-
+			protected boolean isFinished() { return false; }
 			@Override
-			protected void end() {
-				Robot.driveTrain.halveOne(false);
-			}
-
+			protected void end() { Robot.driveTrain.halveOne(false); }
 			@Override
-			protected void interrupted() {
-				end();
-			}
-			
+			protected void interrupted() { end(); }
 		});
 		
 		halveTwo.whileHeld(new Command() {
-
 			@Override
-			protected void initialize() {
-				Robot.driveTrain.halveTwo(true);
-			}
-
+			protected void initialize() { Robot.driveTrain.halveTwo(true); }
 			@Override
 			protected void execute() {}
-
 			@Override
-			protected boolean isFinished() {
-				return false;
-			}
-
+			protected boolean isFinished() { return false; }
 			@Override
-			protected void end() {
-				Robot.driveTrain.halveTwo(false);
-			}
-
+			protected void end() { Robot.driveTrain.halveTwo(false); }
 			@Override
-			protected void interrupted() {
-				end();
-			}
-			
+			protected void interrupted() { end(); }
 		});
 		
 		strafeLeft.whileHeld(new Strafe(-1.0));
@@ -117,6 +94,7 @@ public class OI {
 		}else if(driveJoystick.getPOV() == 4){
 			new Shift(false);
 		}*/
+		
 	}
 	
     private double _zeroDeadzone(double joyValue,double dead) {
@@ -149,5 +127,14 @@ public class OI {
     }
     public double getCardinalDrive(){
     	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_CARDINAL), 0.15);
+    }
+    public double getAxis2(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(2), 0.15);
+    }
+    public double getAxis3(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(3), 0.15);
+    }
+    public double getAxis4(){
+    	return _zeroDeadzone(driveJoystick.getRawAxis(4), 0.15);
     }
 }

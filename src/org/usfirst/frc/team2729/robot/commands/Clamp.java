@@ -6,38 +6,15 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Clamp extends Command {
 	
-	public Clamp(){
-		requires(Robot.intake);
-	}
-
+	public Clamp(){requires(Robot.intake);}
 	@Override
-	protected void initialize() {
-		Robot.intake.clamp();
-		
-	}
-
+	protected void initialize() {Robot.intake.clamp();}
 	@Override
-	protected void execute() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	protected void execute() {}
 	@Override
-	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
+	protected boolean isFinished() {return true;}
 	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	protected void end() {}
 	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	protected void interrupted() {}
 }

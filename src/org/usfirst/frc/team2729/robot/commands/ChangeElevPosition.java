@@ -37,7 +37,6 @@ public class ChangeElevPosition extends Command{
 		speed = 0.80;
 		_err = Math.abs(Robot.intake.getElevHeight() - Robot.intake.getPoint());
 		Robot.intake.setElevatorPower(speed * (_up ? -1 : 1) * Math.min(Math.max(_err/_maxDis * 2, 0.2), 1));
-//		Robot.intake.setElevatorPower(0.65 * (_up ? -1 : 1));
 	}
 
 	@Override
@@ -46,10 +45,6 @@ public class ChangeElevPosition extends Command{
 		/**
 		 * This ends it if it goes too long
 		 */
-		/*if(_endTime - _startTime == 60000){
-			SmartDashboard.putBoolean("Too long", true);
-			return true;
-		}*/
 		System.out.println(Robot.intake.getPoint());
 		if(_up){
 			if(Robot.intake.getElevHeight() >= Robot.intake.getPoint()){
@@ -67,14 +62,7 @@ public class ChangeElevPosition extends Command{
 	}
 
 	@Override
-	protected void end() {
-		Robot.intake.setElevatorPower(0);
-	}
-
+	protected void end() {Robot.intake.setElevatorPower(0);}
 	@Override
-	protected void interrupted() {
-		end();
-		
-	}
-
+	protected void interrupted() {end();}
 }

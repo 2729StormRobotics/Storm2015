@@ -8,31 +8,12 @@ public class Strafe extends Command{
 
 	private double _power;
 	
-	public Strafe(double power){
-		_power = power;
-	}
-	
-	@Override
+	public Strafe(double power){_power = power;}
 	protected void initialize() {}
-
-	@Override
 	protected void execute() {
 		Robot.driveTrain.strafeLeft(_power);
 	}
-
-	@Override
-	protected boolean isFinished() {
-		return false;
-	}
-
-	@Override
-	protected void end() {
-		Robot.driveTrain.strafeLeft(0);
-	}
-
-	@Override
-	protected void interrupted() {
-		end();
-	}
-
+	protected boolean isFinished() {return false;}
+	protected void end() {Robot.driveTrain.strafeLeft(0);}
+	protected void interrupted() {end();}
 }

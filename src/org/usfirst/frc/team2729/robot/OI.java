@@ -57,57 +57,29 @@ public class OI {
 		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		
 		halveOne.whileHeld(new Command() {
-
 			@Override
-			protected void initialize() {
-				Robot.driveTrain.halveOne(true);
-			}
-
+			protected void initialize() { Robot.driveTrain.halveOne(true); }
 			@Override
 			protected void execute() {}
-
 			@Override
-			protected boolean isFinished() {
-				return false;
-			}
-
+			protected boolean isFinished() { return false; }
 			@Override
-			protected void end() {
-				Robot.driveTrain.halveOne(false);
-			}
-
+			protected void end() { Robot.driveTrain.halveOne(false); }
 			@Override
-			protected void interrupted() {
-				end();
-			}
-			
+			protected void interrupted() { end(); }
 		});
 		
 		halveTwo.whileHeld(new Command() {
-
 			@Override
-			protected void initialize() {
-				Robot.driveTrain.halveTwo(true);
-			}
-
+			protected void initialize() { Robot.driveTrain.halveTwo(true); }
 			@Override
 			protected void execute() {}
-
 			@Override
-			protected boolean isFinished() {
-				return false;
-			}
-
+			protected boolean isFinished() { return false; }
 			@Override
-			protected void end() {
-				Robot.driveTrain.halveTwo(false);
-			}
-
+			protected void end() { Robot.driveTrain.halveTwo(false); }
 			@Override
-			protected void interrupted() {
-				end();
-			}
-			
+			protected void interrupted() { end(); }
 		});
 		
 		strafeLeft.whileHeld(new Strafe(-1.0));

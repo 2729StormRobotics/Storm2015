@@ -42,7 +42,7 @@ public class TwoContainerAuto extends CommandGroup{
 			}
 		});
 		addSequential(new DriveForward(-0.5, 530));
-		addSequential(new WaitCommand(0.75));
+		addSequential(new WaitCommand(1.0));
 		/*addSequential(new Command() {
 			
 			@Override
@@ -76,7 +76,7 @@ public class TwoContainerAuto extends CommandGroup{
 			//Anonymous Constructor. Fun things to use
 			{
 				//addSequential(new BinAlignDepth(0.6));
-				addSequential(new BinAlignHorLinear(0.5, 35+46), 2.5);
+				addSequential(new BinAlignHorLinear(0.9, 35+46), 2.5);
 				addSequential(new PrintCommand("Waiting"));
 				addSequential(new WaitCommand(0.2));
 				addSequential(new PrintCommand("Linear up"));

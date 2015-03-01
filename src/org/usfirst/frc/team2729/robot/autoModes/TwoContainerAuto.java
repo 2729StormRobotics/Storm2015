@@ -45,7 +45,8 @@ public class TwoContainerAuto extends CommandGroup{
 		addSequential(new CommandGroup(){
 			//Anonymous Constructor. Fun things to use
 			{
-				addSequential(new BinAlignHorLinear(0.5, 35+46), 2.5);
+				//addSequential(new BinAlignDepth(0.6));
+				addSequential(new BinAlignHorLinear(0.9, 35+46), 2.5);
 				addSequential(new PrintCommand("Waiting"));
 				addSequential(new WaitCommand(0.2));
 				addSequential(new PrintCommand("Linear up"));

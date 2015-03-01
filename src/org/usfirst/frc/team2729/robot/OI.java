@@ -37,9 +37,9 @@ public class OI {
 						 driveBackward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS),
 						 elevDown = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_DOWN),
 						 elevUp = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ELEVATOR_UP),
+						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW),
 						 forward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
-						 backwards = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS),
-						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW);
+						 backwards = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS);
 
 	public OI() {
 		forward.whileHeld(new Drive(0.8));

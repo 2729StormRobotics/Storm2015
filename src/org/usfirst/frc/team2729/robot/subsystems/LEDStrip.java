@@ -82,10 +82,9 @@ public class LEDStrip extends Subsystem{
 						Socket arduino= new Socket("10.27.29.100",1024);
 						OutputStream writeOut = arduino.getOutputStream();
 					) {
-					while(!_connection){
 						arduino.bind(arduinoAddress);
 						if(arduino.isConnected()) _connection=true;						
-					}
+					
 						
 						/*Socket connect = new Socket("10.27.29.100", 1024);
 						OutputStream out = connect.getOutputStream();

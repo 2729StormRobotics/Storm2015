@@ -3,9 +3,7 @@ package org.usfirst.frc.team2729.robot.autoModes;
 import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
-import org.usfirst.frc.team2729.robot.commands.Strafe;
 import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;
-import org.usfirst.frc.team2729.robot.commands.auto.TurnToAngle;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -17,25 +15,20 @@ public class TwoContainerAuto extends CommandGroup{
 	public TwoContainerAuto(){
 		addSequential(new OneContainerAuto());
 		addParallel(new Command() {
-			
 			@Override
 			protected boolean isFinished() {
 				return Robot.linearArm.getRawHallCount() >=46;
 			}
-			
 			@Override
 			protected void interrupted() {
 				end();
 			}
-			
 			@Override
 			protected void initialize() {}
-			
 			@Override
 			protected void execute() {
 				Robot.linearArm.moveArm(-1);
-			}
-			
+			}			
 			@Override
 			protected void end() {
 				Robot.linearArm.moveArm(0);

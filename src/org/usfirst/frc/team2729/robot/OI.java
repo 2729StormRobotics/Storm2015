@@ -7,7 +7,6 @@ import org.usfirst.frc.team2729.robot.commands.ElevatorToSetPoint;
 import org.usfirst.frc.team2729.robot.commands.LEDChangeMode;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 import org.usfirst.frc.team2729.robot.commands.Shift;
-import org.usfirst.frc.team2729.robot.commands.Strafe;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -87,8 +86,6 @@ public class OI {
 			protected void interrupted() { end(); }
 		});
 		
-		strafeLeft.whileHeld(new Strafe(-1.0));
-		strafeRight.whileHeld(new Strafe(1.0));
 		/*if(driveJoystick.getPOV() == 0){
 			new Shift(true);
 		}else if(driveJoystick.getPOV() == 4){

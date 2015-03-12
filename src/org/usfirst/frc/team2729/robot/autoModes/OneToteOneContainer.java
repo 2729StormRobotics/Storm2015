@@ -4,8 +4,6 @@ import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
-import org.usfirst.frc.team2729.robot.commands.Strafe;
-
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

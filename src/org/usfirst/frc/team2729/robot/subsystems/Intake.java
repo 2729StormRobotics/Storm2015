@@ -19,9 +19,8 @@ public class Intake extends Subsystem {
 
 	private final DoubleSolenoid _arm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_CLAMP_IN, RobotMap.PORT_SOLENOID_CLAMP_OUT);
 	private final Talon _elevator = new Talon(RobotMap.PORT_MOTOR_ELEVATOR);
-						//_spin	  = new Talon(RobotMap.PORT_MOTOR_SPIN);
 	private boolean _extended;
-	private static StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT, 1);
+	private StringPot _stringPot = new StringPot(RobotMap.PORT_STRINGPOT, 1);
 	
 	private double elevatorSetSpeed = 0;
 	
@@ -70,7 +69,7 @@ public class Intake extends Subsystem {
 		return setPoints[newStringPoint];
 	}
 	
-	public static double getElevHeight(){
+	public double getElevHeight(){
 		return _stringPot.get();
 	}
 	

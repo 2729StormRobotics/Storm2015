@@ -4,7 +4,6 @@ import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
-import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
@@ -53,13 +52,7 @@ public class Robot extends IterativeRobot {
 		linearArm = new LinearArm();
 		LEDs.connect();
 		//OI is init last to make sure it does not reference null subsystems
-		oi = new OI();
-		
-		//complex commands for autoModes
-		CommandGroup oneCan = new CommandGroup();
-		oneCan.addSequential(new DriveVector(0, false, 1500, 1));
-		//oneCan.addSequential(command);
-		
+		oi = new OI();	
 		
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container"};
@@ -102,7 +95,6 @@ public class Robot extends IterativeRobot {
 	public void sendSensorData(){
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
-		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
 		SmartDashboard.putNumber("Hall Effect count", linearArm.getRawHallCount());
 		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
 		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
@@ -148,7 +140,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		sendSensorData();
 		if(DriverStation.getInstance().isOperatorControl()) 
-			LEDStrip.stringPotLEDs(Intake.getElevHeight());
+			LEDStrip.stringPotLEDs(intake.getElevHeight());
 	}
 
 	public void testPeriodic() {

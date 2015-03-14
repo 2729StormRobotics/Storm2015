@@ -1,9 +1,9 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.Robot;
+import org.usfirst.frc.team2729.robot.commands.BinAlignHorLinear;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
-import org.usfirst.frc.team2729.robot.commands.auto.BinAlignHorLinear;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;

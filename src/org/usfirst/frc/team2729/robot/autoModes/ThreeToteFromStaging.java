@@ -1,22 +1,20 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.Robot;
-import org.usfirst.frc.team2729.robot.commands.ChangeElevPosition;
+import org.usfirst.frc.team2729.robot.commands.Clamp;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class OneContainerFromStagingAuto extends CommandGroup{
-	public OneContainerFromStagingAuto(){
-		addSequential(new DriveForward(.7, 500));
-		addSequential(new ElevatorClamp(true));
-		addSequential(new ChangeElevPosition(1));
-		addSequential(new DriveForward(.4, 100));
+public class ThreeToteFromStaging extends CommandGroup{
+
+	public ThreeToteFromStaging(){
+		//addParralel(spin in);
 		addSequential(new Command() {
 			@Override
-			protected boolean isFinished() {return Robot.driveTrain.getLeftDistance() >= 225;}
+			protected boolean isFinished() {return Robot.driveTrain.getLeftDistance() <= 112;}
 			@Override
 			protected void interrupted() {}
 			@Override
@@ -25,10 +23,15 @@ public class OneContainerFromStagingAuto extends CommandGroup{
 				Robot.driveTrain.resetRightEnc();
 			}
 			@Override
-			protected void execute() {Robot.driveTrain.kDrive(0.3, 0.3);}
+			protected void execute() {Robot.driveTrain.kDrive(-0.3, -0.3);}
 			@Override
 			protected void end() {Robot.driveTrain.halt();}
 		});
-		addSequential(new DriveForward(.8, 600));
+		//addParralel(spin halt);
+		//addParallel(new spin open);
+		//addParallel(new ElevatorDownToBottom)
+		addSequential(new DriveForward(1.0, 500));//todo determine this distance
+		addSequential(new ElevatorClamp(true));
+		//addParallel(new )
 	}
 }

@@ -5,7 +5,6 @@ import java.util.TimerTask;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.joystick.KDrive;
-import org.usfirst.frc.team2729.robot.util.senseGyro;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
@@ -32,18 +31,10 @@ public class DriveTrain extends Subsystem {
 	private final Encoder _rightEncoder = new Encoder(RobotMap.PORT_ENCODER_RIGHT_1, RobotMap.PORT_ENCODER_RIGHT_2);
 	
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SOLENOID_SHIFT_DRIVE_HIGH,RobotMap.PORT_SOLENOID_SHIFT_DRIVE_LOW);
-
-	private final double _turningRatio = 0.5;
-	private final double RatioLow = 1.2;
-	private final double RatioHigh = 1.63636363;
-
-	private final double HGMax = 1640;
-	private final double LGMax = 700;
-	private final double CMax = 300;
 	
 	public double iGainHG = .05; //a lower iGain for the
 	public double iGainLG = .03; //low gear prevents jerky movements
-	private double leftPower = 0, rightPower = 0, centerPower = 0;
+	private double leftPower = 0, rightPower = 0;
 
 	private boolean _isHighGear = false;
 	
@@ -136,9 +127,6 @@ public class DriveTrain extends Subsystem {
 		return _isHighGear;
 	}
 
-	public double getGearRatio() {
-		return _isHighGear ? RatioHigh : RatioLow;
-	}
 	public double getLeftSP() {
 		return leftPower;
 	}

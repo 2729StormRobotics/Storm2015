@@ -13,8 +13,8 @@ public class OneToteAuto extends CommandGroup {
 		addSequential(new Unclamp());
 		addSequential(new RollerClamp(false));
 		addSequential(new AutoElevator(0.5));
-		addSequential(new DriveForward(-0.5, 200));
-		addSequential(new AutoElevator(-1), 2.5);
+		addSequential(new DriveForward(-0.5, 200)); // can you even do a negative thing
+		addSequential(new AutoElevator(-1), 2.5);  
 		//May not be useful
 	}
 

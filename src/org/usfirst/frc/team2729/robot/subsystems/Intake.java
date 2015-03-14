@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
+import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.Elevator;
 import org.usfirst.frc.team2729.robot.util.StringPot;
@@ -114,6 +115,9 @@ public class Intake extends Subsystem {
 			_elevator.set(0);
 		}else{
 			_elevator.set(-power);
+		}
+		if((Math.abs(power) == power && _stringPot.get() <= 0.1 && Robot.roller.isClamped())){
+			_elevator.set(0);
 		}
     }
 

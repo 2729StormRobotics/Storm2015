@@ -8,20 +8,20 @@ public class RollerClamp extends Command {
 	private boolean _clamp;
 	
 	public RollerClamp(boolean clamp) {
-		requires(Robot.roller);
 		_clamp = clamp;
 	}
 	
 	@Override
-	protected void initialize() {
-		if(_clamp) Robot.roller.clamp(); 
-		else Robot.roller.unclamp(); 
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		
+		//TODO: Check that value below
+		if(_clamp && Robot.intake.getElevHeight() > 0.1){
+			Robot.roller.clamp(); 
+		}else{
+			Robot.roller.unclamp();
+		}
 	}
 
 	@Override

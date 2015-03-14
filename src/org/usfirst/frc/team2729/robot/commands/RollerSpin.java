@@ -9,7 +9,6 @@ public class RollerSpin extends Command {
 	private double _spin;
 	
 	public RollerSpin(double spin) {
-		requires(Robot.roller);
 		_spin = spin;
 	}
 	
@@ -23,7 +22,7 @@ public class RollerSpin extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	@Override

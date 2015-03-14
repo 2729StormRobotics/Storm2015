@@ -11,12 +11,10 @@ public class Roller extends Subsystem {
 	
 	private final DoubleSolenoid _rollerArm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_ROLLER_IN, RobotMap.PORT_SOLENOID_ROLLER_OUT);
 	private final Talon _roller = new Talon(RobotMap.PORT_MOTOR_ROLLER);
-	private boolean _clamped, _spinning;
+	private boolean _clamped;
 	
 	@Override
-	protected void initDefaultCommand() {
-		
-	}
+	protected void initDefaultCommand() {}
 
 	public Roller() {
 		LiveWindow.addActuator("Roller", "RollerArm", _rollerArm);
@@ -54,7 +52,6 @@ public class Roller extends Subsystem {
 	 */
 	public void spinIn() {
 		_roller.set(0.8);
-		_spinning = true;
 	}
 	
 	/**
@@ -62,7 +59,6 @@ public class Roller extends Subsystem {
 	 */
 	public void spinOut() {
 		_roller.set(-0.8);
-		_spinning = false;
 	}
 	
 	public double getRollerSpeed() {
@@ -70,10 +66,10 @@ public class Roller extends Subsystem {
 	}
 
 	public boolean isClamped(){
-		return !_clamped;
+		return _clamped;
 	}
 	
 	public boolean isSpinning(){
-		return !_spinning;
+		return _roller.get() != 0;
 	}
 }

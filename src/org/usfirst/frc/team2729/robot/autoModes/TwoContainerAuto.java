@@ -59,37 +59,64 @@ public class TwoContainerAuto extends CommandGroup{
 					@Override
 					protected void interrupted() {}
 				}, 1.5);
-			addSequential(new Command() {
+				addSequential(new Command() {
 				
-				@Override
-				protected boolean isFinished() {
-					// TODO Auto-generated method stub
-					return Robot.driveTrain.getLeftDistance() <= -225;
-				}
+					@Override
+					protected boolean isFinished() {
+						// TODO Auto-generated method stub
+						return Robot.driveTrain.getLeftDistance() <= -225;
+					}
 				
-				@Override
-				protected void interrupted() {
-					// TODO Auto-generated method stub
+					@Override
+					protected void interrupted() {}
+				
+					@Override
+					protected void initialize() {
+						Robot.driveTrain.resetLeftEnc();
+						Robot.driveTrain.resetRightEnc();
+					}
+				
+					@Override
+					protected void execute() {
+						Robot.driveTrain.kDrive(-0.3, -0.3);
+					}
+				
+					@Override
+					protected void end() {
+						Robot.driveTrain.halt();
+					}
+				});
+				addSequential(new DriveForward(0.8, 800));
+				addSequential(new Command() {
 					
-				}
+					@Override
+					protected boolean isFinished() {
+						// TODO Auto-generated method stub
+						return Robot.driveTrain.getLeftDistance() <= -225;
+					}
 				
-				@Override
-				protected void initialize() {
-					Robot.driveTrain.resetLeftEnc();
-					Robot.driveTrain.resetRightEnc();
-				}
-				
-				@Override
-				protected void execute() {
-					Robot.driveTrain.kDrive(-0.3, -0.3);
-				}
-				
-				@Override
-				protected void end() {
-					Robot.driveTrain.halt();
-				}
-			});
-			addSequential(new DriveForward(0.8, 800));
+					@Override
+					protected void interrupted() {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					protected void initialize() {
+						Robot.driveTrain.resetLeftEnc();
+						Robot.driveTrain.resetRightEnc();
+					}
+					
+					@Override
+					protected void execute() {
+						Robot.driveTrain.kDrive(0.3, 0.3);
+					}
+					
+					@Override
+					protected void end() {
+						Robot.driveTrain.halt();
+					}
+				});
 			}
 		});
 	}

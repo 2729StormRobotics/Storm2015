@@ -8,10 +8,11 @@ public class OneToteAuto extends CommandGroup {
 		//Drive forward with rollers, unclamp, raise elevator, drive back
 		addParallel(new RollerSpin(0.5));
 		addSequential(new DriveForward(0.5, 200));
-		addSequential(new RollerSpin(0));
+		addParallel(new RollerSpin(0));
 		addSequential(new Unclamp());
 		addSequential(new RollerClamp(false));
 		addSequential(new AutoElevator(-1), 2.5);
+		//May not be useful
 	}
 
 }

@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 		LEDStrip.connect();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();	
-		
+		roller = new Roller();
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container"};
 		autoModes = new Command[]{new DriveForward(.45, 900), new OneContainerAuto(), new TwoContainerAuto(), new OneToteOneContainer()};
@@ -103,10 +103,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
-		SmartDashboard.putNumber("Axis 6", oi.getCardinalDrive());
-		SmartDashboard.putNumber("Axis 2", oi.getAxis2());
-		SmartDashboard.putNumber("Axis 3", oi.getAxis3());
-		SmartDashboard.putNumber("Axis 4", oi.getAxis4());
+		SmartDashboard.putNumber("Left Drive", oi.getLeftDrive());
 	}
 
 	public void disabledPeriodic() {

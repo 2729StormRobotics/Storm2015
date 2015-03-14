@@ -54,8 +54,8 @@ public class OI {
 		
 		rollerIn.whenPressed(new RollerClamp(true));
 		rollerOut.whenPressed(new RollerClamp(false));
-		rollerSpinIn.whenPressed(new RollerSpin(0.8));
-		rollerSpinOut.whenPressed(new RollerSpin(-0.8));
+		rollerSpinIn.whileHeld(new RollerSpin(0.8));
+		rollerSpinOut.whileHeld(new RollerSpin(-0.8));
 		
 		driveForward.whileHeld(new Drive(0.8));
 		driveBackward.whileHeld(new Drive(-0.8));
@@ -108,8 +108,9 @@ public class OI {
     public double getSpin() {
     	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_SPIN), 0.15);
     }
-    //This should be negated, but the motor is backwards, so negating here works
+    //This should be negated, but the motor is backwards, so it's a double negative here instead. I'm lazy
     public double getElevator(){
+    	System.out.println(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_ELEVATOR));
     	return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYARM_AXIS_ELEVATOR), 0.15);
     }
     public double getRake(){
@@ -123,17 +124,5 @@ public class OI {
     }
     public boolean DPadPressedUp(){
     	return shiftHighDrive.get();
-    }
-    public double getCardinalDrive(){
-    	return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_CARDINAL), 0.15);
-    }
-    public double getAxis2(){
-    	return _zeroDeadzone(driveJoystick.getRawAxis(2), 0.15);
-    }
-    public double getAxis3(){
-    	return _zeroDeadzone(driveJoystick.getRawAxis(3), 0.15);
-    }
-    public double getAxis4(){
-    	return _zeroDeadzone(driveJoystick.getRawAxis(4), 0.15);
     }
 }

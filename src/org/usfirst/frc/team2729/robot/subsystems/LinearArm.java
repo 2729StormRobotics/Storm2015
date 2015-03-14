@@ -20,6 +20,7 @@ public class LinearArm extends Subsystem{
 	private int _count;
 	
 	public LinearArm(){
+		
 		_count = 0;
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);

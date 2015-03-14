@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class OneToteOneContainer extends CommandGroup{
 	public OneToteOneContainer(){
+		//Has been tested, unlike OneContainerFromStagingAuto
 		addSequential(new ElevatorClamp(true));
 		addSequential(new WaitCommand(0.5));
 		addSequential(new ChangeElevPosition(1));

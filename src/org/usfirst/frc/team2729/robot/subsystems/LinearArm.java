@@ -5,8 +5,6 @@ import org.usfirst.frc.team2729.robot.commands.joystick.LinearArmJoy;
 import org.usfirst.frc.team2729.robot.util.HallEffectSensor;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;

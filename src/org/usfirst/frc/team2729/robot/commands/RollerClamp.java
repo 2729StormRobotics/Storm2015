@@ -5,16 +5,16 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class RollerClamp extends Command {
-	private boolean clamp;
+	private boolean _clamp;
 	
 	public RollerClamp(boolean clamp) {
 		requires(Robot.roller);
-		clamp = clamp;
+		_clamp = clamp;
 	}
 	
 	@Override
 	protected void initialize() {
-		if(clamp) Robot.roller.clamp(); 
+		if(_clamp) Robot.roller.clamp(); 
 		else Robot.roller.unclamp(); 
 	}
 

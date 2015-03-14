@@ -1,16 +1,11 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.Elevator;
 import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -29,7 +24,6 @@ public class Intake extends Subsystem {
 	
 	private double[] setPoints = {0, .166, .384, .605, .824, 0.90};
 	
-	private double pGain = 0.005, dT = 10;
 	private int  stringPotPoint = 0, newStringPoint = stringPotPoint, _nextUp = 0, _nextDown = 0;
 	
 	
@@ -37,7 +31,6 @@ public class Intake extends Subsystem {
 		LiveWindow.addActuator("Intake", "Arm", _arm);
 		LiveWindow.addActuator("Intake", "Elevator", _elevator);
 		
-		Timer _timer = new Timer();
 		/*_timer.schedule(new TimerTask() {
 			public void run() {
 				if (getElevatorSpeed() == 0) {

@@ -1,10 +1,6 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
-import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.commands.*;
-import org.usfirst.frc.team2729.robot.subsystems.Roller;
-
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 public class OneToteAuto extends CommandGroup {
 	public OneToteAuto(){

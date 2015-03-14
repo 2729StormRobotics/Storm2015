@@ -9,14 +9,12 @@ public class ChangeElevPosition extends Command{
 
 	private int _change, _loop;
 	private boolean _up;
-	private long _startTime, _endTime;
-	private double _err, _speed;
+	private double _err;
 	private final double _maxDis = 0.229;
 	
 	public ChangeElevPosition(int change){
 		_change = change;
 		_up = _change > 0;
-		_startTime = System.currentTimeMillis();
 	}
 	
 	@Override
@@ -41,10 +39,6 @@ public class ChangeElevPosition extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		_endTime = System.currentTimeMillis();
-		/**
-		 * This ends it if it goes too long
-		 */
 		System.out.println(Robot.intake.getPoint());
 		if(_up){
 			if(Robot.intake.getElevHeight() >= Robot.intake.getPoint()){

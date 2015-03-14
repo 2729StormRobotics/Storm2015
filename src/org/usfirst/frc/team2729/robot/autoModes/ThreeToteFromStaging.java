@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
 import org.usfirst.frc.team2729.robot.Robot;
-import org.usfirst.frc.team2729.robot.commands.Clamp;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
 

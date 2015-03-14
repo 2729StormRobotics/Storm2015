@@ -6,41 +6,30 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class RollerSpin extends Command {
 
-	private boolean spin;
+	private double _spin;
 	
-	public RollerSpin(boolean spin) {
+	public RollerSpin(double spin) {
 		requires(Robot.roller);
-		spin = spin;
+		_spin = spin;
 	}
 	
 	@Override
-	protected void initialize() {
-		if(spin) Robot.roller.spinIn(); 
-		else Robot.roller.spinOut(); 
-	}
+	protected void initialize() {}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		
+		Robot.roller.setRollerPower(_spin);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void end() {}
 
 	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		
-	}
+	protected void interrupted() {}
 
 }

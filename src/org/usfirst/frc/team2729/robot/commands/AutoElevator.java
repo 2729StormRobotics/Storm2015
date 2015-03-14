@@ -4,17 +4,17 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Elevator extends Command {
-
-	public Elevator(){
+public class AutoElevator extends Command {
+	double _power;
+	public AutoElevator(double power){
+		_power = power;
 		requires(Robot.intake);
 	}
 	@Override
 	protected void initialize() {}
 	@Override
 	protected void execute() {
-		double elevator = Robot.oi.getElevator();
-		Robot.intake.setElevatorPower(elevator);
+		Robot.intake.setElevatorPower(_power);
 	}
 	@Override
 	protected boolean isFinished() {

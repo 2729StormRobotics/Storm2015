@@ -5,26 +5,16 @@ import org.usfirst.frc.team2729.robot.commands.joystick.RakeArmJoy;
 import org.usfirst.frc.team2729.robot.util.StringPot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class RakeArm extends Subsystem{
-	public static double VAL_POS_DOWN = 0,//TODO: determine 3 values: down, up, stored
-						 VAL_POS_UP = 0,
-						 VAL_POS_STORED = 0;
-	private final Talon _arm 			= new Talon(RobotMap.PORT_MOTOR_ARM);
-	private final Encoder _armEncoder 	= new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
-	private final StringPot _pot 		= new StringPot(RobotMap.PORT_STRINGPOT, 0); //TODO: find max val
+	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
+	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
+	private final StringPot _pot = new StringPot(RobotMap.PORT_STRINGPOT, 1);
 	public RakeArm(){
 		LiveWindow.addActuator("Arm1", "Arm", _arm);
-		LiveWindow.addSensor("Arm1", "Arm Encoder", _armEncoder);
-	}
-
-	public Encoder get_ArmEncoder() {
-		return _armEncoder;
 	}
 
 	public boolean isPressed() {
@@ -46,17 +36,5 @@ public class RakeArm extends Subsystem{
 
 	public void moveArm(double power) {
 		_arm.set(power); //Sets a power to move the arm
-	}
-
-	public void resetEncoders() {
-		_armEncoder.reset();
-	}
-
-	public double getArmDistance() {
-		return _armEncoder.get();
-	}
-
-	public double getArmRate() {
-		return _armEncoder.getRate();
 	}
 }

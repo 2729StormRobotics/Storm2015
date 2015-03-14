@@ -1,64 +1,69 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
+import org.usfirst.frc.team2729.robot.commands.joystick.LinearArmJoy;
+import org.usfirst.frc.team2729.robot.util.HallEffectSensor;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-public class LinearArm extends Subsystem{
-	
-	private final Solenoid _piston 		= new Solenoid(RobotMap.PORT_SOLENOID_ARM);
-	private final Talon    _arm 		= new Talon(RobotMap.PORT_MOTOR_ARM);
-	private final Encoder  _armEncoder 	= new Encoder(RobotMap.PORT_ENCODER_ARM_1, RobotMap.PORT_ENCODER_ARM_2);
-	private final DigitalInput _switch 	= new DigitalInput(RobotMap.PORT_LIMIT_SWITCH);
 
+public class LinearArm extends Subsystem{
+	private final Solenoid _piston = new Solenoid(RobotMap.PORT_SOLENOID_ARM_UP);
+	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
+	private boolean _up = false;
+	private final HallEffectSensor _hallEffect = new HallEffectSensor(RobotMap.PORT_SENSOR_HALLEFFECT);
+	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
+	private int _count;
+	
 	public LinearArm(){
+		_count = 0;
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
-		LiveWindow.addSensor("Arm2", "Arm Encoder", _armEncoder);
+		_piston.set(false);
 	}
-
-	public Solenoid getPiston() {
-		return _piston;
+	
+	public boolean isPressed(){
+		return _switch.get();
 	}
-
-	public Encoder getArmEncoder() {
-		return _armEncoder;
+	
+	public boolean isUp(){
+		return _up;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new LinearArmJoy());
 	}
-
-	public void retract() {
+	
+	public void lower(){
 		_piston.set(false);
+		_up = false;
 	}
-
-	public void extend() {
+	
+	public void raise(){
 		_piston.set(true);
+		_up = true;
 	}
-
-	public void moveArm(double power) {
+	
+	public int getCount(){
+		return _count;
+	}
+	
+	public void setCount(int newCount){
+		_count = newCount;
+	}
+	
+	public void moveArm(double power){
 		_arm.set(power);
 	}
 
-	public void resetEncoders() {
-		_armEncoder.reset();
+	public int getRawHallCount(){
+		return _hallEffect.count();
 	}
-	public boolean isPressed() {
-		return _switch.get();
-	}
-	public double getArmDistance() {
-		return _armEncoder.get();
-	}
-
-	public double getArmRate() {
-		return _armEncoder.getRate();
-	}
-
 }

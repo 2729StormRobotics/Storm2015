@@ -1,25 +1,21 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
-import org.usfirst.frc.team2729.robot.commands.LowerArmsToReleasePos;
-import org.usfirst.frc.team2729.robot.commands.Stack;
-import org.usfirst.frc.team2729.robot.commands.Unclamp;
-import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
-import org.usfirst.frc.team2729.robot.commands.auto.ToteAlignHor;
+import org.usfirst.frc.team2729.robot.Robot;
+import org.usfirst.frc.team2729.robot.commands.*;
+import org.usfirst.frc.team2729.robot.subsystems.Roller;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-
-/**
- *
- */
 public class OneToteAuto extends CommandGroup {
-
-	public OneToteAuto() {
-		addSequential(new ToteAlignHor(.5));
-		addSequential(new DriveVector(0, false, 20, 1));
-		addSequential(new Stack());
-		addSequential(new MoveToAuto());
-		addSequential(new LowerArmsToReleasePos());
+	public OneToteAuto(){
+		//where is it set up?
+		//Drive forward with rollers, unclamp, raise elevator, drive back
+		addParallel(new RollerSpin(0.5));
+		addSequential(new DriveForward(0.5, 200));
+		addSequential(new RollerSpin(0));
 		addSequential(new Unclamp());
+		addSequential(new RollerClamp(false));
+		addSequential(new AutoElevator(-1), 2.5);
 	}
 
 }

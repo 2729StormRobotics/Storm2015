@@ -4,30 +4,31 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftElevator extends Command{
-	
-	public LiftElevator(){
-		requires(Robot.intake);
-	}
+public class RollerSpin extends Command {
 
+	private boolean spin;
+	
+	public RollerSpin(boolean spin) {
+		requires(Robot.roller);
+		spin = spin;
+	}
+	
 	@Override
 	protected void initialize() {
-				
+		if(spin) Robot.roller.spinIn(); 
+		else Robot.roller.spinOut(); 
 	}
 
 	@Override
 	protected void execute() {
-		Robot.intake.setElevator(1);
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		//TODO FIND REAL VALUES FOR ELEVATOR DISTANCE
-    	if(Robot.intake.getElevatorDistance() > 1 && Robot.intake.getElevatorDistance() < 2){
-    		return true;
-    	}
-    	return false;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override

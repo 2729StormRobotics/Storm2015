@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class RakeArmJoy extends Command{
 
 	public RakeArmJoy(){
-		requires(Robot.rakeArm);
+		//requires(Robot.rakeArm);
 	}
 
 	@Override

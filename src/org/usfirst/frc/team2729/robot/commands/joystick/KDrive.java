@@ -3,26 +3,27 @@ package org.usfirst.frc.team2729.robot.commands.joystick;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.PrintCommand;
 
-public class HDrive extends Command {
+public class KDrive extends Command{
 
-	public HDrive() {
+	public KDrive(){
 		requires(Robot.driveTrain);
 	}
-
+	
 	@Override
 	protected void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected void execute() {
-		double xDrive = Robot.oi.getXDrive(), yDrive = Robot.oi.getYDrive(), spin = Robot.oi
-				.getSpin();
-		new PrintCommand("x: " + xDrive + " y: " + yDrive).start();
-		//joystick values [-1, 1]
-		System.out.println("x: " + xDrive + " y: " + yDrive);
-		Robot.driveTrain.gradientDrive(xDrive, yDrive, spin);
+		double left = Robot.oi.getLeftDrive(),
+			   right = Robot.oi.getRightDrive();
+		Robot.driveTrain.kDrive(left, right);
+		
+		double cardinal = Robot.oi.getCardinalDrive();
+		if(left==0 && right==0) Robot.driveTrain.kDrive(.8*Math.abs(cardinal)/cardinal, .8*Math.abs(cardinal)/cardinal);
 	}
 
 	@Override
@@ -34,13 +35,12 @@ public class HDrive extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

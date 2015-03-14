@@ -1,20 +1,21 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.commands.auto.DriveVector;
+import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
+import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
+import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
-import org.usfirst.frc.team2729.robot.subsystems.RakeArm;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
+import org.usfirst.frc.team2729.robot.subsystems.Roller;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.WaitForChildren;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,11 +25,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	public static RakeArm rakeArm;
+	public static Roller roller;
+
+	//public static rakeArm _rakeArm;
 	public static LinearArm linearArm;
 	public static LEDStrip LEDs;
-	
-	public static Joystick _driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE);
 
 	public static Command teleop;
 	Compressor compressor;
@@ -38,7 +39,10 @@ public class Robot extends IterativeRobot {
 	Command[] autoModes;
 	SendableChooser chooser = new SendableChooser();
 	Command selectedAutoMode;
-
+	//Test code
+	double maxRightSpeed = 0;
+	double maxLeftSpeed = 0;
+	double maxCenterSpeed =0;
 	public void robotInit() {
 		driveTrain = new DriveTrain();
 		intake = new Intake();
@@ -48,19 +52,13 @@ public class Robot extends IterativeRobot {
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new LinearArm();
-		
+		LEDs.connect();
 		//OI is init last to make sure it does not reference null subsystems
-		oi = new OI();
-		
-		//complex commands for autoModes
-		CommandGroup oneCan = new CommandGroup();
-		oneCan.addSequential(new DriveVector(0, false, 1500, 1));
-		//oneCan.addSequential(command);
-		
+		oi = new OI();	
 		
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward"};
-		autoModes = new Command[]{new DriveVector(0, false, 3000, 1), };
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container"};
+		autoModes = new Command[]{new DriveForward(.45, 900), new OneContainerAuto(), new TwoContainerAuto(), new OneToteOneContainer()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard
@@ -97,9 +95,19 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
     }
 	public void sendSensorData(){
-		SmartDashboard.putNumber("Elevator Drive", oi.getElevator());
-		SmartDashboard.putNumber("Y Drive", oi.getYDrive());
-		SmartDashboard.putNumber("Center Encoder", driveTrain.getCenterDistance());
+		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
+		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
+		SmartDashboard.putNumber("Hall Effect count", linearArm.getRawHallCount());
+		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
+		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
+		SmartDashboard.putNumber("Elevator Set Point", intake.getPoint());
+		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
+		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
+		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
+		SmartDashboard.putNumber("Axis 6", oi.getCardinalDrive());
+		SmartDashboard.putNumber("Axis 2", oi.getAxis2());
+		SmartDashboard.putNumber("Axis 3", oi.getAxis3());
+		SmartDashboard.putNumber("Axis 4", oi.getAxis4());
 	}
 
 	public void disabledPeriodic() {
@@ -133,6 +141,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		if(DriverStation.getInstance().isOperatorControl()) 
+			LEDStrip.stringPotLEDs(intake.getElevHeight());
 	}
 
 	public void testPeriodic() {

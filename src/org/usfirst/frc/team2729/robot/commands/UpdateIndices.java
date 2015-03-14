@@ -4,31 +4,28 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LowerArmsToPickUpPos  extends Command {
+public class UpdateIndices extends Command{
 
-	public LowerArmsToPickUpPos(){
-		requires(Robot.intake);
+	public UpdateIndices(){
+		
 	}
 	
 	@Override
-	protected void initialize(){
-		
+	protected void initialize() {
+		// TODO Auto-generated method stub
+		Robot.intake.defIndexes();
 	}
 
 	@Override
 	protected void execute() {
-	Robot.intake.setElevator(-1);
-	
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		//TODO FIND REAL VALUES FOR ELEVATOR DISTANCE
-    	if(Robot.intake.getElevatorDistance() > 1 && Robot.intake.getElevatorDistance() < 2){
-    		return true;
-    	}
-    	return false;
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override

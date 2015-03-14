@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2729.robot.commands.auto;
+package org.usfirst.frc.team2729.robot.commands;
 
 import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
@@ -6,27 +6,26 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class BinAlignHorLinear extends Command{
-	public double speed;
+	public double _speed;
+	public int _hall;
 	
-	public BinAlignHorLinear(double _speed){
+	
+	public BinAlignHorLinear(double speed, int hallCount){
 		requires(Robot.linearArm);
-		speed = _speed;
+		_speed = speed;
+		_hall = hallCount;
 	}
 	
 	@Override
 	protected void initialize() {}
 	@Override
 	protected void execute() {
-		Robot.linearArm.moveArm(speed);
+		Robot.linearArm.moveArm(_speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if(Robot.linearArm.isPressed()){
-			return true;
-		} else {
-			return false;
-		}
+		return Robot.linearArm.getRawHallCount() >= _hall;
 	}
 
 	@Override

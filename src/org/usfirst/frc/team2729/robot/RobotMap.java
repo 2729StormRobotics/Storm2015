@@ -39,19 +39,20 @@ public class RobotMap {
 			JOYARM_BUTTON_CLAMP_OUT            = 7,
 			JOYARM_BUTTON_ARM_IN       		   = 6,
 			JOYARM_BUTTON_ARM_OUT      		   = 8,
-			JOYARM_BUTTON_SPIN_IN			   = 4,
-			JOYARM_BUTTON_SPIN_OUT			   = 2,
-			JOYARM_BUTTON_ELEVATOR_DOWN		   = 1,
-			JOYARM_BUTTON_ELEVATOR_UP		   = 3;
+			JOYARM_BUTTON_ROLLER_SPIN_IN	   = 4,
+			JOYARM_BUTTON_ROLLER_SPIN_OUT	   = 2,
+			JOYARM_BUTTON_ROLLER_IN		   	   = 1,
+			JOYARM_BUTTON_ROLLER_OUT		   = 3;
 	
-	//PWM Ports 
+	//PWM Ports
 	public static final int 
 			PORT_MOTOR_DRIVE_CENTER	  = 2,
 			PORT_MOTOR_DRIVE_LEFT     = 0,
 			PORT_MOTOR_DRIVE_RIGHT    = 4,
 			PORT_MOTOR_ELEVATOR	      = 1,
 			PORT_MOTOR_ARM            = 3,
-			PORT_MOTOR_SPIN			  = 5;
+			PORT_MOTOR_SPIN			  = 5,
+			PORT_MOTOR_ROLLER		  = 6;
 	
 	//Digital I/O Ports
 	public static final int 
@@ -78,5 +79,7 @@ public class RobotMap {
 			PORT_SOLENOID_CLAMP_OUT			  = 1,
 		    PORT_SOLENOID_SHIFT_DRIVE_HIGH    = 2,
 		    PORT_SOLENOID_SHIFT_DRIVE_LOW     = 3,
-		    PORT_SOLENOID_ARM_UP			  = 4;
+		    PORT_SOLENOID_ARM_UP			  = 4,
+			PORT_SOLENOID_ROLLER_IN			  = 5,
+			PORT_SOLENOID_ROLLER_OUT		  = 6;
 }

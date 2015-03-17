@@ -16,19 +16,22 @@ public class Roller extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {}
 
+	/**
+	 * Forward is clamped
+	 */
 	public Roller() {
 		LiveWindow.addActuator("Roller", "RollerArm", _rollerArm);
 		LiveWindow.addActuator("Roller", "Roller", _roller);
         
 	    _rollerArm.set(DoubleSolenoid.Value.kForward);
-	    _clamped = false;
+	    _clamped = true;
 	}
 	
 	/**
 	 * Clamps roller arms
 	 */
 	public void clamp() {
-		_rollerArm.set(DoubleSolenoid.Value.kReverse);
+		_rollerArm.set(DoubleSolenoid.Value.kForward);
 		_clamped = true;
 	}
 	
@@ -36,7 +39,7 @@ public class Roller extends Subsystem {
 	 * Unclamps roller arms
 	 */
 	public void unclamp() {
-		_rollerArm.set(DoubleSolenoid.Value.kForward);
+		_rollerArm.set(DoubleSolenoid.Value.kReverse);
 		_clamped = false;
 	}
 	

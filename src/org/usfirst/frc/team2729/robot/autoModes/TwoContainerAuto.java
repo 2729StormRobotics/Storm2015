@@ -3,6 +3,7 @@ package org.usfirst.frc.team2729.robot.autoModes;
 import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.commands.BinAlignHorLinear;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
+import org.usfirst.frc.team2729.robot.commands.ExtendUntilPressed;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -39,8 +40,8 @@ public class TwoContainerAuto extends CommandGroup{
 			//Anonymous Constructor. Fun things to use
 			{
 				//addSequential(new BinAlignDepth(0.6));
-				addSequential(new BinAlignHorLinear(0.9, 35+46), 2.5);
-				addSequential(new PrintCommand("Waiting"));
+				addSequential(new BinAlignHorLinear(0.9, 28+46));
+				addSequential(new ExtendUntilPressed(0.3), 1.5);
 				addSequential(new WaitCommand(0.2));
 				addSequential(new PrintCommand("Linear up"));
 				addSequential(new LinearPiston(true));

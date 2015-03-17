@@ -15,10 +15,9 @@ public class Elevator extends Command {
 	protected void execute() {
 		double elevator = Robot.oi.getElevator();
 		
-		if((elevator == 0) || Math.abs(elevator) == elevator 
-				&& Robot.intake.getElevHeight() <= 0.1 && Robot.roller.isClamped()){
-			Robot.intake.setElevator(0);
-			new RollerSafety().start();
+		if((elevator == 0.0) || (Math.abs(elevator) == elevator 
+				&& Robot.intake.getElevHeight() <= 0.0 && Robot.roller.isClamped())){
+			Robot.intake.setElevatorPower(0);
 		}else{
 			Robot.intake.setElevatorPower(elevator);
 		}

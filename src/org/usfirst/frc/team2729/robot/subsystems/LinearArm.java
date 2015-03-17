@@ -28,7 +28,7 @@ public class LinearArm extends Subsystem{
 	}
 	
 	public boolean isPressed(){
-		return _switch.get();
+		return !_switch.get();
 	}
 	
 	public boolean isUp(){

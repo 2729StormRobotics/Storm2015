@@ -1,7 +1,10 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.autoModes.OneContainerFromStagingAuto;
+import org.usfirst.frc.team2729.robot.autoModes.OneToteAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
+import org.usfirst.frc.team2729.robot.autoModes.ThreeToteFromStaging;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
@@ -52,8 +55,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();	
 		roller = new Roller();
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container"};
-		autoModes = new Command[]{new DriveForward(.45, 900), new OneContainerAuto(), new TwoContainerAuto(), new OneToteOneContainer()};
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container", 
+				"1 Container Staging", "1 Tote", "3 Tote"};
+		autoModes = new Command[]{new DriveForward(.45, 900), new OneContainerAuto(), new TwoContainerAuto(), 
+				new OneToteOneContainer(), new OneContainerFromStagingAuto(), new OneToteAuto(), new ThreeToteFromStaging()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard
@@ -99,7 +104,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
-		SmartDashboard.putNumber("Left Drive", oi.getLeftDrive());
+		SmartDashboard.putNumber("Elevator Drive", oi.getElevator());
 	}
 
 	public void disabledPeriodic() {

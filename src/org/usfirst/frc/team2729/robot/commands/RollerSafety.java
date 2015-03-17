@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class RollerSafety extends CommandGroup{
 	
 	public RollerSafety(){
-		/*addParallel(new RollerSpin(0));
-		addSequential(new RollerClamp(false));*/
+		addParallel(new RollerSpin(0));
+		addSequential(new RollerClamp(false));
 		addSequential(new WaitCommand(0.5));
 	}
 	

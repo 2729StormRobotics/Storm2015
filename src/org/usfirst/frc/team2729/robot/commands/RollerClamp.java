@@ -17,7 +17,7 @@ public class RollerClamp extends Command {
 	@Override
 	protected void execute() {
 		//TODO: Check that value below
-		if(_clamp && Robot.intake.getElevHeight() > 0.1){
+		if(_clamp && Robot.intake.getElevHeight() > 0.0){
 			Robot.roller.clamp(); 
 		}else{
 			Robot.roller.unclamp();

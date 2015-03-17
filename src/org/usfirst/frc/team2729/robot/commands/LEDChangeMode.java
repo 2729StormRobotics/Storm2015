@@ -10,7 +10,7 @@ public class LEDChangeMode extends Command{
 	public LEDChangeMode(byte mode){
 		_mode=mode;
 	}
-	protected void initialize() {Robot.LEDs.setMode(_mode);}
+	protected void initialize() {}
 	protected void execute() {}
 	protected boolean isFinished() {return true;}
 	protected void end() {}

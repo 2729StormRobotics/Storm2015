@@ -6,7 +6,6 @@ import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
-import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 import org.usfirst.frc.team2729.robot.subsystems.Roller;
 
@@ -28,7 +27,6 @@ public class Robot extends IterativeRobot {
 
 	//public static rakeArm _rakeArm;
 	public static LinearArm linearArm;
-	public static LEDStrip LEDs;
 
 	public static Command teleop;
 	Compressor compressor;
@@ -47,11 +45,9 @@ public class Robot extends IterativeRobot {
 		intake = new Intake();
 		compressor = new Compressor();
 		compressor.start();
-		LEDs=new LEDStrip();
 		//one of these will be chosen by mechanical soon
 		//_rakeArm = new rakeArm();
 		linearArm = new LinearArm();
-		LEDStrip.connect();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();	
 		roller = new Roller();
@@ -137,8 +133,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		if(DriverStation.getInstance().isOperatorControl()) 
-			LEDStrip.stringPotLEDs(intake.getElevHeight());
 	}
 
 	public void testPeriodic() {

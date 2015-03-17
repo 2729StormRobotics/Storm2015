@@ -50,8 +50,7 @@ public class RobotMap {
 			PORT_MOTOR_DRIVE_RIGHT    = 4,
 			PORT_MOTOR_ELEVATOR	      = 1,
 			PORT_MOTOR_ARM            = 3,
-			PORT_MOTOR_SPIN			  = 5,
-			PORT_MOTOR_ROLLER		  = 6;
+			PORT_MOTOR_SPIN			  = 5;
 	
 	//Digital I/O Ports
 	public static final int 

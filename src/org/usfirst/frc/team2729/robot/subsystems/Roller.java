@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Roller extends Subsystem {
 	
 	private final DoubleSolenoid _rollerArm = new DoubleSolenoid(RobotMap.PORT_SOLENOID_ROLLER_IN, RobotMap.PORT_SOLENOID_ROLLER_OUT);
-	private final Talon _roller = new Talon(RobotMap.PORT_MOTOR_ROLLER);
+	private final Talon _roller = new Talon(RobotMap.PORT_MOTOR_SPIN);
 	private boolean _clamped;
 	
 	@Override

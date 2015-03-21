@@ -104,7 +104,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
-		SmartDashboard.putNumber("Elevator Drive", oi.getElevator());
+		SmartDashboard.putBoolean("Linear Arm Pressed", linearArm.isPressed());
+		SmartDashboard.putBoolean("Can Clamp", intake.getElevHeight() <= 0.0);
 	}
 
 	public void disabledPeriodic() {

@@ -14,7 +14,22 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class TwoContainerAuto extends CommandGroup{
 
 	public TwoContainerAuto(){
-		addSequential(new OneContainerAuto());
+		addSequential(new OneContainerPiece());
+		addSequential(new LinearPiston(false));
+		addSequential(new WaitCommand(0.5));
+		addSequential(new Command(){
+			@Override
+			protected void initialize() {}
+			@Override
+			protected void execute() {Robot.linearArm.moveArm(-1);}
+			@Override
+			protected boolean isFinished() {return Robot.linearArm.getRawHallCount() >= 46;}
+			@Override
+			protected void end() {Robot.linearArm.moveArm(0);}
+			@Override
+			protected void interrupted() {}
+			
+		}, 1);
 		addParallel(new Command() {
 			@Override
 			protected boolean isFinished() {

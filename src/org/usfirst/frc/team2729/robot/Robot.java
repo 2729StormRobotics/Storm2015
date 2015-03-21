@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
+import org.usfirst.frc.team2729.robot.autoModes.OneContainerPiece;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerFromStagingAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
@@ -130,6 +131,7 @@ public class Robot extends IterativeRobot {
 			selectedAutoMode.cancel();
 		if (teleop != null)
 			teleop.start();
+		driveTrain.setHighGear(false);
 	}
 
 	public void disabledInit() {

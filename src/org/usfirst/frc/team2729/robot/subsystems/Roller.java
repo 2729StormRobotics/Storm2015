@@ -23,8 +23,7 @@ public class Roller extends Subsystem {
 		LiveWindow.addActuator("Roller", "RollerArm", _rollerArm);
 		LiveWindow.addActuator("Roller", "Roller", _roller);
         
-	    _rollerArm.set(DoubleSolenoid.Value.kForward);
-	    _clamped = true;
+	    unclamp();
 	}
 	
 	/**

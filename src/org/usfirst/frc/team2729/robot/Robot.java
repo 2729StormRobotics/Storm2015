@@ -98,14 +98,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putNumber("Hall Effect count", linearArm.getRawHallCount());
-		//SmartDashboard.putBoolean("Bottomed Out", intake.isBottom());
 		SmartDashboard.putNumber("String Pot", intake.getElevHeight());
 		SmartDashboard.putNumber("Elevator Set Point", intake.getPoint());
 		SmartDashboard.putBoolean("High Gear", driveTrain.isHighgear());
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
 		SmartDashboard.putBoolean("Linear Arm Pressed", linearArm.isPressed());
-		SmartDashboard.putBoolean("Can Clamp", intake.getElevHeight() >= 0.0);
+		SmartDashboard.putBoolean("Can Clamp", intake.getElevHeight() > 0.0);
 	}
 
 	public void disabledPeriodic() {

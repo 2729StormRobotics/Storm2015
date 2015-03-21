@@ -14,7 +14,6 @@ public class StringPot implements LiveWindowSendable {
     
     public StringPot(int Num, double maxSafeVal) {
         _pot = new AnalogPotentiometer(Num);
-        SmartDashboard.putNumber("StringPot", this.get());
         VAL_MAX_SAFE = maxSafeVal;
     }
     

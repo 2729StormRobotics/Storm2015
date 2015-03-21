@@ -105,7 +105,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Is Clamped", intake.isClamped());
 		SmartDashboard.putBoolean("Auto Arm Raised", linearArm.isUp());
 		SmartDashboard.putBoolean("Linear Arm Pressed", linearArm.isPressed());
-		SmartDashboard.putBoolean("Can Clamp", intake.getElevHeight() <= 0.0);
+		SmartDashboard.putBoolean("Can Clamp", intake.getElevHeight() >= 0.0);
 	}
 
 	public void disabledPeriodic() {

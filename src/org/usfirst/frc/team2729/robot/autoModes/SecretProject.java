@@ -15,12 +15,27 @@ public class SecretProject extends CommandGroup{
 	 * It's a secret to everybody
 	 */
 	public SecretProject(){
-		addSequential(new OneContainerPiece());
+		addSequential(new Command() {
+			@Override
+			protected void initialize() { 
+				Robot.driveTrain.halveOne(true);
+				Robot.driveTrain.halveTwo(true);
+			}
+			@Override
+			protected void execute() {}
+			@Override
+			protected boolean isFinished() { return true; }
+			@Override
+			protected void end() {}
+			@Override
+			protected void interrupted() { end(); }
+		})
+		addSequential(new ReversedTwoContainer());
 		addSequential(new LinearPiston(false));
 		addSequential(new WaitCommand(0.75));
 		addParallel(_moveReset());
-		addSequential(new DriveForward(-0.8, 655));
-		addSequential(new TwoContainerAuto());
+		addSequential(new DriveForward(1, 595));
+		addSequential(new OneContainerPiece());
 	}
 	
 	private Command _moveReset(){
@@ -31,7 +46,7 @@ public class SecretProject extends CommandGroup{
 			@Override
 			protected void execute() {Robot.linearArm.moveArm(-1);}
 			@Override
-			protected boolean isFinished() {return Robot.linearArm.getRawHallCount() >= 47;}
+			protected boolean isFinished() {return Robot.linearArm.getRawHallCount() >= 46+48;}
 			@Override
 			protected void end() {Robot.linearArm.moveArm(0);}
 			@Override

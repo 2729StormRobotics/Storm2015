@@ -12,7 +12,7 @@ public class OneContainerPiece extends CommandGroup{
 		addParallel(new LinearPiston(false));
 		//addSequential(new DriveForward(.80, 1000));//TODO: find distance
 		//addSequential(new BinAlignDepth(0.25)); //NOTE: May not need vision for first grab
-		addSequential(new BinAlignHorLinear(0.9, 24), 1.5);
+		addSequential(new BinAlignHorLinear(0.9, 22), 1.5);
 		addSequential(new ExtendUntilPressed(0.5), 3);
 		addSequential(new WaitCommand(0.3));
 		addSequential(new LinearPiston(true));

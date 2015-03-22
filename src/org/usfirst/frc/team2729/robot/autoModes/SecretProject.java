@@ -29,7 +29,7 @@ public class SecretProject extends CommandGroup{
 			protected void end() {}
 			@Override
 			protected void interrupted() { end(); }
-		})
+		});
 		addSequential(new ReversedTwoContainer());
 		addSequential(new LinearPiston(false));
 		addSequential(new WaitCommand(0.75));

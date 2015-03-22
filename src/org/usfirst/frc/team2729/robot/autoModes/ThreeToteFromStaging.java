@@ -10,14 +10,14 @@ public class ThreeToteFromStaging extends CommandGroup{
 
 	public ThreeToteFromStaging(){
 		addSequential(new ThreeToteFromStagingStep());
-		addSequential(new DriveForward(1.0, 500)); //todo determine distance between totes
+		addSequential(new DriveForward(1.0, 350)); //todo determine distance between totes
 		addSequential(new ThreeToteFromStagingStep());
-		addSequential(new DriveForward(1.0, 500)); //todo determine distance between totes
+		addSequential(new DriveForward(1.0, 350)); //todo determine distance between totes
 		addSequential(new ThreeToteFromStagingStep());
 		
-		addSequential(new Turn(-250));
-		addSequential(new DriveForward(-1.0, 1000)); //todo determine distance to auto zone
+		addSequential(new Turn(120));
+		addSequential(new DriveForward(1.0, 350)); //todo determine distance to auto zone
 		addSequential(new ElevatorClamp(false));
-		addSequential(new DriveForward(-1.0, 500));	
+		addSequential(new DriveForward(-1.0, 200));	
 	}
 }

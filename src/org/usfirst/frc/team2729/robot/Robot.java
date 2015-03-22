@@ -5,6 +5,7 @@ import org.usfirst.frc.team2729.robot.autoModes.OneContainerPiece;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerFromStagingAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
+import org.usfirst.frc.team2729.robot.autoModes.SecretProject;
 import org.usfirst.frc.team2729.robot.autoModes.ThreeToteFromStaging;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
@@ -57,9 +58,9 @@ public class Robot extends IterativeRobot {
 		roller = new Roller();
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container", 
-				"1 Container Staging", "1 Tote", "3 Tote"};
-		autoModes = new Command[]{new DriveForward(.45, 900), new OneContainerAuto(), new TwoContainerAuto(), 
-				new OneToteOneContainer(), new OneContainerFromStagingAuto(), new OneToteAuto(), new ThreeToteFromStaging()};
+				"1 Container Staging", "1 Tote", "3 Tote", "Secretive"};
+		autoModes = new Command[]{new DriveForward(.45, 500), new OneContainerAuto(), new TwoContainerAuto(), 
+				new OneToteOneContainer(), new OneContainerFromStagingAuto(), new OneToteAuto(), new ThreeToteFromStaging(), new SecretProject()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard

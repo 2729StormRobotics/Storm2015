@@ -81,8 +81,8 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void kDrive(double left, double right){
-		setLeftSP((left/3) + (_halfOne ? (left/3) : 0) + (_halfTwo ? (left/3) : 0));
-		setRightSP((right/3) + (_halfOne ? (right/3) : 0) + (_halfTwo ? (right/3) : 0));
+		setLeftSP((left/2) + (_halfOne ? (left/4) : 0) + (_halfTwo ? (left/4) : 0));
+		setRightSP((right/2) + (_halfOne ? (right/4) : 0) + (_halfTwo ? (right/4) : 0));
 	}
 
 	public double getLeftDistance(){

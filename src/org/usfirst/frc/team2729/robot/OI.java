@@ -54,8 +54,8 @@ public class OI {
 		
 		rollerIn.whenPressed(new RollerClamp(true));
 		rollerOut.whenPressed(new RollerClamp(false));
-		rollerSpinIn.whileHeld(new RollerSpin(0.8));
-		rollerSpinOut.whileHeld(new RollerSpin(-0.8));
+		rollerSpinIn.whileHeld(new RollerSpin(1));
+		rollerSpinOut.whileHeld(new RollerSpin(-1));
 		
 		driveForward.whileHeld(new Drive(0.8));
 		driveBackward.whileHeld(new Drive(-0.8));

@@ -19,6 +19,10 @@ public class LinearArm extends Subsystem{
 	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
 	private int _count;
 	
+	public void resetHall(){
+		_hallEffect.reset();
+	}
+	
 	public LinearArm(){
 		
 		_count = 0;

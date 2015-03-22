@@ -23,10 +23,10 @@ public class ThreeToteFromStagingStep extends CommandGroup{
 	
 	public ThreeToteFromStagingStep(){
 		addParallel(new RollerClamp(true));
-		addSequential(new Turn(-112));
+		addSequential(new Turn(50));
 		
 		addParallel(new RollerSpinAuto(1.0));
-		addSequential(new DriveForward(1.0, 500)); //todo determine distance to tote
+		addSequential(new DriveForward(1.0, 200)); //todo determine distance to tote
 		
 		addSequential(new WaitCommand(0.5));
 		addSequential(new RollerSpinAuto(0));
@@ -42,10 +42,10 @@ public class ThreeToteFromStagingStep extends CommandGroup{
 		
 		addSequential(new ElevatorClamp(true));
 		addParallel(_moveUp());
-		addSequential(new DriveForward(-1.0, 500));
+		addSequential(new DriveForward(-1.0, 200));
 		/*for(int i = 2; i>totes; i--){
 			addSequential(new ChangeElevPosition(1));
 		}*/
-		addSequential(new Turn(112));
+		addSequential(new Turn(-50));
 	}
 }

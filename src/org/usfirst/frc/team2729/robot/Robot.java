@@ -57,9 +57,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();	
 		roller = new Roller();
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward", "1 Container", "2 Container", "1 Tote 1 Container", 
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "1 Container No Move", "2 Container", "1 Tote 1 Container", 
 				"1 Container Staging", "1 Tote", "3 Tote", "Secretive"};
-		autoModes = new Command[]{new DriveForward(.45, 500), new OneContainerAuto(), new TwoContainerAuto(), 
+		autoModes = new Command[]{new DriveForward(.45, 500), new OneContainerAuto(), new OneContainerPiece(), new TwoContainerAuto(), 
 				new OneToteOneContainer(), new OneContainerFromStagingAuto(), new OneToteAuto(), new ThreeToteFromStaging(), new SecretProject()};
 		
 		//configure and send the sendableChooser, which allows the modes

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.autoModes.DefensiveOneContainer;
+import org.usfirst.frc.team2729.robot.autoModes.ForwardTwoContainer;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerPiece;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerFromStagingAuto;
@@ -8,9 +10,11 @@ import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
 import org.usfirst.frc.team2729.robot.autoModes.SecretProject;
 import org.usfirst.frc.team2729.robot.autoModes.ThreeToteFromStaging;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
+import org.usfirst.frc.team2729.robot.commands.DoNothing;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
+import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
 import org.usfirst.frc.team2729.robot.subsystems.Roller;
 
@@ -30,6 +34,8 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Roller roller;
 
+	public static LEDStrip LEDs;
+	
 	//public static rakeArm _rakeArm;
 	public static LinearArm linearArm;
 
@@ -56,11 +62,12 @@ public class Robot extends IterativeRobot {
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();	
 		roller = new Roller();
+		LEDs = new LEDStrip();
 		//The names and corresponding commands of Auto modes
-		autoModeNames = new String[]{"Drive Forward", "1 Container", "1 Container No Move", "2 Container", "1 Tote 1 Container", 
-				"1 Container Staging", "1 Tote", "3 Tote", "Secretive"};
+		autoModeNames = new String[]{"Drive Forward", "1 Container", "1 Container No Move", "2 Container", "Defensive 1 Container", 
+				"Forward 2 Container", "1 Container Staging", "Secretive", "Do nothing"};
 		autoModes = new Command[]{new DriveForward(.45, 500), new OneContainerAuto(), new OneContainerPiece(), new TwoContainerAuto(), 
-				new OneToteOneContainer(), new OneContainerFromStagingAuto(), new OneToteAuto(), new ThreeToteFromStaging(), new SecretProject()};
+				new DefensiveOneContainer(), new ForwardTwoContainer(), new OneContainerFromStagingAuto(), new SecretProject(), new DoNothing()};
 		
 		//configure and send the sendableChooser, which allows the modes
 		//to be chosen via radio button on the SmartDashboard
@@ -119,6 +126,7 @@ public class Robot extends IterativeRobot {
 		if (teleop != null)
 			teleop.cancel();
 		selectedAutoMode = (Command) chooser.getSelected();
+		linearArm.resetHall();
 		if (selectedAutoMode != null)
 			selectedAutoMode.start();
 	}

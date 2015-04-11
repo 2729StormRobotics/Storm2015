@@ -10,11 +10,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class OneContainerPiece extends CommandGroup{
 	public OneContainerPiece(){
 		addParallel(new LinearPiston(false));
-		//addSequential(new DriveForward(.80, 1000));//TODO: find distance
-		//addSequential(new BinAlignDepth(0.25)); //NOTE: May not need vision for first grab
-		addSequential(new BinAlignHorLinear(0.9, 22), 1.5);
-		addSequential(new ExtendUntilPressed(0.5), 3);
-		addSequential(new WaitCommand(0.3));
+		addSequential(new BinAlignHorLinear(0.9, 20), 1.5);
+		addSequential(new ExtendUntilPressed(0.5), 4.5);
+		addSequential(new WaitCommand(0.4));
 		addSequential(new LinearPiston(true));
 		addSequential(new WaitCommand(0.2));
 		addSequential(new Command(){

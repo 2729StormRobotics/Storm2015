@@ -49,8 +49,7 @@ public class RobotMap {
 			PORT_MOTOR_DRIVE_LEFT     = 0,
 			PORT_MOTOR_DRIVE_RIGHT    = 4,
 			PORT_MOTOR_ELEVATOR	      = 1,
-			PORT_MOTOR_ARM            = 3,
-			PORT_MOTOR_SPIN			  = 5;
+			PORT_MOTOR_ARM            = 3;
 	
 	//Digital I/O Ports
 	public static final int 
@@ -77,7 +76,5 @@ public class RobotMap {
 			PORT_SOLENOID_CLAMP_OUT			  = 1,
 		    PORT_SOLENOID_SHIFT_DRIVE_HIGH    = 2,
 		    PORT_SOLENOID_SHIFT_DRIVE_LOW     = 3,
-		    PORT_SOLENOID_ARM_UP			  = 4,
-			PORT_SOLENOID_ROLLER_IN			  = 5,
-			PORT_SOLENOID_ROLLER_OUT		  = 6;
+		    PORT_SOLENOID_ARM_UP			  = 4;
 }

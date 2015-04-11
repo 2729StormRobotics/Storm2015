@@ -16,7 +16,7 @@ public class Elevator extends Command {
 		double elevator = Robot.oi.getElevator();
 		
 		if((elevator == 0.0) || (Math.abs(elevator) == elevator 
-				&& Robot.intake.getElevHeight() <= 0.0 && Robot.roller.isClamped())){
+				&& Robot.intake.getElevHeight() <= 0.0)){
 			Robot.intake.setElevatorPower(0);
 		}else{
 			Robot.intake.setElevatorPower(elevator);

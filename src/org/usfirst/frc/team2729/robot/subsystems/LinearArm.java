@@ -16,7 +16,6 @@ public class LinearArm extends Subsystem{
 	private final Talon _arm = new Talon(RobotMap.PORT_MOTOR_ARM);
 	private boolean _up = false;
 	private final HallEffectSensor _hallEffect = new HallEffectSensor(RobotMap.PORT_SENSOR_HALLEFFECT);
-	private final DigitalInput _switch = new DigitalInput(RobotMap.PORT_LIMIT_SWITCH_AUTO);
 	private int _count;
 	
 	public void resetHall(){
@@ -29,10 +28,6 @@ public class LinearArm extends Subsystem{
 		LiveWindow.addActuator("Arm2", "Arm", _piston);
 		LiveWindow.addActuator("Arm2", "Arm", _arm);
 		_piston.set(false);
-	}
-	
-	public boolean isPressed(){
-		return !_switch.get();
 	}
 	
 	public boolean isUp(){

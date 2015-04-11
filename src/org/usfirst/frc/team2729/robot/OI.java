@@ -2,10 +2,7 @@ package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.Drive;
 import org.usfirst.frc.team2729.robot.commands.ElevatorClamp;
-import org.usfirst.frc.team2729.robot.commands.LEDChangeMode;
 import org.usfirst.frc.team2729.robot.commands.LinearPiston;
-import org.usfirst.frc.team2729.robot.commands.RollerClamp;
-import org.usfirst.frc.team2729.robot.commands.RollerSpin;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -31,10 +28,6 @@ public class OI {
 						 halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 						 driveForward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
 						 driveBackward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS),
-						 rollerIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ROLLER_IN),
-						 rollerOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ROLLER_OUT),
-						 rollerSpinIn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ROLLER_SPIN_IN),
-						 rollerSpinOut = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_ROLLER_SPIN_OUT),
 						 rainbow = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_RAINBOW),
 						 forward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
 						 backwards = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_BACKWARDS);
@@ -52,15 +45,8 @@ public class OI {
 		armIn.whenPressed(new LinearPiston(true));
 		armOut.whenPressed(new LinearPiston(false));
 		
-		rollerIn.whenPressed(new RollerClamp(true));
-		rollerOut.whenPressed(new RollerClamp(false));
-		rollerSpinIn.whileHeld(new RollerSpin(1));
-		rollerSpinOut.whileHeld(new RollerSpin(-1));
-		
 		driveForward.whileHeld(new Drive(0.8));
 		driveBackward.whileHeld(new Drive(-0.8));
-		
-		rainbow.whileHeld(new LEDChangeMode((byte) 7));
 		
 		halveOne.whileHeld(new Command() {
 			@Override

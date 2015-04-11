@@ -116,7 +116,7 @@ public class Intake extends Subsystem {
 		}else{
 			_elevator.set(-power);
 		}
-		if((Math.abs(power) == power && _stringPot.get() <= 0.0 && Robot.roller.isClamped())){
+		if((Math.abs(power) == power && _stringPot.get() <= 0.0)){
 			_elevator.set(0);
 		}
     }

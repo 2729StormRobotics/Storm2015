@@ -5,10 +5,7 @@ import org.usfirst.frc.team2729.robot.autoModes.ForwardTwoContainer;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerAuto;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerPiece;
 import org.usfirst.frc.team2729.robot.autoModes.OneContainerFromStagingAuto;
-import org.usfirst.frc.team2729.robot.autoModes.OneToteAuto;
-import org.usfirst.frc.team2729.robot.autoModes.OneToteOneContainer;
 import org.usfirst.frc.team2729.robot.autoModes.SecretProject;
-import org.usfirst.frc.team2729.robot.autoModes.ThreeToteFromStaging;
 import org.usfirst.frc.team2729.robot.autoModes.TwoContainerAuto;
 import org.usfirst.frc.team2729.robot.commands.DoNothing;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
@@ -16,10 +13,8 @@ import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.Intake;
 import org.usfirst.frc.team2729.robot.subsystems.LEDStrip;
 import org.usfirst.frc.team2729.robot.subsystems.LinearArm;
-import org.usfirst.frc.team2729.robot.subsystems.Roller;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,7 +27,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Intake intake;
-	public static Roller roller;
 
 	public static LEDStrip LEDs;
 	
@@ -61,7 +55,6 @@ public class Robot extends IterativeRobot {
 		linearArm = new LinearArm();
 		//OI is init last to make sure it does not reference null subsystems
 		oi = new OI();	
-		roller = new Roller();
 		LEDs = new LEDStrip();
 		//The names and corresponding commands of Auto modes
 		autoModeNames = new String[]{"Drive Forward", "1 Container", "1 Container No Move", "2 Container", "Defensive 1 Container", 

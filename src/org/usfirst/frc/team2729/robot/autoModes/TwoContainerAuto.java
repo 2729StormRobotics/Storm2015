@@ -49,6 +49,23 @@ public class TwoContainerAuto extends CommandGroup{
 					protected void execute() {Robot.linearArm.moveArm(-1);}
 					@Override
 					protected boolean isFinished() {
+						return Robot.linearArm.getRawHallCount() >= 46+45;
+					}
+					@Override
+					protected void end() {Robot.linearArm.moveArm(0);}
+					@Override
+					protected void interrupted() {}
+				}, 1.5);
+				addSequential(new WaitCommand(0.2));
+				addSequential(new LinearPiston(false));
+				addSequential(new WaitCommand(0.5));
+				addSequential(new Command(){
+					@Override
+					protected void initialize() {}
+					@Override
+					protected void execute() {Robot.linearArm.moveArm(-1);}
+					@Override
+					protected boolean isFinished() {
 						return Robot.linearArm.getRawHallCount() >= 48+45;
 					}
 					@Override

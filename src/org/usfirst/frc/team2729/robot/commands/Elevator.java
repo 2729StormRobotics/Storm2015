@@ -14,13 +14,7 @@ public class Elevator extends Command {
 	@Override
 	protected void execute() {
 		double elevator = Robot.oi.getElevator();
-		
-		if((elevator == 0.0) || (Math.abs(elevator) == elevator 
-				&& Robot.intake.getElevHeight() <= 0.0 && Robot.roller.isClamped())){
-			Robot.intake.setElevatorPower(0);
-		}else{
-			Robot.intake.setElevatorPower(elevator);
-		}
+		Robot.intake.setElevatorPower(elevator);
 	}
 	@Override
 	protected boolean isFinished() {
